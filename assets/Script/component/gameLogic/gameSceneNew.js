@@ -1219,9 +1219,9 @@ cc.Class({
             }
             
             console.log("onServerSettlement 55555555");
-            if(self.gameInfoNode.roomCurTime < self.gameInfoNode.roomMaxTime)
-                self.gameInfoNode.roomCurTime ++;
-            self.gameInfoNode.roomTime.string = "第" + self.gameInfoNode.roomCurTime + "/" + self.gameInfoNode.roomMaxTime + "局";
+            // if(self.gameInfoNode.roomCurTime < self.gameInfoNode.roomMaxTime)
+                // self.gameInfoNode.roomCurTime ++;
+            // self.gameInfoNode.roomTime.string = "第" + self.gameInfoNode.roomCurTime + "/" + self.gameInfoNode.roomMaxTime + "局";
             
             for(var i in confige.roomPlayer)
             {            
@@ -1342,6 +1342,8 @@ cc.Class({
                 }
             }
         }
+        this.gameInfoNode.roomCurTime = confige.curReconnectData.roomInfo.gameNumber;
+        this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
         //重现下注金额
         if(confige.curReconnectData.state != 1001)
         {
@@ -1368,16 +1370,16 @@ cc.Class({
             this.readyBtn.active = false;
 
             //重现当前局数显示
-            this.gameInfoNode.roomCurTime = confige.curReconnectData.roomInfo.gameNumber;
-            this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
+            // this.gameInfoNode.roomCurTime = confige.curReconnectData.roomInfo.gameNumber;
+            // this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
             console.log("重连"+ this.gameInfoNode.roomTime.string);
             this.gameBegin = true;
             // this.gameInfoNode.btn_close.interactable = false;
             this.gameInfoNode.btn_inviteFriend.active = false;
         }else{
             //重现当前局数显示
-            this.gameInfoNode.roomCurTime = confige.curReconnectData.roomInfo.gameNumber + 1;
-            this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
+            // this.gameInfoNode.roomCurTime = confige.curReconnectData.roomInfo.gameNumber + 1;
+            // this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
             console.log("重连"+ this.gameInfoNode.roomTime.string);
             for(var i in confige.roomPlayer)
             {
@@ -2179,6 +2181,8 @@ cc.Class({
         this.meGiveUp = false;
         this.newResetCard();
         console.log("onNewGameStart");
+        this.gameInfoNode.roomCurTime ++;
+        this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
         for(var i=0;i<6;i++)
         {
             this.gamePlayerNode.playerList[i].getChildByName("isReady").active = false;

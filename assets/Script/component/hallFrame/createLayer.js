@@ -475,7 +475,7 @@ cc.Class({
             }else if(this.gameMode == 8){
                 this.gameType = "zhajinhua";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,createCallFunc,self.createType);

@@ -77,8 +77,8 @@ cc.Class({
         
         console.log("fuck !!!!!!===" + this.roomCurTime);
         this.joinState = confige.roomData.state;
-        if(this.joinState == 1001)
-            this.roomCurTime ++;
+        // if(this.joinState == 1001)
+            // this.roomCurTime ++;
         this.roomTime.string = "第" + this.roomCurTime + "/" + this.roomMaxTime + "局";
         console.log("fuck room time string === " + this.roomTime.string);
         
