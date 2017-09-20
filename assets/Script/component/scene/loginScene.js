@@ -743,4 +743,54 @@ cc.Class({
         this.btn_loginNode1.active = false;
         this.btn_loginNode1.active = false;
     },
+
+    btnShootClick:function(){
+        html2canvas(document.body, {  
+            allowTaint: true,  
+            taintTest: false,  
+            onrendered: function(canvas) {  
+                canvas.id = "Cocos2dGameContainer";//"GameCanvas";  
+                //document.body.appendChild(canvas);  
+                //生成base64图片数据  
+                var dataUrl = canvas.toDataURL();  
+                var newImg = document.createElement("img");  
+                newImg.src =  dataUrl;
+                console.log(dataUrl);
+
+                // var curGameDiv = document.getElementById("GameDiv");
+                // curGameDiv.appendChild(newImg);
+
+                // document.body.appendChild(newImg);
+
+                var newDiv = document.createElement('div');
+                // if(window.innerWidth)
+                // {
+                //     console.log("window.innerWidth==="+gameViewDiv.style.width);
+                //     newDiv.style.width= gameViewDiv.style.width*0.8 + "px";
+                // }
+                // if(window.innerWidth)
+                // {
+                //     console.log("window.innerWidth==="+window.innerWidth);
+                //     newDiv.style.width= window.innerWidth*0.8 + "px";
+                // }
+                 
+                 // ar L1 = oBox.offsetWidth;
+                // var H1 = oBox.offsetHeight;
+                console.log(document.documentElement.clientWidth);
+                console.log(document.documentElement.clientHeight);
+                var Left = (document.documentElement.clientWidth-300)/2;
+                var top = (document.documentElement.clientHeight-600)/2;
+                newDiv.style.left = Left+"px";
+                newDiv.style.top = top+"px";
+                console.log(Left+"px");
+                console.log(top+"px");
+                newDiv.style.position = "absolute";
+                document.body.appendChild(newDiv);  
+                newDiv.id = "newDiv";  
+                newImg.width = "300";
+                newImg.height = "600";
+                newDiv.appendChild(newImg);      //为dom添加子元素img
+            }
+        });
+    },
 });

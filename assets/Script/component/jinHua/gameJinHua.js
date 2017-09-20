@@ -926,7 +926,7 @@ cc.Class({
                 break;
         }
 
-        if(this.gameInfoNode.roomCurTime != 1)
+        if(this.gameInfoNode.roomCurTime != 0)
         {
             this.gameInfoNode.btn_inviteFriend.active = false;
             this.gameBegin = true;

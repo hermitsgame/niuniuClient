@@ -17,7 +17,7 @@
   },
   "packageName": "org.yiyou.niuniu",
   "privateKey": "",
-  "renderMode": "0",
+  "renderMode": "1",
   "startScene": "e061b48c-7436-439a-8abd-f93a3b01abc9",
   "title": "niuniuTest",
   "webOrientation": "landscape"
