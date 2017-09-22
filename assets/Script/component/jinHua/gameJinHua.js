@@ -419,13 +419,13 @@ cc.Class({
             this.showScorePool(this.allBetNum,1);
             return;
         }
-        this.allBetNum = this.allBetNum + betNum;
-        if(chair == 0)
-            this.myBetNum = this.myBetNum + betNum;
+        // this.allBetNum = this.allBetNum + betNum;
+        // if(chair == 0)
+        //     this.myBetNum = this.myBetNum + betNum;
 
-        this.showScorePool(this.allBetNum,1);
-        this.gamePlayerNode.curBetNumList[chair] += betNum;
-        this.gamePlayerNode.betNumLabelList[chair].string = this.gamePlayerNode.curBetNumList[chair].toString() + "分";
+        // this.showScorePool(this.allBetNum,1);
+        // this.gamePlayerNode.curBetNumList[chair] += betNum;
+        // this.gamePlayerNode.betNumLabelList[chair].string = this.gamePlayerNode.curBetNumList[chair].toString() + "分";
     },
 
     onBtnReadyClicked:function(){
@@ -1161,7 +1161,7 @@ cc.Class({
     showDoBtnLayer:function(curBet,hideBet){
         this.doBtnLayer.active = true;
         if(hideBet == true){
-            for(var i=1;i<3;i++)
+            for(var i=1;i<=3;i++)
                 this.zhaBetList[i].getComponent("cc.Button").interactable = false;
         }
         return;
@@ -1453,6 +1453,7 @@ cc.Class({
                 }
                 break;
             case "nextPlayer":
+                this.timerItem.hideTimer();
                 if(confige.soundEnable == true)
                 {
                     confige.playSoundByName("soundNext");

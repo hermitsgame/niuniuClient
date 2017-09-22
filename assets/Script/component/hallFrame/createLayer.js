@@ -209,7 +209,7 @@ cc.Class({
                 this.resetToggleList[16].getChildByName("toggle1").getComponent("cc.Toggle").isChecked = true;
             else if(this.basicScore == 2)
                 this.resetToggleList[16].getChildByName("toggle2").getComponent("cc.Toggle").isChecked = true;
-            else if(this.basicScore == 3)
+            else if(this.basicScore == 5)
             {
                 this.resetToggleList[16].getChildByName("toggle1").getComponent("cc.Toggle").isChecked = false;
                 this.resetToggleList[16].getChildByName("toggle2").getComponent("cc.Toggle").isChecked = false;
