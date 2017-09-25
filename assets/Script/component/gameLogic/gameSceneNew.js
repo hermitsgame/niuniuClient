@@ -2468,7 +2468,7 @@ cc.Class({
         this.robBetNumLabel = this.robBetNumNode.getChildByName("robBetNum").getComponent("cc.Label");
         if(this.isAllowAllin == false)
         {
-            this.robBetBtnBox.getChildByName("bet3").active = false;
+            this.robBetBtnBox.getChildByName("bet4").active = false;
             console.log("不允许推注！！！！！！");
         }
     },
