@@ -1,7 +1,7 @@
 require('pomelo-cocos2d-js');
 
 var confige = require("confige");
-var tipsConf = require("tips")
+var tipsConf = require("tips").tipsConf;
 
 cc.Class({
     extends: cc.Component,

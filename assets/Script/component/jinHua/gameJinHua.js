@@ -949,7 +949,7 @@ cc.Class({
             {
                 this.hideDoBtnLayer();
                 this.curRound = confige.curReconnectData.roomInfo.curRound;
-                this.setRoundTime(this.curRound + 1);
+                this.setRoundTime(this.curRound);
                 var curBetCount = 0;
                 var meGiveUp = false;
                 for(var i in confige.roomPlayer)
@@ -1364,7 +1364,7 @@ cc.Class({
             case "curRound":
                 console.log("当前进行到第" + data.curRound + "轮");
                 this.curRound = data.curRound;
-                this.setRoundTime((this.curRound+1));
+                this.setRoundTime(this.curRound);
                 //this.hideArrow();
                 this.hideDoBtnLayer();
                 switch(this.curRound){

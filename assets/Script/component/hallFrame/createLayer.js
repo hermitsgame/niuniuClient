@@ -1,3 +1,4 @@
+var tipsConf = require("tips").tipsConf;
 cc.Class({
     extends: cc.Component,
 
@@ -439,7 +440,7 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode,basicType:this.basicType}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
-                        self.createCallBack(data,joinCallFunc,self.createType);
+                        self.createCallBack(data,self.createType,joinCallFunc);
                     }
                 );
             }else if(this.gameMode == 8){
@@ -448,7 +449,7 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
-                        self.createCallBack(data,joinCallFunc,self.createType);
+                        self.createCallBack(data,self.createType,joinCallFunc);
                     }
                 );
             }else{
@@ -469,7 +470,7 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
-                        self.createCallBack(data,createCallFunc,self.createType);
+                        self.createCallBack(data,self.createType,createCallFunc);
                     }
                 );
             }else if(this.gameMode == 8){
@@ -478,7 +479,7 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
-                        self.createCallBack(data,createCallFunc,self.createType);
+                        self.createCallBack(data,self.createType,createCallFunc);
                     }
                 );
             }else{
@@ -488,7 +489,7 @@ cc.Class({
         this.saveRoomInfo();
     },
 
-    createCallBack:function(data,cbTrue,createType){
+    createCallBack:function(data,createType,cbTrue,cbFalse){
                     if(data.flag == false)
                     {
                         if(cbFalse)

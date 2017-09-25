@@ -452,7 +452,7 @@ cc.Class({
         {
             this.createLayer.hideLayer();
         }else if(type == 2){    //加入失败,清空ID
-            this.joinRoomLayer.cleanRoomId();
+            this.joinLayer.cleanRoomId();
         }
     }, 
 
