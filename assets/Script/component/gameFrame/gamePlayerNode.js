@@ -210,7 +210,7 @@ cc.Class({
         if(playerData.score)
             this.playerScoreList[parseInt(playerData.chair)] = playerData.score;
 
-        if(playerData.isReady == true && confige.roomPlayer.state == 1001)// confige.curReconnectData == -1 && )
+        if(playerData.isReady == true && confige.roomData.state == 1001)// confige.curReconnectData == -1 && )
         {
             this.playerList[curIndex].getChildByName("isReady").active = true;
             console.log("isReady.active = true");

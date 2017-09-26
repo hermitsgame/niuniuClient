@@ -449,9 +449,9 @@ cc.Class({
         else if(confige.roomData.gameMode == 6)
             curTitle += "【疯狂加倍】,";
         else{
-            if(confige.roomData.gameType == "zhajinniu"){
+            if(confige.roomData.roomType == "zhajinniu"){
                 curTitle += "【炸金牛】,";
-            }else if(confige.roomData.gameType == "mingpaiqz"){
+            }else if(confige.roomData.roomType == "mingpaiqz"){
                 curTitle += "【明牌抢庄】,";
             }else if(confige.roomData.roomType == "sanKung"){
                 curTitle += "【三公】,";
@@ -586,9 +586,9 @@ cc.Class({
         else if(confige.roomData.gameMode == 6)
             curTitle += "【疯狂加倍】,";
         else{
-            if(confige.roomData.gameType == "zhajinniu"){
+            if(confige.roomData.roomType == "zhajinniu"){
                 curTitle += "【炸金牛】,";
-            }else if(confige.roomData.gameType == "mingpaiqz"){
+            }else if(confige.roomData.roomType == "mingpaiqz"){
                 curTitle += "【明牌抢庄】,";
             }else if(confige.roomData.roomType == "sanKung"){
                 curTitle += "【三公】,";
