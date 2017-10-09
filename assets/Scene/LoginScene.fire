@@ -4041,7 +4041,9 @@
       "__uuid__": "a30d6566-68af-4c42-b306-7295d591a05e"
     },
     "_updating": false,
-    "_canRetry": false
+    "_canRetry": false,
+    "needRestart": false,
+    "updateSchedule": -1
   },
   {
     "__type__": "cc.Node",
