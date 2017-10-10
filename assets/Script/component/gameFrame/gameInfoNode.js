@@ -68,11 +68,11 @@ cc.Class({
 
         if(confige.roomData.roomType == "sanKung")
         {
-            this.roomMode.string = "三公";
+            this.roomMode.string = "比三张";
         }
         if(confige.roomData.roomType == "zhajinhua")
         {
-            this.roomMode.string = "炸金花";
+            this.roomMode.string = "拼三张";
         }
         
         console.log("fuck !!!!!!===" + this.roomCurTime);
@@ -454,9 +454,9 @@ cc.Class({
             }else if(confige.roomData.roomType == "mingpaiqz"){
                 curTitle += "【明牌抢庄】,";
             }else if(confige.roomData.roomType == "sanKung"){
-                curTitle += "【三公】,";
+                curTitle += "【比三张】,";
             }else if(confige.roomData.roomType == "zhajinhua"){
-                curTitle += "【炸金花】,";
+                curTitle += "【拼三张】,";
             }
         }
         curTitle += "房间号:" + confige.roomData.roomId;
@@ -591,9 +591,9 @@ cc.Class({
             }else if(confige.roomData.roomType == "mingpaiqz"){
                 curTitle += "【明牌抢庄】,";
             }else if(confige.roomData.roomType == "sanKung"){
-                curTitle += "【三公】,";
+                curTitle += "【比三张】,";
             }else if(confige.roomData.roomType == "zhajinhua"){
-                curTitle += "【炸金花】,";
+                curTitle += "【拼三张】,";
             }
         }
         curTitle += "房间号:" + confige.roomData.roomId;

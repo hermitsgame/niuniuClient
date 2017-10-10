@@ -78,9 +78,9 @@ cc.Class({
                         else if(curRoomInfo.gameType == "fengkuang")
                             curRoomDes += "疯狂加倍";
                         else if(curRoomInfo.gameType == "sanKung")
-                            curRoomDes += "三公";
+                            curRoomDes += "比三张";
                         else if(curRoomInfo.gameType == "zhajinhua")
-                            curRoomDes += "炸金花";
+                            curRoomDes += "拼三张";
                     }
                     if(curRoomInfo.bankerMode)
                     {
@@ -210,9 +210,9 @@ cc.Class({
                 else if(curRoomInfo.gameType == "fengkuang")
                     curRoomDes += "疯狂加倍";
                 else if(curRoomInfo.gameType == "sanKung")
-                    curRoomDes += "三公";
+                    curRoomDes += "比三张";
                 else if(curRoomInfo.gameType == "zhajinhua")
-                    curRoomDes += "炸金花";
+                    curRoomDes += "拼三张";
             }
             if(curRoomInfo.bankerMode)
             {
@@ -294,9 +294,9 @@ cc.Class({
             }else if(curData.gameType == "mingpaiqz"){
                 curTitle += "【明牌抢庄】,";
             }else if(curData.gameType == "sanKung"){
-                curTitle += "【三公】,";
+                curTitle += "【比三张】,";
             }else if(curData.gameType == "zhajinhua"){
-                curTitle += "【炸金花】,";
+                curTitle += "【拼三张】,";
             }
         }
         curTitle += "房间号:" + curData.roomId;
