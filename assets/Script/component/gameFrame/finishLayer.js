@@ -24,7 +24,7 @@ cc.Class({
         this.playerNameList = {};
         this.playerTypeList = {};
         this.playerNodeList = {};
-        for(var i=0;i<6;i++)
+        for(var i=0;i<9;i++)
         {
             this.playerNodeList[i] = this.node.getChildByName("player" + i);
             this.playerNameList[i] = this.node.getChildByName("player" + i).getChildByName("name").getComponent("cc.Label");
@@ -67,7 +67,7 @@ cc.Class({
 
     hideFinishLayer:function(){
         this.node.active = false;
-        for(var i=0;i<6;i++)
+        for(var i=0;i<9;i++)
         {
             this.playerNameList[i].string = "";
             this.playerTypeList[i].spriteFrame = this.frameWait;

@@ -54,7 +54,12 @@ cc.Class({
                 }
             }
         });
-        cc.loader.loadRes("prefabs/game/sanKung/sanKungPlayerNode", cc.Prefab, function (err, prefabs) {
+        var playerNodeStr = "";
+        if(confige.playerMax == 6)
+            playerNodeStr = "sanKungPlayerNode";
+        else
+            playerNodeStr = "sanKungPlayerNode9";
+        cc.loader.loadRes("prefabs/game/sanKung/"+playerNodeStr, cc.Prefab, function (err, prefabs) {
             console.log("gamePlayerNode load!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             var newLayer = cc.instantiate(prefabs);
             self.playerNode.addChild(newLayer);
@@ -709,7 +714,7 @@ cc.Class({
                 {
                     var niuType = data.result[i].type;
                     
-                    self.gameInfoNode.settleLayer.addOneSettle(confige.roomData.player[i].playerInfo.nickname, niuType, data.curScores[i],2,data.player[i].handCard);
+                    self.gameInfoNode.settleLayer.addOneSettle(confige.roomData.player[i].playerInfo.nickname, niuType, data.curScores[i],2,data.player[i].handCard,i);
                     // self.gameInfoNode.settleLayer.addOneSettle(confige.roomData.player[i].playerInfo.nickname, niuType, data.curScores[i],2);
                     self.gamePlayerNode.playerScoreList[i] = data.realScores[i];
                     self.gamePlayerNode.playerInfoList[confige.getCurChair(i)].setScore(self.gamePlayerNode.playerScoreList[i]);
@@ -741,7 +746,12 @@ cc.Class({
         
         var showSettleFunc2 = function(){
             if(this.gameInfoNode.settleLayer == -1){
-                cc.loader.loadRes("prefabs/game/settleLayer", cc.Prefab, function (err, prefabs) {
+                var newLayerStr = ""
+                if(confige.playerMax == 6)
+                    newLayerStr = "settleLayer";
+                else
+                    newLayerStr = "settleLayer9";
+                cc.loader.loadRes("prefabs/game/"+newLayerStr, cc.Prefab, function (err, prefabs) {
                     var newLayer = cc.instantiate(prefabs);
                     self.gameInfoNode.layerNode1.addChild(newLayer,10);
                     self.gameInfoNode.settleLayer = newLayer.getComponent("settleLayer");
@@ -992,7 +1002,7 @@ cc.Class({
         console.log("onNewGameStart");
         this.gameInfoNode.roomCurTime ++;
         this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
-        for(var i=0;i<6;i++)
+        for(var i=0;i<confige.playerMax;i++)
         {
             this.gamePlayerNode.playerList[i].getChildByName("isReady").active = false;
         }

@@ -1,3 +1,6 @@
+var gameData = require("gameData");
+var confige = require("confige")
+
 cc.Class({
     extends: cc.Component,
 
@@ -6,37 +9,6 @@ cc.Class({
             default:null,
             type:cc.Node
         },
-
-        handCard0:{
-            default:null,
-            type:cc.Node
-        },
-
-        handCard1:{
-            default:null,
-            type:cc.Node
-        },
-
-        handCard2:{
-            default:null,
-            type:cc.Node
-        },
-
-        handCard3:{
-            default:null,
-            type:cc.Node
-        },
-
-        handCard4:{
-            default:null,
-            type:cc.Node
-        },
-
-        handCard5:{
-            default:null,
-            type:cc.Node
-        },
-        
     },
 
     // use this for initialization
@@ -54,77 +26,88 @@ cc.Class({
         this.handCardPosList =  {};
         this.handCardList = {};
         
-        this.handCardList[0] = this.handCard0.getComponent("handCards");
-        this.handCardList[1] = this.handCard1.getComponent("handCards");
-        this.handCardList[2] = this.handCard2.getComponent("handCards");
-        this.handCardList[3] = this.handCard3.getComponent("handCards");
-        this.handCardList[4] = this.handCard4.getComponent("handCards");
-        this.handCardList[5] = this.handCard5.getComponent("handCards");
-
-        if(gameType == "niuniu")
+        for(var i=0;i<confige.playerMax;i++)
         {
-            for(var i=0;i<6;i++){
-                this.handCardPosList[i] = {};
-                this.playerActiveList[i] = false;
-                for(var j=0;j<5;j++)
-                {
-                    switch(i){
-                        case 0:
-                        this.handCardPosList[i][j] = {x:-190 + j*80*this.mainPlayerScale,y:-265};
-                        break;
-                        case 1:
-                        this.handCardPosList[i][j] = {x:414 + j*40*this.otherPlayerScale,y:12.2};
-                        break;
-                        case 2:
-                        this.handCardPosList[i][j] = {x:290 + j*40*this.otherPlayerScale,y:180};
-                        break;
-                        case 3:
-                        this.handCardPosList[i][j] = {x:-44 + j*40*this.otherPlayerScale,y:180};
-                        break;
-                        case 4:
-                        this.handCardPosList[i][j] = {x:-378 + j*40*this.otherPlayerScale,y:180};
-                        break;
-                        case 5:
-                        this.handCardPosList[i][j] = {x:-500 + j*40*this.otherPlayerScale,y:12.2};
-                        break;
-                    }
-                }
-            }
-        }else if(gameType == "sanKung" || gameType == "jinHua"){
-            for(var i=0;i<6;i++){
-                this.handCardPosList[i] = {};
-                this.playerActiveList[i] = false;
-                for(var j=0;j<5;j++)
-                {
-                    switch(i){
-                        case 0:
-                        this.handCardPosList[i][j] = {x:-98 + j*80*this.mainPlayerScale,y:-266};
-                        break;
-                        case 1:
-                        this.handCardPosList[i][j] = {x:414 + j*40*this.otherPlayerScale,y:12.2};
-                        break;
-                        case 2:
-                        this.handCardPosList[i][j] = {x:313 + j*40*this.otherPlayerScale,y:180};
-                        break;
-                        case 3:
-                        this.handCardPosList[i][j] = {x:-21 + j*40*this.otherPlayerScale,y:180};
-                        break;
-                        case 4:
-                        this.handCardPosList[i][j] = {x:-355 + j*40*this.otherPlayerScale,y:180};
-                        break;
-                        case 5:
-                        this.handCardPosList[i][j] = {x:-474.3 + j*40*this.otherPlayerScale,y:12.2};
-                        break;
-                    }
-                }
+            this.handCardList[i] = gameData.gamePlayerNode.playerHandCardList[i];
+        }
+
+        for(var i=0;i<confige.playerMax;i++)
+        {
+            this.handCardPosList[i] = {};
+            this.playerActiveList[i] = false;
+            for(var j=0;j<5;j++)
+            {
+                var curCardBackNode = this.handCardList[i].cardsBack[j];
+                var newVec1 = this.handCardList[i].node.convertToWorldSpaceAR(cc.v2(curCardBackNode.x,curCardBackNode.y));
+                var newVec2 = this.node.convertToNodeSpaceAR(cc.v2(newVec1.x,newVec1.y));
+                this.handCardPosList[i][j] = {x:newVec2.x,y:newVec2.y};
             }
         }
+
+        // if(gameType == "niuniu")
+        // {
+        //     for(var i=0;i<6;i++){
+        //         this.handCardPosList[i] = {};
+        //         this.playerActiveList[i] = false;
+        //         for(var j=0;j<5;j++)
+        //         {
+        //             switch(i){
+        //                 case 0:
+        //                 this.handCardPosList[i][j] = {x:-190 + j*80*this.mainPlayerScale,y:-265};
+        //                 break;
+        //                 case 1:
+        //                 this.handCardPosList[i][j] = {x:414 + j*40*this.otherPlayerScale,y:12.2};
+        //                 break;
+        //                 case 2:
+        //                 this.handCardPosList[i][j] = {x:290 + j*40*this.otherPlayerScale,y:180};
+        //                 break;
+        //                 case 3:
+        //                 this.handCardPosList[i][j] = {x:-44 + j*40*this.otherPlayerScale,y:180};
+        //                 break;
+        //                 case 4:
+        //                 this.handCardPosList[i][j] = {x:-378 + j*40*this.otherPlayerScale,y:180};
+        //                 break;
+        //                 case 5:
+        //                 this.handCardPosList[i][j] = {x:-500 + j*40*this.otherPlayerScale,y:12.2};
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }else if(gameType == "sanKung" || gameType == "jinHua"){
+        //     for(var i=0;i<6;i++){
+        //         this.handCardPosList[i] = {};
+        //         this.playerActiveList[i] = false;
+        //         for(var j=0;j<5;j++)
+        //         {
+        //             switch(i){
+        //                 case 0:
+        //                 this.handCardPosList[i][j] = {x:-98 + j*80*this.mainPlayerScale,y:-266};
+        //                 break;
+        //                 case 1:
+        //                 this.handCardPosList[i][j] = {x:414 + j*40*this.otherPlayerScale,y:12.2};
+        //                 break;
+        //                 case 2:
+        //                 this.handCardPosList[i][j] = {x:313 + j*40*this.otherPlayerScale,y:180};
+        //                 break;
+        //                 case 3:
+        //                 this.handCardPosList[i][j] = {x:-21 + j*40*this.otherPlayerScale,y:180};
+        //                 break;
+        //                 case 4:
+        //                 this.handCardPosList[i][j] = {x:-355 + j*40*this.otherPlayerScale,y:180};
+        //                 break;
+        //                 case 5:
+        //                 this.handCardPosList[i][j] = {x:-474.3 + j*40*this.otherPlayerScale,y:12.2};
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
        
         this.disRoundCount = 0;
     },
 
     resetCardList:function(){
-        for(var i=0;i<6;i++){
+        for(var i=0;i<confige.playerMax;i++){
             this.playerActiveList[i] = false;
         }
         for(var i=0;i<this.cardItemCount;i++)
@@ -138,13 +121,11 @@ cc.Class({
     },
 
     deActivePlayer:function(index){
-        console.log("deActivePlayer"+index);
         this.playerActiveList[index] = false;
     },
 
     disCardOneRound:function(){
         var disCount = 0;
-        var disMax = 6;
         this.disRoundCount ++;
         var curRoundCount = this.disRoundCount - 1;
         var callBack = function(){
@@ -176,7 +157,7 @@ cc.Class({
                 newCardItem.runAction(cc.sequence(cc.spawn(action1,action2), cc.delayTime(0.1),action3));
             }            
             disCount ++;
-            if(disCount == 6)
+            if(disCount == confige.playerMax)
             {
                 this.unschedule(callBack);
             }

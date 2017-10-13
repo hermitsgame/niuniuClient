@@ -7,6 +7,10 @@ cc.Class({
             default:null,
             type:cc.Prefab
         },
+        history_item2:{
+            default:null,
+            type:cc.Prefab
+        },
         isInit:false,
     },
 
@@ -28,8 +32,9 @@ cc.Class({
         
         this.historyNotice = this.node.getChildByName("notice");
 
-        this.historyItemBeginY = -135;
-        this.historyItemOffsetY = -245;
+        this.historyItemBeginY = -10;
+        this.historyItemOffsetY = -250;
+        this.historyItemOffsetY2 = -365;
 
         this.historyItemList = {};
         this.isInit = true;
@@ -49,16 +54,33 @@ cc.Class({
             this.historyNotice.active = false;
         }
 
+        var newContentHeight = 0;
         var historyItemCount = 0;
         for(var i in confige.curHistory.List)
         {
             historyItemCount++;
-            var newHistoryItem = cc.instantiate(this.history_item);
-            this.historyItemList[i] = newHistoryItem;
-            this.historyContent.addChild(newHistoryItem);
-            newHistoryItem.y = this.historyItemBeginY + this.historyItemOffsetY * i;
 
             var curRoomData = confige.curHistory.List[i];
+            console.log("curRoomData======");
+            console.log(curRoomData);
+            var newHistoryItem = {};
+
+            var newHisPlayerCount = 0;
+            for(var j in curRoomData.player)
+                newHisPlayerCount ++;
+            if(newHisPlayerCount > 6){
+                newHistoryItem = cc.instantiate(this.history_item2);
+                newHistoryItem.y = this.historyItemBeginY - newContentHeight;
+                newContentHeight += 365;
+            }
+            else{
+                newHistoryItem = cc.instantiate(this.history_item);
+                newHistoryItem.y = this.historyItemBeginY - newContentHeight;
+                newContentHeight += 250;
+            }
+            this.historyItemList[i] = newHistoryItem;
+            this.historyContent.addChild(newHistoryItem);
+            
             var hisIndex = newHistoryItem.getChildByName("index").getComponent("cc.Label");
             var roomID = newHistoryItem.getChildByName("roomID").getComponent("cc.Label");
             var date = newHistoryItem.getChildByName("date").getComponent("cc.Label");
@@ -107,7 +129,9 @@ cc.Class({
                 curScoreL.string = curPlayerData.score;
             }
         }
-        this.historyContent.height = 500 + (historyItemCount - 2) * 250;
+        if(newContentHeight < 500)
+            newContentHeight = 500;
+        this.historyContent.height = newContentHeight;
     },
 
     showLayer:function(){

@@ -8,6 +8,11 @@ cc.Class({
 
     // use this for initialization
     onLoad : function () {
+        
+        // this.initCardWithBack();
+    },
+
+    onInit:function(){
         this.cardFrameMap = {};
         this.cardBackFrame = null;
         
@@ -30,7 +35,6 @@ cc.Class({
         this.cardsBack[4] = this.cardBackNode.getChildByName("Card5")
         
         this.resetCard();
-        // this.initCardWithBack();
     },
 
     initCardWithBack : function(){

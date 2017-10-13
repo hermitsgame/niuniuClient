@@ -13,7 +13,11 @@ cc.Class({
             type:cc.Prefab
         },
 
-        roomInfo_item2:{
+        roomInfo_item2:{        //6人
+            default:null,
+            type:cc.Prefab
+        },
+        roomInfo_item3:{        //9人
             default:null,
             type:cc.Prefab
         },
@@ -112,9 +116,26 @@ cc.Class({
                         var curPlayerNodeName = curPlayerNode.getChildByName("name"+(parseInt(k)));
                         curPlayerNodeName.active = true;
                         curPlayerNodeName.getComponent("cc.Label").string = curRoomInfo.players[k].nickname;
+                        if(curRoomInfo.playerNumber &&  curRoomInfo.playerNumber == 9)
+                        {
+                            if(k % 2 == 0)
+                                curPlayerNodeName.x = -50;
+                            else
+                                curPlayerNodeName.x = 50;
+                            if(k == 8)
+                                curPlayerNodeName.x = 0;
+                            
+                            curPlayerNodeName.y = 50 - 28*parseInt(k/2);
+                        }else{
+                            curPlayerNodeName.x = 0;
+                            curPlayerNodeName.y = 50 - 28*k;
+                        }
                     }
                     var roomPlayerCount = curPlayerNode.getChildByName("num").getComponent("cc.Label");
-                    roomPlayerCount.string = curPlayerCount + "/6";
+                    var newPlayerNum = 6;
+                    if(curRoomInfo.playerNumber &&  curRoomInfo.playerNumber == 9)
+                        newPlayerNum = 9;
+                    roomPlayerCount.string = curPlayerCount + "/" + newPlayerNum;
 
                     var joinCallBack = function(){
                         console.log("加入自己开的房间"+joinCallBack.id);
@@ -186,11 +207,17 @@ cc.Class({
         var roomInfoItemCount = 0;
         for(var i in self.roomInfoData)
         {
-            var newRoomInfoItem = cc.instantiate(self.roomInfo_item2);
+            var curRoomInfo = self.roomInfoData[i];
+            var newRoomInfoItem = {};
+            if(curRoomInfo.playerNumber &&  curRoomInfo.playerNumber == 9)
+                newRoomInfoItem = cc.instantiate(self.roomInfo_item3);
+            else
+                newRoomInfoItem = cc.instantiate(self.roomInfo_item2);
+                
             self.roomInfoItemList2[i] = newRoomInfoItem;
             self.roomInfoLayerContent2.addChild(newRoomInfoItem);
             newRoomInfoItem.y = self.item2BeginY + self.item2OffsetY * i;
-            var curRoomInfo = self.roomInfoData[i];
+            
             var roomIDLabel = newRoomInfoItem.getChildByName("roomID").getComponent("cc.Label");
             var roomTypeLabel = newRoomInfoItem.getChildByName("roomType").getComponent("cc.Label");
             var roomDateLabel = newRoomInfoItem.getChildByName("roomDate").getComponent("cc.Label");
@@ -278,6 +305,9 @@ cc.Class({
 
         console.log("邀请好友" + index);
         var curData = this.roomInfoData[index];
+
+        console.log("curShareData ===== ");
+        console.log(curData);
 
         var curTitle = ""
         if(curData.gameMode == 1)

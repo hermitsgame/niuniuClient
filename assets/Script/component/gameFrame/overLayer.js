@@ -47,6 +47,10 @@ cc.Class({
             // this.shareBtnNode = this.node.getChildByName("btn_other");
             // this.shareBtnNode.active = false;
         }
+
+        if(confige.playerMax == 9)
+            this.initOverLayer9();
+
         this.isInit = true;
         this.itemNode = this.node.getChildByName("itemNode");
     },
@@ -59,7 +63,6 @@ cc.Class({
         var newOverDataS = newOverData.getComponent("overDataOnce");
         newOverDataS.onInit();
         
-        var newName = "nick";
         var niuTypeCount1=0,niuTypeCount2=0,niuTypeCount3=0,niuTypeCount4=0,niuTypeCount5=0,niuTypeCount6=0;
 
         if(gameData.gameMainScene.isSanKung){
@@ -157,10 +160,37 @@ cc.Class({
         newOverData.setPosition(this.oriPosx + this.posxOffset*this.overDataCount,this.oriPosy);
         this.overDataCount = this.overDataCount + 1;
     },
+
+    addOneOverData9:function(playerData,master,cardHistory){
+        //console.log(playerData);
+        var newOverData = this.infoList.getChildByName("infoNode"+playerData.chair);
+        newOverData.active = true;
+        var newOverDataS = newOverData.getComponent("overDataOnce");
+        newOverDataS.onInit();
+        
+        var oriChair = confige.getCurChair(playerData.chair);
+        if(confige.WXHeadFrameList[oriChair+1])
+            newOverDataS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        newOverDataS.nameL.string = playerData.playerInfo.nickname;
+        newOverDataS.IDL.string = playerData.uid;
+
+        if(playerData.bankerCount)
+            newOverData.getChildByName("bankerCount").getComponent("cc.Label").string = playerData.bankerCount;
+
+        newOverDataS.setScore(playerData.score);
+        if(master == true)
+            newOverDataS.showMaster();
+        
+        this.newOverDataList[playerData.chair] = newOverDataS;
+
+        this.overDataCount = this.overDataCount + 1;
+    },
     
     showOverWithData:function(overData){
         console.log("overData@@@@@====");
         console.log(overData);
+        this.curOverData = overData;
+
         this.newOverDataList = {};
         this.maxScore = 0;
         this.maxChair = -1;
@@ -174,13 +204,25 @@ cc.Class({
                 var master = false;
                 if(i === 0)
                     master = true;
-                this.addOneOverData(newPlayerData,master,newCardHistory);
+                if(confige.playerMax == 6)
+                {
+                    this.addOneOverData(newPlayerData,master,newCardHistory);
+                }else{
+                    this.addOneOverData9(newPlayerData,master,newCardHistory);
+                }
+                
                 if(newPlayerData.score > this.maxScore)
                 {
                     this.maxScore = newPlayerData.score;
                     this.maxChair = newPlayerData.chair;
                 }
             }
+        }
+
+        if(confige.playerMax == 9)
+        {
+            this.overLayer9.active = true;
+            this.updateSelectData(-1,confige.meChair);
         }
 
         for(var i in overData.player)
@@ -342,6 +384,114 @@ cc.Class({
         this.h5ShareNode.opacity = 0;
         this.h5ShareNode.active = false;
     },
+
+    initOverLayer9:function(){
+        console.log("initOverLayer9@@@@@@@@@@@@")
+        this.curOverData = {};
+        this.overLayer9 = this.node.getChildByName("overLayer9");
+        this.infoList = this.overLayer9.getChildByName("infoList");
+        this.selectInfo = this.overLayer9.getChildByName("selectInfo");
+        this.selectInfoS = this.selectInfo.getComponent("overDataOnce");
+        this.selectInfoS.onInit();
+    },
+
+    updateSelectData:function(event, customEventData){
+        var index = parseInt(customEventData);
+        var playerData = this.curOverData.player[index];
+        var cardHistory = this.curOverData.cardHistory[index];
+        console.log(playerData);
+        console.log(cardHistory);
+        console.log(this.curOverData);
+
+        var niuTypeCount1=0,niuTypeCount2=0,niuTypeCount3=0,niuTypeCount4=0,niuTypeCount5=0,niuTypeCount6=0;
+
+        if(gameData.gameMainScene.isSanKung){
+            for(var i in cardHistory)
+            {
+                var newType = cardHistory[i].type;                    
+                if(newType == 9)
+                    niuTypeCount1 = niuTypeCount1 + 1;
+                else if(newType == 10)
+                    niuTypeCount2 = niuTypeCount2 + 1;
+                else if(newType == 11)
+                    niuTypeCount3 = niuTypeCount3 + 1;
+                else if(newType == 12)
+                    niuTypeCount4 = niuTypeCount4 + 1;
+            }
+            this.selectInfo.getChildByName("sanKungNode").getChildByName("num1").getComponent("cc.Label").string = niuTypeCount1;
+            this.selectInfo.getChildByName("sanKungNode").getChildByName("num2").getComponent("cc.Label").string = niuTypeCount2;
+            this.selectInfo.getChildByName("sanKungNode").getChildByName("num3").getComponent("cc.Label").string = niuTypeCount3;
+            this.selectInfo.getChildByName("sanKungNode").getChildByName("num4").getComponent("cc.Label").string = niuTypeCount4;
+            this.selectInfo.getChildByName("sanKungNode").active = true;
+        }
+        else if(gameData.gameMainScene.isJinHua){
+            for(var i in cardHistory)
+            {
+                var newType = cardHistory[i].type;                    
+                if(newType == 0)
+                    niuTypeCount1 = niuTypeCount1 + 1;
+                else if(newType == 1)
+                    niuTypeCount2 = niuTypeCount2 + 1;
+                else if(newType == 2)
+                    niuTypeCount3 = niuTypeCount3 + 1;
+                else if(newType == 3)
+                    niuTypeCount4 = niuTypeCount4 + 1;
+                else if(newType == 4)
+                    niuTypeCount5 = niuTypeCount5 + 1;
+                else if(newType == 5)
+                    niuTypeCount6 = niuTypeCount6 + 1;
+            }
+            this.selectInfo.getChildByName("jinHuaNode").getChildByName("num1").getComponent("cc.Label").string = niuTypeCount1;
+            this.selectInfo.getChildByName("jinHuaNode").getChildByName("num2").getComponent("cc.Label").string = niuTypeCount2;
+            this.selectInfo.getChildByName("jinHuaNode").getChildByName("num3").getComponent("cc.Label").string = niuTypeCount3;
+            this.selectInfo.getChildByName("jinHuaNode").getChildByName("num4").getComponent("cc.Label").string = niuTypeCount4;
+            this.selectInfo.getChildByName("jinHuaNode").getChildByName("num5").getComponent("cc.Label").string = niuTypeCount5;
+            this.selectInfo.getChildByName("jinHuaNode").getChildByName("num6").getComponent("cc.Label").string = niuTypeCount6;
+            this.selectInfo.getChildByName("jinHuaNode").active = true;
+        }
+        else{
+            for(var i in cardHistory)
+            {
+                var newType = cardHistory[i].type;
+                if(newType === 0)//无牛
+                {
+                    niuTypeCount6 = niuTypeCount6 + 1;
+                }else{//有牛 
+                    niuTypeCount5 = niuTypeCount5 + 1;
+                    
+                    if(newType == 14)//小
+                        niuTypeCount1 = niuTypeCount1 + 1;
+                    else if(newType == 11 || newType == 12)//花
+                        niuTypeCount2 = niuTypeCount2 + 1;
+                    else if(newType == 13)//炸弹
+                        niuTypeCount3 = niuTypeCount3 + 1;
+                    else if(newType == 10)//牛牛
+                        niuTypeCount4 = niuTypeCount4 + 1;
+                }
+            }
+            this.selectInfo.getChildByName("niuTypeNode").getChildByName("num1").getComponent("cc.Label").string = niuTypeCount1;
+            this.selectInfo.getChildByName("niuTypeNode").getChildByName("num2").getComponent("cc.Label").string = niuTypeCount2;
+            this.selectInfo.getChildByName("niuTypeNode").getChildByName("num3").getComponent("cc.Label").string = niuTypeCount3;
+            this.selectInfo.getChildByName("niuTypeNode").getChildByName("num4").getComponent("cc.Label").string = niuTypeCount4;
+            this.selectInfo.getChildByName("niuTypeNode").getChildByName("num5").getComponent("cc.Label").string = niuTypeCount5;
+            this.selectInfo.getChildByName("niuTypeNode").getChildByName("num6").getComponent("cc.Label").string = niuTypeCount6;
+            this.selectInfo.getChildByName("niuTypeNode").active = true;
+        }
+        
+        var oriChair = confige.getCurChair(playerData.chair);
+        if(confige.WXHeadFrameList[oriChair+1])
+            this.selectInfoS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        this.selectInfoS.nameL.string = playerData.playerInfo.nickname;
+        this.selectInfoS.IDL.string = playerData.uid;
+
+        
+        this.selectInfoS.setScore(playerData.score);
+        if(this.maxChair == index)
+            this.selectInfoS.winIco.active = true;
+        else
+            this.selectInfoS.winIco.active = false;
+    },
+
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 

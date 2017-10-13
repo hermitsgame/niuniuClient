@@ -40,6 +40,8 @@ cc.Class({
             this.curRoomInfo = JSON.parse(cc.sys.localStorage.getItem('roomInfo'));
         }
 
+        this.newPlayerNum = 6;
+
         this.allowJoinCheck = this.node.getChildByName("allowJoin").getChildByName("check_mark");
         this.allowAllinNode = this.node.getChildByName("allowAllin");
         this.allowFKNode = this.node.getChildByName("allowFK");
@@ -423,6 +425,8 @@ cc.Class({
         else if(this.gameMode == 101)
             curBasicType = this.basicScore;
 
+        this.playerNum = this.newPlayerNum;
+
         var createType = "newRoom";
         if(index == 0){
             console.log("创建房间并成为房主");
@@ -437,7 +441,7 @@ cc.Class({
             {
                 this.gameType = "sanKung";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "newRoom","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode,basicType:this.basicType}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode,basicType:this.basicType,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,joinCallFunc);
@@ -446,7 +450,7 @@ cc.Class({
             }else if(this.gameMode == 8){
                 this.gameType = "zhajinhua";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "newRoom","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,joinCallFunc);
@@ -467,7 +471,7 @@ cc.Class({
             {
                 this.gameType = "sanKung";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,createCallFunc);
@@ -476,7 +480,7 @@ cc.Class({
             }else if(this.gameMode == 8){
                 this.gameType = "zhajinhua";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,createCallFunc);
@@ -663,7 +667,7 @@ cc.Class({
             this.showCreateRoomType(8);
         }
     
-        this.showRoomExpend();
+        // this.showRoomExpend();
     },
     
     onChooseBankerMode:function(event, customEventData){
@@ -680,7 +684,7 @@ cc.Class({
     onChooseGameTime:function(event, customEventData){
         console.log("gameTime" + customEventData);
         this.gameTime = parseInt(customEventData);
-        this.showRoomExpend();
+        // this.showRoomExpend();
     },
 
     onChooseCardMode:function(event, customEventData){
@@ -691,7 +695,7 @@ cc.Class({
     onChoosePlayerNum:function(event, customEventData){
         console.log("playerNum" + customEventData);
         this.playerNum = parseInt(customEventData);
-        this.showRoomExpend();
+        // this.showRoomExpend();
     },
 
     onChooseBasicScore:function(event, customEventData){
@@ -772,10 +776,11 @@ cc.Class({
             this.diamondExpend = 3*this.gameTime/10;//Math.ceil(this.playerNum*this.gameTime/10);
     },
 
-    showLayer:function(){
+    showLayer:function(playerNumber){
         if(this.isInit == false)
             this.onInit();
         this.node.active = true;
+        this.newPlayerNum = playerNumber;
     },
 
     hideLayer:function(){

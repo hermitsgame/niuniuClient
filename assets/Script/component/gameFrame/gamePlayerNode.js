@@ -19,12 +19,14 @@ cc.Class({
         this.playerCount = 0;           //当前参与游戏的人数,加入新玩家时该数字不会变,等新的一局开始时才会改变
         this.newPlayerCount = 0;
         this.playerList = {};
-        this.playerList[0] = this.node.getChildByName("GamePlayer1");
-        this.playerList[1] = this.node.getChildByName("GamePlayer2");
-        this.playerList[2] = this.node.getChildByName("GamePlayer3");
-        this.playerList[3] = this.node.getChildByName("GamePlayer4");
-        this.playerList[4] = this.node.getChildByName("GamePlayer5");
-        this.playerList[5] = this.node.getChildByName("GamePlayer6");
+        // this.playerList[0] = this.node.getChildByName("GamePlayer1");
+        // this.playerList[1] = this.node.getChildByName("GamePlayer2");
+        // this.playerList[2] = this.node.getChildByName("GamePlayer3");
+        // this.playerList[3] = this.node.getChildByName("GamePlayer4");
+        // this.playerList[4] = this.node.getChildByName("GamePlayer5");
+        // this.playerList[5] = this.node.getChildByName("GamePlayer6");
+        for(var i=0;i<confige.playerMax;i++)
+            this.playerList[i] = this.node.getChildByName("GamePlayer"+(i+1));
         
         this.playerActiveList = {};
         this.playerCardList = {};
@@ -32,24 +34,28 @@ cc.Class({
         this.playerInfoList = {};
         
         this.playerScoreList = {};
-        for(var i=0;i<6;i++)
+        this.niuTypeBoxList = {};
+        for(var i=0;i<confige.playerMax;i++)
         {
             this.playerActiveList[i] = false;
             this.playerScoreList[i] = 0;
-            this.playerHandCardList[i] = this.playerList[i].getChildByName("HandCards").getComponent("handCards");    
+            this.playerHandCardList[i] = this.playerList[i].getChildByName("HandCards").getComponent("handCards");
+            this.playerHandCardList[i].onInit();    
             this.playerInfoList[i] = this.playerList[i].getChildByName("Player").getComponent("playerInfo");
             this.playerInfoList[i].onInit();
+            this.niuTypeBoxList[i] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox"+(i+1));
         }
+        console.log(this.playerInfoList);
         this.playerInfoList[0].setName(confige.userInfo.nickname);
         this.playerInfoList[0].setScore("");
 
-        this.niuTypeBoxList = {};
-        this.niuTypeBoxList[0] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox1");
-        this.niuTypeBoxList[1] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox2");
-        this.niuTypeBoxList[2] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox3");
-        this.niuTypeBoxList[3] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox4");
-        this.niuTypeBoxList[4] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox5");
-        this.niuTypeBoxList[5] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox6");
+        
+        // this.niuTypeBoxList[0] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox1");
+        // this.niuTypeBoxList[1] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox2");
+        // this.niuTypeBoxList[2] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox3");
+        // this.niuTypeBoxList[3] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox4");
+        // this.niuTypeBoxList[4] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox5");
+        // this.niuTypeBoxList[5] = this.node.getChildByName("niuTypeList").getChildByName("niuTypeBox6");
 
         this.betNumNodeList = {};
         this.betNumLabelList = {};
@@ -65,7 +71,7 @@ cc.Class({
         this.robNumNodeList = {};
         this.robNumLabelList = {};
         
-        for(var i=0;i<6;i++)
+        for(var i=0;i<confige.playerMax;i++)
         {
             this.betNumNodeList[i] = this.playerList[i].getChildByName("betNode");
             this.betNumLabelList[i] = this.betNumNodeList[i].getChildByName("betNum").getComponent("cc.Label");
@@ -83,14 +89,15 @@ cc.Class({
         }
 
         this.cardItemList = this.node.getChildByName("cardList").getComponent("cardList");
-        if(confige.roomData.roomType == "sanKung")
-        {
-            this.cardItemList.onInit("sanKung");
-        }else if(confige.roomData.roomType == "zhajinhua"){
-            this.cardItemList.onInit("jinHua");
-        }else{
-            this.cardItemList.onInit("niuniu");
-        }
+        this.cardItemList.onInit();
+        // if(confige.roomData.roomType == "sanKung")
+        // {
+        //     this.cardItemList.onInit("sanKung");
+        // }else if(confige.roomData.roomType == "zhajinhua"){
+        //     this.cardItemList.onInit("jinHua");
+        // }else{
+        //     this.cardItemList.onInit("niuniu");
+        // }
 
         this.userInfoBtnList = this.node.getChildByName("userInfoBtnList");
         this.selectHead = -1;
@@ -99,56 +106,68 @@ cc.Class({
         this.sayBoxLabelNodeList = {};
         this.sayBoxLabelList = {};
         this.sayNode = this.node.getChildByName("sayList");
-        this.sayBoxList[0] = this.sayNode.getChildByName("sayBox1");
-        this.sayBoxList[1] = this.sayNode.getChildByName("sayBox2");
-        this.sayBoxList[2] = this.sayNode.getChildByName("sayBox3");
-        this.sayBoxList[3] = this.sayNode.getChildByName("sayBox4");
-        this.sayBoxList[4] = this.sayNode.getChildByName("sayBox5");
-        this.sayBoxList[5] = this.sayNode.getChildByName("sayBox6");
+        for(var i=0;i<confige.playerMax;i++)
+        {
+            this.sayBoxList[i] = this.sayNode.getChildByName("sayBox"+(i+1));
+        }
         
-        for(var i=0;i<6;i++)
+        for(var i=0;i<confige.playerMax;i++)
         {
             this.sayBoxLabelNodeList[i] = this.sayBoxList[i].getChildByName("text");
             this.sayBoxLabelList[i] = this.sayBoxLabelNodeList[i].getComponent("cc.Label");
         }
-
-        this.sayBoxList[1].rotationY = 180;
-        this.sayBoxLabelNodeList[1].rotationY = 180;
+        if(confige.playerMax == 6)  //对右边的玩家聊天框进行镜像翻转
+        {
+            this.sayBoxList[1].rotationY = 180;
+            this.sayBoxLabelNodeList[1].rotationY = 180;
+        }else{
+            this.sayBoxList[1].rotationY = 180;
+            this.sayBoxLabelNodeList[1].rotationY = 180;
+            this.sayBoxList[2].rotationY = 180;
+            this.sayBoxLabelNodeList[2].rotationY = 180;
+        }
+        
 
         this.faceList = {};
-        this.faceList[0] = this.sayNode.getChildByName("face1");
-        this.faceList[1] = this.sayNode.getChildByName("face2");
-        this.faceList[2] = this.sayNode.getChildByName("face3");
-        this.faceList[3] = this.sayNode.getChildByName("face4");
-        this.faceList[4] = this.sayNode.getChildByName("face5");
-        this.faceList[5] = this.sayNode.getChildByName("face6");
+        for(var i=0;i<confige.playerMax;i++)
+        {
+            this.faceList[i] = this.sayNode.getChildByName("face"+(i+1));
+        }
 
         this.sayAniNode = this.node.getChildByName("sayAniNode");
         this.sayPosList = {};
-        this.sayPosList[0] = cc.v2(187,167);
-        this.sayPosList[1] = cc.v2(1190,444);
-        this.sayPosList[2] = cc.v2(1090,650);
-        this.sayPosList[3] = cc.v2(755,650);
-        this.sayPosList[4] = cc.v2(425,650);
-        this.sayPosList[5] = cc.v2(126,444);
+
+        // this.sayPosList[0] = cc.v2(187,167);
+        // this.sayPosList[1] = cc.v2(1190,444);
+        // this.sayPosList[2] = cc.v2(1090,650);
+        // this.sayPosList[3] = cc.v2(755,650);
+        // this.sayPosList[4] = cc.v2(425,650);
+        // this.sayPosList[5] = cc.v2(126,444);
 
         this.faceBeginPosList = {};
-        this.faceBeginPosList[0] = cc.v2(116,83);
-        this.faceBeginPosList[1] = cc.v2(1226,362);
-        this.faceBeginPosList[2] = cc.v2(970,650);
-        this.faceBeginPosList[3] = cc.v2(640,650);
-        this.faceBeginPosList[4] = cc.v2(305,650);
-        this.faceBeginPosList[5] = cc.v2(58,360);
+        for(var i=0;i<confige.playerMax;i++)
+        {
+            var curHeadNode = this.playerList[i].getChildByName("Player").getChildByName("head");
+            var newVec1 = this.playerList[i].getChildByName("Player").convertToWorldSpaceAR(cc.v2(curHeadNode.x,curHeadNode.y));
+            var newVec2 = this.node.convertToNodeSpaceAR(cc.v2(newVec1.x,newVec1.y));
+            this.faceBeginPosList[i] = {x:newVec2.x,y:newVec2.y};
+            this.sayPosList[i] = {x:newVec2.x,y:newVec2.y};
+            gameData.gameBGNode.betBeginPosList[i] = {x:newVec2.x,y:newVec2.y};
+            // console.log(this.faceBeginPosList[i]);
+        }
+
+        // this.faceBeginPosList[0] = cc.v2(116,83);
+        // this.faceBeginPosList[1] = cc.v2(1226,362);
+        // this.faceBeginPosList[2] = cc.v2(970,650);
+        // this.faceBeginPosList[3] = cc.v2(640,650);
+        // this.faceBeginPosList[4] = cc.v2(305,650);
+        // this.faceBeginPosList[5] = cc.v2(58,360);
     },
 
     onStart:function(){
         console.log("gameScene Start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        this.playerList[0].active = false;
-        this.playerList[1].active = false;
-        this.playerList[2].active = false;
-        this.playerList[3].active = false;
-        this.playerList[4].active = false;
-        this.playerList[5].active = false;
+        for(var i=0;i<confige.playerMax;i++)
+            this.playerList[i].active = false;
         
         //console.log(confige.roomPlayer);
         if(confige.roomPlayer != -1)
@@ -182,7 +201,7 @@ cc.Class({
             }
         }
         
-        if(this.playerCount == 6)
+        if(this.playerCount == confige.playerMax)
             gameData.gameMainScene.gameInfoNode.btn_inviteFriend.active = false;
 
         this.newPlayerCount = this.playerCount;
@@ -224,12 +243,12 @@ cc.Class({
         console.log("addOnePlayer() this.newPlayerCount ==== " + this.newPlayerCount);
         confige.curPlayerCount ++;
 
-        if(this.newPlayerCount == 6)
+        if(this.newPlayerCount == confige.playerMax)
             gameData.gameMainScene.gameInfoNode.btn_inviteFriend.active = false;
         this.playerActiveList[curIndex] = true;
 
         // this.faceAniList = {};
-        // this.faceAniNode = this.node.getChildByName("faceAniNode");
+        this.faceAniNode = this.node.getChildByName("faceAniNode");
         // for(var i=1;i<=6;i++)
         //     this.faceAniList[i] = this.faceAniNode.getChildByName("faceAni"+i);
     },
@@ -245,7 +264,7 @@ cc.Class({
         
         this.newPlayerCount --;
         confige.curPlayerCount --;
-        if(this.newPlayerCount < 6)
+        if(this.newPlayerCount < confige.playerMax)
             gameData.gameMainScene.gameInfoNode.btn_inviteFriend.active = true;
         this.playerActiveList[curIndex] = false;
     },
@@ -408,7 +427,7 @@ cc.Class({
         }
         console.log("newFaceAni.x===" + newFaceAni.x);
         console.log("newFaceAni.y===" + newFaceAni.y);
-        this.userInfoBtnList.addChild(newFaceAni);
+        this.faceAniNode.addChild(newFaceAni);
         var action1 = cc.moveTo(0.3, cc.p(this.faceBeginPosList[confige.getCurChair(chairEnd)].x, this.faceBeginPosList[confige.getCurChair(chairEnd)].y));
         var action2 = cc.callFunc(function () {
             if(confige.soundEnable == true)
@@ -441,6 +460,7 @@ cc.Class({
     },
 
     btn_showUserInfo:function(event,customEventData){
+        console.log("btn_showUserInfo CLICK@@@@@@@@@@@@@")
         var clickIndex = parseInt(customEventData);
         var oriChair = confige.getOriChair(clickIndex);
         if(confige.roomPlayer[oriChair].isActive == true)

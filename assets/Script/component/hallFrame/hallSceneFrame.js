@@ -241,6 +241,7 @@ cc.Class({
         var self = this;
         switch(index){
             case  0:
+                return;
                 if(self.createLayer == -1){
                     if(self.createLayerLoad == false)
                     {
@@ -280,7 +281,7 @@ cc.Class({
                     {
                         cc.loader.loadRes("prefabs/hall/roomInfoLayer", cc.Prefab, function (err, prefabs) {
                             var newLayer = cc.instantiate(prefabs);
-                            self.layerNode.addChild(newLayer);
+                            self.layerNode.addChild(newLayer,10);
                             self.roomInfoLayer = newLayer.getComponent("roomInfoLayer");
                             self.roomInfoLayer.showLayer();
                             self.roomInfoLayer.parent = self;
@@ -397,6 +398,40 @@ cc.Class({
                     }
                 }else{
                     self.giftLayer.showLayer();
+                }
+                break;
+            case 11:
+                if(self.createLayer == -1){
+                    if(self.createLayerLoad == false)
+                    {
+                        cc.loader.loadRes("prefabs/hall/createLayer", cc.Prefab, function (err, prefabs) {
+                            var newLayer = cc.instantiate(prefabs);
+                            self.layerNode.addChild(newLayer);
+                            self.createLayer = newLayer.getComponent("createLayer");
+                            self.createLayer.showLayer(6);
+                            self.createLayer.parent = self;
+                        });
+                        self.createLayerLoad = true;
+                    }
+                }else{
+                    self.createLayer.showLayer(6);
+                }
+                break;
+            case 12:
+                if(self.createLayer == -1){
+                    if(self.createLayerLoad == false)
+                    {
+                        cc.loader.loadRes("prefabs/hall/createLayer", cc.Prefab, function (err, prefabs) {
+                            var newLayer = cc.instantiate(prefabs);
+                            self.layerNode.addChild(newLayer);
+                            self.createLayer = newLayer.getComponent("createLayer");
+                            self.createLayer.showLayer(9);
+                            self.createLayer.parent = self;
+                        });
+                        self.createLayerLoad = true;
+                    }
+                }else{
+                    self.createLayer.showLayer(9);
                 }
                 break;
         };

@@ -57,9 +57,11 @@ cc.Class({
         if(score < 0)
         {
             this.scoreLLNode.active = false;
+            this.scoreLWNode.active = true;
             this.scoreLW.string = "." + score;
         }else{
             this.scoreLWNode.active = false;
+            this.scoreLLNode.active = true;
             this.scoreLL.string = "/" + score;
         }
             

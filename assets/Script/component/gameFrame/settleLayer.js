@@ -14,6 +14,11 @@ cc.Class({
             type:cc.Prefab
         },
 
+        settle_perfab9:{
+            default:null,
+            type:cc.Prefab
+        },
+
         isInit:false,
     },
 
@@ -34,6 +39,20 @@ cc.Class({
         this.overCallBack = -1;
         this.showBeginBtnCall = -1;
 
+        if(confige.playerMax == 9)
+        {
+            this.settlePosList = {};
+            this.settlePosList[0] = {x:-312,y:163};
+            this.settlePosList[1] = {x:33,y:163};
+            this.settlePosList[2] = {x:379,y:163};
+            this.settlePosList[3] = {x:-312,y:2};
+            this.settlePosList[4] = {x:33,y:2};
+            this.settlePosList[5] = {x:379,y:2};
+            this.settlePosList[6] = {x:-312,y:-165};
+            this.settlePosList[7] = {x:33,y:-165};
+            this.settlePosList[8] = {x:379,y:-165};
+        }
+
         this.isInit = true;
     },
 
@@ -47,8 +66,12 @@ cc.Class({
         this.node.active = false;
     },
 
-    addOneSettle:function(name, type, score, gameType,handCard){     //0:nomal;1:FK;2:sanKung;3:jinHua
-        var newSettle = cc.instantiate(this.settle_perfab);
+    addOneSettle:function(name, type, score, gameType,handCard,chair){     //0:nomal;1:FK;2:sanKung;3:jinHua
+        var newSettle = {};
+        if(confige.playerMax == 6)
+            newSettle = cc.instantiate(this.settle_perfab);
+        else
+            newSettle = cc.instantiate(this.settle_perfab9);
         this.node.addChild(newSettle);
         
         var newSettleS = newSettle.getComponent("settleOnce");
@@ -69,14 +92,24 @@ cc.Class({
         }else{
             newType.spriteFrame = null;
         }
-        newSettle.setPosition(0,this.oriSettlePosy + this.oriSettlePosOffset*this.settleCount);
+        if(confige.playerMax == 6)
+            newSettle.setPosition(0,this.oriSettlePosy + this.oriSettlePosOffset*this.settleCount);
+        else {
+            newSettle.setPosition(this.settlePosList[this.settleCount].x,this.settlePosList[this.settleCount].y);
+            if(chair == confige.meChair)
+                newSettleS.settleBgMe.active = true;
+        }
 
         this.settleList[this.settleCount] = newSettle;
         this.settleCount = this.settleCount + 1;
     },
 
-    addOneSettleJinHua:function(name, type, score, handCard,discard,failure,isShow){
-        var newSettle = cc.instantiate(this.settle_perfab);
+    addOneSettleJinHua:function(name, type, score, handCard,discard,failure,isShow,chair){
+        var newSettle = {};
+        if(confige.playerMax == 6)
+            newSettle = cc.instantiate(this.settle_perfab);
+        else
+            newSettle = cc.instantiate(this.settle_perfab9);
         this.node.addChild(newSettle);
         
         var newSettleS = newSettle.getComponent("settleOnce");
@@ -96,13 +129,23 @@ cc.Class({
         }else{
             newType.spriteFrame = null;
         }
-        newSettle.setPosition(0,this.oriSettlePosy + this.oriSettlePosOffset*this.settleCount);
-        
-        if(discard)
-            newSettleS.discard.active = true;
-        if(failure)
-            newSettleS.failure.active = true;
 
+        if(confige.playerMax == 6)
+            newSettle.setPosition(0,this.oriSettlePosy + this.oriSettlePosOffset*this.settleCount);
+        else {
+            newSettle.setPosition(this.settlePosList[this.settleCount].x,this.settlePosList[this.settleCount].y);
+            if(chair == confige.meChair)
+                newSettleS.settleBgMe.active = true;
+        }
+        
+        if(confige.playerMax == 6)
+        {
+            if(discard)
+                newSettleS.discard.active = true;
+            if(failure)
+                newSettleS.failure.active = true;
+        }
+        
         this.settleList[this.settleCount] = newSettle;
         this.settleCount = this.settleCount + 1;
     },

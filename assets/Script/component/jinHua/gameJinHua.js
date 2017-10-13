@@ -55,7 +55,12 @@ cc.Class({
                 }
             }
         });
-        cc.loader.loadRes("prefabs/game/sanKung/sanKungPlayerNode", cc.Prefab, function (err, prefabs) {
+        var playerNodeStr = "";
+        if(confige.playerMax == 6)
+            playerNodeStr = "sanKungPlayerNode";
+        else
+            playerNodeStr = "sanKungPlayerNode9";
+        cc.loader.loadRes("prefabs/game/sanKung/"+playerNodeStr, cc.Prefab, function (err, prefabs) {
             console.log("gamePlayerNode load!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             var newLayer = cc.instantiate(prefabs);
             self.playerNode.addChild(newLayer);
@@ -440,7 +445,7 @@ cc.Class({
                     {
                         this.scorePoolNew.active = false;
                         this.readyBtn.active = false;
-                        for(var i=0;i<6;i++)
+                        for(var i=0;i<confige.playerMax;i++)
                         {
                             this.lookCardList[i] = false;
                             this.giveUpList[i] = false;
@@ -725,7 +730,7 @@ cc.Class({
                         }
                     }
 
-                    self.gameInfoNode.settleLayer.addOneSettleJinHua(confige.roomData.player[i].playerInfo.nickname, niuType, data.curScores[i],data.player[i].handCard,isDiscard,isFailure,isShow);
+                    self.gameInfoNode.settleLayer.addOneSettleJinHua(confige.roomData.player[i].playerInfo.nickname, niuType, data.curScores[i],data.player[i].handCard,isDiscard,isFailure,isShow,i);
                     self.gamePlayerNode.playerScoreList[i] = data.realScores[i];
                     self.gamePlayerNode.playerInfoList[confige.getCurChair(i)].setScore(self.gamePlayerNode.playerScoreList[i]);
                 }
@@ -741,7 +746,12 @@ cc.Class({
         
         var showSettleFunc2 = function(){
             if(this.gameInfoNode.settleLayer == -1){
-                cc.loader.loadRes("prefabs/game/settleLayer", cc.Prefab, function (err, prefabs) {
+                var newLayerStr = ""
+                if(confige.playerMax == 6)
+                    newLayerStr = "settleLayer";
+                else
+                    newLayerStr = "settleLayer9";
+                cc.loader.loadRes("prefabs/game/"+newLayerStr, cc.Prefab, function (err, prefabs) {
                     var newLayer = cc.instantiate(prefabs);
                     self.gameInfoNode.layerNode1.addChild(newLayer,10);
                     self.gameInfoNode.settleLayer = newLayer.getComponent("settleLayer");
@@ -1076,7 +1086,14 @@ cc.Class({
         this.btnAbandonCard = this.doBtnLayer.getChildByName("abandonCard");
         this.btnCompareCard = this.doBtnLayer.getChildByName("compareCard");
         this.btnWatchCard = this.zhajinniuLayer.getChildByName("watchCard");
-        this.compareBtnBox = this.zhajinniuLayer.getChildByName("compareBtnBox");
+        if(confige.playerMax == 6)
+        {
+            this.compareBtnBox = this.zhajinniuLayer.getChildByName("compareBtnBox");
+            this.loseNode = this.zhajinniuLayer.getChildByName("loseNode");
+        }else{
+            this.compareBtnBox = this.zhajinniuLayer.getChildByName("compareBtnBox9");
+            this.loseNode = this.zhajinniuLayer.getChildByName("loseNode9");
+        }
 
         this.zhaBetList = {};
         this.zhaBetList[1] = this.zhaBetBtnBox.getChildByName("bet1");
@@ -1093,7 +1110,7 @@ cc.Class({
         this.lookCardList = {};
         this.giveUpList = {};
         this.loseList = {};
-        for(var i=0;i<6;i++)
+        for(var i=0;i<confige.playerMax;i++)
         {
             this.lookCardList[i] = false;
             this.giveUpList[i] = false;
@@ -1101,19 +1118,12 @@ cc.Class({
         }
 
         this.compareBtnList = {};
-        this.compareBtnList[1] = this.compareBtnBox.getChildByName("compare1");
-        this.compareBtnList[2] = this.compareBtnBox.getChildByName("compare2");
-        this.compareBtnList[3] = this.compareBtnBox.getChildByName("compare3");
-        this.compareBtnList[4] = this.compareBtnBox.getChildByName("compare4");
-        this.compareBtnList[5] = this.compareBtnBox.getChildByName("compare5");
+        for(var i=1;i<confige.playerMax;i++)
+            this.compareBtnList[i] = this.compareBtnBox.getChildByName("compare"+i);
 
         this.loseNodeList = {};
-        this.loseNodeList[0] = this.zhajinniuLayer.getChildByName("lose0");
-        this.loseNodeList[1] = this.zhajinniuLayer.getChildByName("lose1");
-        this.loseNodeList[2] = this.zhajinniuLayer.getChildByName("lose2");
-        this.loseNodeList[3] = this.zhajinniuLayer.getChildByName("lose3");
-        this.loseNodeList[4] = this.zhajinniuLayer.getChildByName("lose4");
-        this.loseNodeList[5] = this.zhajinniuLayer.getChildByName("lose5");
+        for(var i=0;i<confige.playerMax;i++)
+            this.loseNodeList[i] = this.loseNode.getChildByName("lose"+i);
 
         this.zhajinniuBasic = confige.roomData.basic;
         console.log("fuck 炸金牛基础分数"+this.zhajinniuBasic);
@@ -1151,7 +1161,7 @@ cc.Class({
     },
 
     hideArrow:function(){
-        for(var i=0;i<6;i++)
+        for(var i=0;i<confige.playerMax;i++)
         {
             this.gamePlayerNode.isTurnImgList[i].stopAllActions();
             this.gamePlayerNode.isTurnImgList[i].active = false;
@@ -1231,7 +1241,7 @@ cc.Class({
     },
     hideCompareLayer:function(){
         this.compareBtnBox.active = false;
-        for(var i=1;i<6;i++)
+        for(var i=1;i<confige.playerMax;i++)
         {
             this.compareBtnList[i].active = false;
             this.gamePlayerNode.lightBgList[i].stopAllActions();
@@ -1634,7 +1644,7 @@ cc.Class({
         console.log("onNewGameStart");
         this.gameInfoNode.roomCurTime ++;
         this.gameInfoNode.roomTime.string = "第" + this.gameInfoNode.roomCurTime + "/" + this.gameInfoNode.roomMaxTime + "局";
-        for(var i=0;i<6;i++)
+        for(var i=0;i<confige.playerMax;i++)
         {
             this.gamePlayerNode.playerList[i].getChildByName("isReady").active = false;
         }

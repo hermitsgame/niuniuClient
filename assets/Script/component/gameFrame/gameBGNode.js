@@ -52,12 +52,12 @@ cc.Class({
         this.betItemListAll = {};
         this.betItemCount = 0;
         this.betBeginPosList = {};
-        this.betBeginPosList[0] = cc.v2(116,83);
-        this.betBeginPosList[1] = cc.v2(1226,362);
-        this.betBeginPosList[2] = cc.v2(970,650);
-        this.betBeginPosList[3] = cc.v2(640,650);
-        this.betBeginPosList[4] = cc.v2(305,650);
-        this.betBeginPosList[5] = cc.v2(58,360);
+        // this.betBeginPosList[0] = cc.v2(116,83);
+        // this.betBeginPosList[1] = cc.v2(1226,362);
+        // this.betBeginPosList[2] = cc.v2(970,650);
+        // this.betBeginPosList[3] = cc.v2(640,650);
+        // this.betBeginPosList[4] = cc.v2(305,650);
+        // this.betBeginPosList[5] = cc.v2(58,0);
         this.betFrameList = {};
         this.betFrameList[0] = this.betItemFrame0;
         this.betFrameList[1] = this.betItemFrame1;
@@ -81,7 +81,7 @@ cc.Class({
 
                 this.betItemListAll[this.betItemCount] = newBetItem;
                 this.betItemCount ++;
-                var betMoveAction = cc.spawn(cc.moveTo(0.3, cc.p(630 - 100 + Math.random()*220, 360 - 50 + Math.random()*100)),
+                var betMoveAction = cc.spawn(cc.moveTo(0.3, cc.p(0 - 100 + Math.random()*220, 0 - 50 + Math.random()*100)),
                                              cc.rotateBy(0.3, 1080 + Math.random()*200));
                 betMoveAction.easing(cc.easeOut(2.0 + Math.random()*0.5));
                 newBetItem.runAction(betMoveAction);
@@ -142,8 +142,8 @@ cc.Class({
                     var newBetItem = cc.instantiate(this.betItemPrefab);
                     newBetItem.getComponent("cc.Sprite").spriteFrame = this.betFrameList[3];
                     this.mainBg.addChild(newBetItem);
-                    newBetItem.x = 630 - 100 + Math.random()*220;
-                    newBetItem.y = 360 - 50 + Math.random()*100;
+                    newBetItem.x = 0 - 100 + Math.random()*220;
+                    newBetItem.y = 0 - 50 + Math.random()*100;
 
                     this.betItemListAll[this.betItemCount] = newBetItem;
                     this.betItemCount ++;
@@ -164,8 +164,8 @@ cc.Class({
                     var newBetItem = cc.instantiate(this.betItemPrefab);
                     newBetItem.getComponent("cc.Sprite").spriteFrame = this.betFrameList[3];
                     this.mainBg.addChild(newBetItem);
-                    newBetItem.x = 630 - 100 + Math.random()*220;
-                    newBetItem.y = 360 - 50 + Math.random()*100;
+                    newBetItem.x = 0 - 100 + Math.random()*220;
+                    newBetItem.y = 0 - 50 + Math.random()*100;
 
                     this.betItemListAll[this.betItemCount] = newBetItem;
                     this.betItemCount ++;
