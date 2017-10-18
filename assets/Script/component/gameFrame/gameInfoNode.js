@@ -462,7 +462,10 @@ cc.Class({
         curTitle += "房间号:" + confige.roomData.roomId;
 
         var curDes = "";
-
+            if(confige.roomData.playerNumber &&  confige.roomData.playerNumber == 9)
+                curDes = "九人场,"
+            else
+                curDes = "六人场,"
             if(confige.roomData.roomType == "zhajinniu"){
                 curDes += "底分" + confige.roomData.basic + ",";
             }else if(confige.roomData.roomType == "mingpaiqz"){
@@ -599,6 +602,11 @@ cc.Class({
         curTitle += "房间号:" + confige.roomData.roomId;
 
         var curDes = "";
+            if(confige.roomData.playerNumber &&  confige.roomData.playerNumber == 9)
+                curDes = "九人场,"
+            else
+                curDes = "六人场,"
+
             if(confige.roomData.roomType == "zhajinniu"){
                 curDes += "底分" + confige.roomData.basic + ",";
             }else if(confige.roomData.roomType == "mingpaiqz"){

@@ -14,6 +14,10 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
+        headOri:{
+            default:null,
+            type:cc.SpriteFrame
+        },
         overData_perfab:{
             default:null,
             type:cc.Prefab
@@ -187,6 +191,7 @@ cc.Class({
     },
     
     showOverWithData:function(overData){
+        this.lastSelectIndex = confige.meChair;
         console.log("overData@@@@@====");
         console.log(overData);
         this.curOverData = overData;
@@ -397,6 +402,9 @@ cc.Class({
 
     updateSelectData:function(event, customEventData){
         var index = parseInt(customEventData);
+        this.newOverDataList[this.lastSelectIndex].node.getChildByName("bgSelect").active = false;
+        this.lastSelectIndex = index;
+        this.newOverDataList[this.lastSelectIndex].node.getChildByName("bgSelect").active = true;
         var playerData = this.curOverData.player[index];
         var cardHistory = this.curOverData.cardHistory[index];
         console.log(playerData);
@@ -481,6 +489,8 @@ cc.Class({
         var oriChair = confige.getCurChair(playerData.chair);
         if(confige.WXHeadFrameList[oriChair+1])
             this.selectInfoS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        else
+            this.selectInfoS.head.spriteFrame = this.headOri;
         this.selectInfoS.nameL.string = playerData.playerInfo.nickname;
         this.selectInfoS.IDL.string = playerData.uid;
 

@@ -332,6 +332,10 @@ cc.Class({
         curTitle += "房间号:" + curData.roomId;
 
         var curDes = "";
+            if(curData.playerNumber &&  curData.playerNumber == 9)
+                curDes = "九人场,"
+            else
+                curDes = "六人场,"
             if(curData.gameType == "zhajinniu"){
                 curDes += "底分" + curData.basic + ",";
             }else if(curData.gameType == "mingpaiqz"){

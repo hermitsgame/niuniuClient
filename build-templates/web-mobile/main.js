@@ -143,7 +143,7 @@
             groupList: settings.groupList,
             collisionMatrix: settings.collisionMatrix,
             noCache: true,
-            myversion: 1.2,
+            myversion: 1.401,
             renderMode: 0
         };
 

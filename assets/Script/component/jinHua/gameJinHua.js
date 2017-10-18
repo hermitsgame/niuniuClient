@@ -225,6 +225,8 @@ cc.Class({
                         if(confige.roomPlayer[i].isActive == true && confige.roomPlayer[i].isReady == true)
                         {  
                             var curChair = confige.getCurChair(i);
+                            if(confige.roomData.betList[i] == null)
+                                confige.roomData.betList[i] = 0;
                             curBetCount += confige.roomData.betList[i];
                             this.gamePlayerNode.curBetNumList[curChair] = confige.roomData.betList[i];
                             
@@ -832,6 +834,8 @@ cc.Class({
                     console.log("this.playerActiveList === addone");
                     this.gamePlayerNode.addOnePlayer(confige.roomPlayer[i]);
                 }
+                if(confige.curReconnectData.betList[i] == null)
+                    confige.curReconnectData.betList[i] = 0;
                 this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score;// - confige.curReconnectData.betList[i];
                 // if(this.isJinHua)
                     // this.playerScoreList[i] -= this.zhajinniuBasic;

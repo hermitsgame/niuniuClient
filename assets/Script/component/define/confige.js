@@ -103,9 +103,9 @@ var cfg = {
 };
 
 
-cfg.curVersion = "1.3.85";
+cfg.curVersion = "1.4.02";
 cfg.oriPaomaText = "和谐游戏，拒绝赌博，如若发现，封号并提交公安机关处理。有事咨询客服，客服微信号：YCYX1818";
-cfg.versionCheck = "1.3.501&LKSADHFKASKDJLSAFDHJ";
+cfg.versionCheck = "1.4.01&LSKAHDUYAPSMHAKSSA";
 cfg.resetGameData = function(){
   cfg.gameSceneLoadData = [];
   cfg.curReconnectData = -1;
