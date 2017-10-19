@@ -688,6 +688,15 @@ cc.Class({
         this.gameInfoNode.btn_close.interactable = true;
         this.timerItem.hideTimer();
 
+        for(var i in confige.roomPlayer)
+        {            
+            if(confige.roomPlayer[i].isActive == true)            
+            {
+                confige.roomPlayer[i].isReady = false;
+            }
+            this.gamePlayerNode.isTurnImgList[i].active = false;
+        }
+
         //分割筹码
         console.log("分割筹码");
         console.log(data.curScores);
@@ -728,14 +737,14 @@ cc.Class({
                 // self.gameInfoNode.roomCurTime ++;
             // self.gameInfoNode.roomTime.string = "第" + self.gameInfoNode.roomCurTime + "/" + self.gameInfoNode.roomMaxTime + "局";
             
-            for(var i in confige.roomPlayer)
-            {            
-                if(confige.roomPlayer[i].isActive == true)            
-                {
-                    confige.roomPlayer[i].isReady = false;
-                }
-                self.gamePlayerNode.isTurnImgList[i].active = false;
-            }
+            // for(var i in confige.roomPlayer)
+            // {            
+            //     if(confige.roomPlayer[i].isActive == true)            
+            //     {
+            //         confige.roomPlayer[i].isReady = false;
+            //     }
+            //     self.gamePlayerNode.isTurnImgList[i].active = false;
+            // }
             if(self.curBankerChair == self.meChair && self.gameMode == 3)        //本局庄家是自己的话
             {
                 if(data.bankerTime >= 3 && (self.gameInfoNode.roomCurTime != self.gameInfoNode.roomMaxTime)) 

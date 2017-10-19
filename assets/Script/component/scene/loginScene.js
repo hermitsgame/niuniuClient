@@ -67,7 +67,7 @@ cc.Class({
         }else if(cc.sys.platform == cc.sys.MOBILE_BROWSER){
             confige.shareTitle = "我爱牛牛,点击可玩,无需下载";
             confige.shareDes = "我爱牛牛H5,安全无挂,放心畅玩!";
-            cc.game.setFrameRate(40);
+            // cc.game.setFrameRate(40);
             // confige.curUsePlatform = 0;
             // this.btn_loginNode2.active = false;
             // this.btn_loginNode1.x = 0;

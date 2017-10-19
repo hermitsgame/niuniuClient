@@ -1081,6 +1081,15 @@ cc.Class({
         }
         this.statusChange(0);
 
+        for(var i in confige.roomPlayer)
+        {            
+            if(confige.roomPlayer[i].isActive == true)            
+            {
+                confige.roomPlayer[i].isReady = false;
+            }
+            this.gamePlayerNode.isTurnImgList[i].active = false;
+        }
+
         console.log("onServerSettlement 222222222");
         //第一步显示玩家手牌
         for(var i in data.result)
@@ -1230,14 +1239,14 @@ cc.Class({
                 // self.gameInfoNode.roomCurTime ++;
             // self.gameInfoNode.roomTime.string = "第" + self.gameInfoNode.roomCurTime + "/" + self.gameInfoNode.roomMaxTime + "局";
             
-            for(var i in confige.roomPlayer)
-            {            
-                if(confige.roomPlayer[i].isActive == true)            
-                {
-                    confige.roomPlayer[i].isReady = false;
-                }
-                self.gamePlayerNode.isTurnImgList[i].active = false;
-            }
+            // for(var i in confige.roomPlayer)
+            // {            
+            //     if(confige.roomPlayer[i].isActive == true)            
+            //     {
+            //         confige.roomPlayer[i].isReady = false;
+            //     }
+            //     self.gamePlayerNode.isTurnImgList[i].active = false;
+            // }
             if(self.curBankerChair == self.meChair && self.gameMode == 3)        //本局庄家是自己的话
             {
                 if(data.bankerTime >= 3 && (self.gameInfoNode.roomCurTime != self.gameInfoNode.roomMaxTime)) 
