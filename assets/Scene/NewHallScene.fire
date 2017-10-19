@@ -2905,7 +2905,7 @@
     "__type__": "cc.Node",
     "_name": "btn_invite",
     "_objFlags": 0,
-    "_opacity": 255,
+    "_opacity": 50,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -3014,8 +3014,8 @@
         "__id__": 81
       }
     ],
-    "_N$interactable": true,
-    "_N$enableAutoGrayEffect": true,
+    "_N$interactable": false,
+    "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,

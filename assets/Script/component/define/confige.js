@@ -103,8 +103,8 @@ var cfg = {
 };
 
 
-cfg.curVersion = "1.4.03";
-cfg.oriPaomaText = "和谐游戏，拒绝赌博，如若发现，封号并提交公安机关处理。有事咨询客服，客服微信号：YCYX1818";
+cfg.curVersion = "1.5.01";
+cfg.oriPaomaText = "和谐游戏，拒绝赌博，如若发现，封号并提交公安机关处理。";//有事咨询客服，客服微信号：YCYX1818";
 cfg.versionCheck = "1.4.01&LSKAHDUYAPSMHAKSSA";
 cfg.resetGameData = function(){
   cfg.gameSceneLoadData = [];
@@ -152,8 +152,8 @@ cfg.meWXHeadFrame = -1;
 cfg.WXHeadFrameList = {};
 
 //
-cfg.payURL = "http://pay.5d8d.com/index.php/Tips/showpay";
-cfg.shareURL = "http://d.5d8d.com/index.php/Download/niuniu2"; //"http://game.37yiyou.cn/download/nngame/download.html?from=groupmessage";
+cfg.payURL = "http://update.5d8d.com:8431/index.html";
+cfg.shareURL = "http://update.5d8d.com:8431/index.html"; //"http://game.37yiyou.cn/download/nngame/download.html?from=groupmessage";
 cfg.shareTitle = "我爱牛牛,点击可玩,无需下载";
 cfg.shareDes = "我爱牛牛H5,安全无挂,放心畅玩!";
 //
@@ -194,8 +194,8 @@ cfg.CallGVoicePoll = function(){
 cfg.GVoiceCall = {
   init : function(openID){
     if(cfg.GVoiceIsInit == false){
-        var appid = "1065028827";
-        var appkey = "93242afbf1258ddd2a8d5a766285268d";
+        var appid = "1449797371";
+        var appkey = "5ab1256afdd4b11629d91a5554562815";
         var openid = openID;
         if(cfg.curUsePlatform == 1){
           jsb.reflection.callStaticMethod("org/cocos2dx/javascript/JSCallJAVA", "GVoiceInit", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", appid, appkey, openid);

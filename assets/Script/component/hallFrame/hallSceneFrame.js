@@ -17,6 +17,7 @@ cc.Class({
 
         this.btn_addDiamond = this.topNode.getChildByName("btn_addDiamond").getComponent("cc.Button");
         this.btn_addDiamond.interactable = true;
+        this.topNode.getChildByName("btn_addDiamond").active = false;
         this.btn_exit = this.bottomNode.getChildByName("btn_exit").getComponent("cc.Button");
 
 
@@ -82,11 +83,13 @@ cc.Class({
         if(cc.sys.localStorage.getItem('check_invite') == false)
             this.btn_invite.interactable = false;
 
-        if(confige.playerLimits >= 1)
-        {
-            this.btn_gift = this.bottomNode.getChildByName("btn_gift");
-            this.btn_gift.active = true;
-        }
+        this.btn_gift = this.bottomNode.getChildByName("btn_gift");
+        this.btn_gift.active = true;
+        // if(confige.playerLimits >= 1)
+        // {
+        //     this.btn_gift = this.bottomNode.getChildByName("btn_gift");
+        //     this.btn_gift.active = true;
+        // }
         
         this.loadingLayer = this.node.getChildByName("loadingLayer").getComponent("loadingLayer");
         this.loadingLayer.onInit();
@@ -330,21 +333,21 @@ cc.Class({
                 this.onBtnShowNotice();
                 break;
             case  6:
-                if(self.inviteLayer == -1){
-                    if(self.inviteLayerLoad == false)
-                    {
-                        cc.loader.loadRes("prefabs/hall/inviteLayer", cc.Prefab, function (err, prefabs) {
-                            var newLayer = cc.instantiate(prefabs);
-                            self.layerNode.addChild(newLayer);
-                            self.inviteLayer = newLayer.getComponent("inviteLayer");
-                            self.inviteLayer.showLayer();
-                            self.inviteLayer.parent = self;
-                        });
-                        self.inviteLayerLoad = true;
-                    }
-                }else{
-                    self.inviteLayer.showLayer();
-                }
+                // if(self.inviteLayer == -1){
+                //     if(self.inviteLayerLoad == false)
+                //     {
+                //         cc.loader.loadRes("prefabs/hall/inviteLayer", cc.Prefab, function (err, prefabs) {
+                //             var newLayer = cc.instantiate(prefabs);
+                //             self.layerNode.addChild(newLayer);
+                //             self.inviteLayer = newLayer.getComponent("inviteLayer");
+                //             self.inviteLayer.showLayer();
+                //             self.inviteLayer.parent = self;
+                //         });
+                //         self.inviteLayerLoad = true;
+                //     }
+                // }else{
+                //     self.inviteLayer.showLayer();
+                // }
                 break;
             case  7:
                 if(self.helpLayer == -1){

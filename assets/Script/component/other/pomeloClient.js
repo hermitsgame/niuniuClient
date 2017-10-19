@@ -656,16 +656,16 @@ pomelo.goldQuite = function() {
 //         });
 //     });
 // };
-// confige.host = "39.108.139.132"; //测试外网2
+confige.host = "39.108.139.132"; //测试外网2
 // confige.host = "update.5d8d.com";    //测试外网
-confige.host = "nnapi.5d8d.com";     //运营外网
+// confige.host = "nnapi.5d8d.com";     //运营外网
 // confige.host = "192.168.1.65";          //内网
 pomelo.clientLogin = function(uid,clientLogintoken) {
     console.log("pomelo try to login!!!!!!");
     var route = 'gate.gateHandler.queryEntry';
     pomelo.init({
       host: confige.host,
-      port: "3900",
+      port: "4900",
       log: true
     }, function() {
         
