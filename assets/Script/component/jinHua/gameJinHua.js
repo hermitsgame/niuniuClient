@@ -1334,42 +1334,51 @@ cc.Class({
             case 13:    //看牌
                 pomelo.clientSend("useCmd",{"cmd" : "look"});
                 break;  
-            //比牌选择座位按钮
-            case 21:
-                console.log("compare with chair ===== " + confige.getOriChair(1));
-                pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(1)},function(){
-                    self.hideDoBtnLayer();
-                    self.hideCompareLayer();
-                });
-                break;
-            case 22:
-                console.log("compare with chair ===== " + confige.getOriChair(2));
-                pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(2)},function(){
-                    self.hideDoBtnLayer();
-                    self.hideCompareLayer();
-                });
-                break;
-            case 23:
-                console.log("compare with chair ===== " + confige.getOriChair(3));
-                pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(3)},function(){
-                    self.hideDoBtnLayer();
-                    self.hideCompareLayer();
-                });
-                break;
-            case 24:
-                console.log("compare with chair ===== " + confige.getOriChair(4));
-                pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(4)},function(){
-                    self.hideDoBtnLayer();
-                    self.hideCompareLayer();
-                });
-                break;
-            case 25:
-                console.log("compare with chair ===== " + confige.getOriChair(5));
-                pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(5)},function(){
-                    self.hideDoBtnLayer();
-                    self.hideCompareLayer();
-                });
-                break;
+            // //比牌选择座位按钮
+            // case 21:
+            //     console.log("compare with chair ===== " + confige.getOriChair(1));
+            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(1)},function(){
+            //         self.hideDoBtnLayer();
+            //         self.hideCompareLayer();
+            //     });
+            //     break;
+            // case 22:
+            //     console.log("compare with chair ===== " + confige.getOriChair(2));
+            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(2)},function(){
+            //         self.hideDoBtnLayer();
+            //         self.hideCompareLayer();
+            //     });
+            //     break;
+            // case 23:
+            //     console.log("compare with chair ===== " + confige.getOriChair(3));
+            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(3)},function(){
+            //         self.hideDoBtnLayer();
+            //         self.hideCompareLayer();
+            //     });
+            //     break;
+            // case 24:
+            //     console.log("compare with chair ===== " + confige.getOriChair(4));
+            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(4)},function(){
+            //         self.hideDoBtnLayer();
+            //         self.hideCompareLayer();
+            //     });
+            //     break;
+            // case 25:
+            //     console.log("compare with chair ===== " + confige.getOriChair(5));
+            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(5)},function(){
+            //         self.hideDoBtnLayer();
+            //         self.hideCompareLayer();
+            //     });
+            //     break;
+        }
+        if(clickIndex > 20 && clickIndex < 30)
+        {
+            var curChair = confige.getOriChair(clickIndex-20);
+            console.log("compare with chair ===== " + curChair);
+            pomelo.clientSend("useCmd",{"cmd" : "compare","target" : curChair},function(){
+                self.hideDoBtnLayer();
+                self.hideCompareLayer();
+            });
         }
     },
 
@@ -1563,7 +1572,7 @@ cc.Class({
                 if(confige.soundEnable == true)
                 {
                     var curSex = 0;
-                    curSex = parseInt(confige.roomPlayer[fromChair].playerInfo.sex);
+                    curSex = parseInt(confige.roomPlayer[data.chair].playerInfo.sex);
                     if(curSex == 2)
                         confige.playSoundByName("f_bipai");
                     else
