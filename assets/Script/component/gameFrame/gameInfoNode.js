@@ -771,10 +771,10 @@ cc.Class({
         }
         confige.curReconnectType = confige.ON_HALL;
         pomelo.disconnect();
-        if(confige.curUsePlatform == 3){
-            window.open(confige.h5LoginUrl);
-            window.close();
-        }
+        // if(confige.curUsePlatform == 3){
+        //     window.open(confige.h5LoginUrl);
+        //     window.close();
+        // }
     },
 
     sayWithID:function(voiceID){

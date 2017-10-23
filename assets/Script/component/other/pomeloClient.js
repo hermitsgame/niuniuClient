@@ -715,7 +715,7 @@ pomelo.loginWithHostAndPort = function(host, port, uid, token, code){
                     {
                         console.log("1312312");
                         window.open(confige.h5LoginUrl);
-                        window.close();
+                        // window.close();
                     }
                     return;
                 }
@@ -782,7 +782,7 @@ pomelo.loginWithHostAndPort = function(host, port, uid, token, code){
                     {
                         console.log("1312312");
                         window.open(confige.h5LoginUrl);
-                        window.close();
+                        // window.close();
                     }
                     return;
                 }
@@ -844,7 +844,7 @@ pomelo.reConnet = function(){
         pomelo.loginWithHostAndPort(confige.host,confige.port,-1,-1,confige.curUseCode);
     else if(confige.curUsePlatform == 3){
         window.open(confige.h5LoginUrl);
-        window.close();
+        // window.close();
     }
 };
 
