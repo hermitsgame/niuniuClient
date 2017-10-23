@@ -279,7 +279,7 @@ cc.Class({
                                 this.gamePlayerNode.discardImgList[curChair].active = true;
                                 this.gamePlayerNode.watchCardImgList[curChair].active = false;
                             }
-                            if(confige.curReconnectData.roomInfo.player[i].state == 2)
+                            if(confige.roomData.player[i].state == 2)
                             {
                                 this.loseList[curChair] = true;
                                 this.loseNodeList[curChair].active = true;
