@@ -13271,7 +13271,7 @@
     },
     "component": "gameJinHua",
     "handler": "onBtnClickZhaLayer",
-    "customEventData": "25"
+    "customEventData": "24"
   },
   {
     "__type__": "cc.Node",
@@ -13423,7 +13423,7 @@
     },
     "component": "gameJinHua",
     "handler": "onBtnClickZhaLayer",
-    "customEventData": "26"
+    "customEventData": "24"
   },
   {
     "__type__": "cc.Node",
@@ -13575,7 +13575,7 @@
     },
     "component": "gameJinHua",
     "handler": "onBtnClickZhaLayer",
-    "customEventData": "27"
+    "customEventData": "25"
   },
   {
     "__type__": "cc.Node",
@@ -13727,7 +13727,7 @@
     },
     "component": "gameJinHua",
     "handler": "onBtnClickZhaLayer",
-    "customEventData": "28"
+    "customEventData": "25"
   },
   {
     "__type__": "cc.Node",
