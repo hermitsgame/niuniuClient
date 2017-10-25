@@ -45,6 +45,8 @@ cc.Class({
         this.roomTimeNode = this.roomInfo.getChildByName("nowTime");
         
         this.roomID.string = "房间号:" + confige.roomData.roomId;
+        cc.sys.localStorage.setItem('lastRoomID',confige.roomData.roomId);
+        cc.sys.localStorage.setItem('lastRoomTime',Date.parse(new Date()));
         if(confige.roomData.gameMode == 1)
             this.roomMode.string = "普通牛牛";
         if(confige.roomData.gameMode == 2)

@@ -479,6 +479,7 @@ pomelo.clientSend = function(code,msg,cbTrue,cbFalse) {
                 console.log(data);
                 if(code == "join")
                 {
+                    pomelo.clientScene.hideReturnRoom();
                     console.log("join room ???")
                     if(data.msg && data.msg.code)
                     {
