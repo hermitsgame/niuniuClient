@@ -117,12 +117,12 @@ cc.Class({
                     }
                     var curPlayerNode = newRoomInfoItem.getChildByName("playerNode");
                     var curPlayerCount = 0;
-                    for(var k in curRoomInfo.player)
+                    for(var k in curRoomInfo.players)
                     {
                         curPlayerCount++;
                         var curPlayerNodeName = curPlayerNode.getChildByName("name"+(parseInt(k)));
                         curPlayerNodeName.active = true;
-                        curPlayerNodeName.getComponent("cc.Label").string = curRoomInfo.player[k].name;
+                        curPlayerNodeName.getComponent("cc.Label").string = curRoomInfo.players[k].nickname;
                         if(curRoomInfo.playerNumber &&  curRoomInfo.playerNumber == 9)
                         {
                             if(k % 2 == 0)
