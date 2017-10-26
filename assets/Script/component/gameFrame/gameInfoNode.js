@@ -545,11 +545,11 @@ cc.Class({
 
         console.log(curTitle + curDes);
 
-        var curShareURL = confige.h5ShareUrlNew.replace('ROOMNUM', confige.roomData.roomId);
-        if(confige.h5InviteCode != "0")
-        {
-            curShareURL += "&invite_code=" + confige.h5InviteCode;
-        }
+        var curShareURL = confige.h5ShareUrlNew.replace('STATE', confige.roomData.roomId);
+        // if(confige.h5InviteCode != "0")
+        // {
+        //     curShareURL += "&invite_code=" + confige.h5InviteCode;
+        // }
         wx.ready(function(res) {
             console.log("H5分享给好友");
             wx.onMenuShareAppMessage({
@@ -695,11 +695,11 @@ cc.Class({
 
         if(confige.curUsePlatform == 3)
         {
-            var curShareURL = confige.h5ShareUrlNew.replace('ROOMNUM', confige.roomData.roomId);
-            if(confige.h5InviteCode != "0")
-            {
-                curShareURL += "&invite_code=" + confige.h5InviteCode;
-            }
+            var curShareURL = confige.h5ShareUrlNew.replace('STATE', confige.roomData.roomId);
+            // if(confige.h5InviteCode != "0")
+            // {
+            //     curShareURL += "&invite_code=" + confige.h5InviteCode;
+            // }
             wx.ready(function(res) {
                 console.log("H5分享给好友");
                 wx.onMenuShareAppMessage({

@@ -653,11 +653,11 @@ cc.Class({
     },
 
     h5ShareInit:function(){
-        var curShareURL = confige.h5ShareUrlNew.replace('ROOMNUM', '0');
-        if(confige.h5InviteCode != "0")
-        {
-            curShareURL += "&invite_code=" + confige.h5InviteCode;
-        }
+        var curShareURL = confige.h5ShareUrlNew.replace('STATE', '0');
+        // if(confige.h5InviteCode != "0")
+        // {
+        //     curShareURL += "&invite_code=" + confige.h5InviteCode;
+        // }
         console.log("H5分享给好友");
         wx.onMenuShareAppMessage({
             title: confige.shareTitle,

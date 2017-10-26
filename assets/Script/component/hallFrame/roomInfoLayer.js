@@ -429,11 +429,11 @@ cc.Class({
         {
             console.log("url111111="+ confige.h5ShareUrlNew);
             console.log("url222222 ="+curData.roomId);
-            var curShareURL = confige.h5ShareUrlNew.replace('ROOMNUM', curData.roomId);
-            if(confige.h5InviteCode != "0")
-            {
-                curShareURL += "&invite_code=" + confige.h5InviteCode;
-            }
+            var curShareURL = confige.h5ShareUrlNew.replace('STATE', curData.roomId);
+            // if(confige.h5InviteCode != "0")
+            // {
+            //     curShareURL += "&invite_code=" + confige.h5InviteCode;
+            // }
             console.log("url333333="+ curShareURL);
             // wx.ready(function(res) {
                 console.log("H5分享给好友");

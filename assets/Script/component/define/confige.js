@@ -122,15 +122,15 @@ cfg.resetGameData = function(){
 //h5
 cfg.h5InviteCode = "0";
 cfg.h5RoomID = "0";
-cfg.h5SignID = "wxd72486a200bde1db";
+cfg.h5SignID = "wxc0f7af4749ce7176";
 cfg.h5SignTime = "";
 cfg.h5SignTicket = "";
 cfg.h5SignSignature = "";
 cfg.h5SignStr = "niuniuH5";
 cfg.h5SignURL = "";
-cfg.h5LoginUrl = "http://pay.5d8d.com/H5Index/nnH5?room_num=0";
-cfg.h5ShareUrlNew = "http://pay.5d8d.com/H5Index/nnH5?room_num=ROOMNUM";
-cfg.h5ShareIco = "http://update.5d8d.com/niuniuH5/MP_ICO.png";
+cfg.h5LoginUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc0f7af4749ce7176&redirect_uri=http%3A%2F%2Fupdate.5d8d.com%2F222&response_type=code&scope=snsapi_userinfo&state=STATE";
+cfg.h5ShareUrlNew = "http://nnapi.5d8d.com/222?state=STATE";
+cfg.h5ShareIco = "http://update.5d8d.com/222/MP_ICO.png";
 console.log("分享路径22222===="+cfg.h5ShareUrlNew);
 console.log("完整路径222===="+cfg.h5SignURL + cfg.h5ShareIco);
 //

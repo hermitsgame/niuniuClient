@@ -91,6 +91,7 @@ cc.Class({
             RequestData = this.GetRequest();
             console.log("打印url参数!!!!!");
             console.log(RequestData);
+
             if(RequestData.code)
             {
 
@@ -103,8 +104,9 @@ cc.Class({
                 //     jsApiList: [    "onMenuShareTimeline",
                 //                     "onMenuShareAppMessage"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                 // });
-                if(RequestData.room_num)
-                    confige.h5RoomID = RequestData.room_num;
+                if(RequestData.state && RequestData.state != "0")
+                    confige.h5RoomID = RequestData.state;
+                
                 confige.curUseCode = RequestData.code;
                 pomelo.clientLogin(-1,-1);
                 this.showLoading();

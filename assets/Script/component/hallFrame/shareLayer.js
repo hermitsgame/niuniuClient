@@ -44,11 +44,11 @@ cc.Class({
         }
         if(confige.curUsePlatform == 3)
         {
-            var curShareURL = confige.h5ShareUrlNew.replace('ROOMNUM', '0');
-            if(confige.h5InviteCode != "0")
-            {
-                curShareURL += "&invite_code=" + confige.h5InviteCode;
-            }
+            var curShareURL = confige.h5ShareUrlNew.replace('STATE', '0');
+            // if(confige.h5InviteCode != "0")
+            // {
+            //     curShareURL += "&invite_code=" + confige.h5InviteCode;
+            // }
             // //选择图片单个图片
             // wx.chooseImage({
             //   count: 1, // 默认9
