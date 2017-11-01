@@ -730,6 +730,7 @@ cc.Class({
     WXCancle:function(){
         // this.btn_loginNode1.active = true;
         this.btn_loginNode2.active = true;
+        this.btn_login2.interactable = true;
         this.loadingLayer.hideLoading();
     },
 
