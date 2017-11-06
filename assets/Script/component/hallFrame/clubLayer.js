@@ -253,6 +253,8 @@ cc.Class({
     },
 
     addOneItem:function(userId,userData){
+        if(userData.nickname == null || userId == null)
+            return;
         var self = this;
         // console.log("curUserId === "+userId);
         var newUserItem = cc.instantiate(this.userItem);
