@@ -508,7 +508,7 @@ pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, C
         if(GameType == "mingpaiqz")
         {
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,isWait:AllowWait}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.flag == false)
@@ -533,7 +533,7 @@ pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, C
             );
         }else{
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType,basicType:BasicScore,basic: BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,isWait:AllowWait}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType,basicType:BasicScore,basic: BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.flag == false)
@@ -659,8 +659,8 @@ pomelo.goldQuite = function() {
 // };
 // confige.host = "39.108.139.132"; //测试外网2
 // confige.host = "update.5d8d.com";    //测试外网
-confige.host = "nnapi.5d8d.com";     //运营外网
-// confige.host = "192.168.1.65";          //内网
+// confige.host = "nnapi.5d8d.com";     //运营外网
+confige.host = "192.168.1.65";          //内网
 pomelo.clientLogin = function(uid,clientLogintoken) {
     console.log("pomelo try to login!!!!!!");
     var route = 'gate.gateHandler.queryEntry';
