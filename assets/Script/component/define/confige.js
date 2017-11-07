@@ -103,7 +103,7 @@ var cfg = {
 };
 
 
-cfg.curVersion = "1.4.09";
+cfg.curVersion = "1.4.11";
 cfg.oriPaomaText = "和谐游戏，拒绝赌博，如若发现，封号并提交公安机关处理。有事咨询客服，客服微信号：YCYX1818";
 cfg.versionCheck = "1.4.01&LSKAHDUYAPSMHAKSSA";
 cfg.resetGameData = function(){
@@ -128,8 +128,8 @@ cfg.h5SignTicket = "";
 cfg.h5SignSignature = "";
 cfg.h5SignStr = "niuniuH5";
 cfg.h5SignURL = "";
-cfg.h5LoginUrl = "http://pay.5d8d.com/H5Index/nnH5?room_num=0";
-cfg.h5ShareUrlNew = "http://pay.5d8d.com/H5Index/nnH5?room_num=ROOMNUM";
+cfg.h5LoginUrl = "http://pay.5d8d.com/H5Index/nnH5CDN?room_num=0";
+cfg.h5ShareUrlNew = "http://pay.5d8d.com/H5Index/nnH5CDN?room_num=ROOMNUM";
 cfg.h5ShareIco = "http://update.5d8d.com/niuniuH5/MP_ICO.png";
 console.log("分享路径22222===="+cfg.h5ShareUrlNew);
 console.log("完整路径222===="+cfg.h5SignURL + cfg.h5ShareIco);
