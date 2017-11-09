@@ -126,6 +126,7 @@ cc.Class({
         this.userInfoLayer = -1;
 
         this.chatLayerLoad = false;
+        this.settingLayerLoad = false;
         this.settleLayerLoad = false;
         this.userInfoLayerLoad = false;
 
@@ -895,7 +896,7 @@ cc.Class({
                 break;
             case  1:
                 if(self.settingLayer == -1){
-                    if(self.settleLayerLoad == false)
+                    if(self.settingLayerLoad == false)
                     {
                         cc.loader.loadRes("prefabs/hall/settingLayer", cc.Prefab, function (err, prefabs) {
                             var newLayer = cc.instantiate(prefabs);
@@ -905,7 +906,7 @@ cc.Class({
                             self.settingLayer.parent = self;
                             self.settingLayer.showRefreshBtn();
                         });
-                        self.settleLayerLoad =true;
+                        self.settingLayerLoad =true;
                     }
                 }else{
                     self.settingLayer.showLayer();
@@ -1019,6 +1020,7 @@ cc.Class({
     },
 
     showOverLayer:function(data){
+        gameData.gameMainScene.timerItem.hideTimer();
         var self = this;
         var overCallFunc = function(){
             console.log("overLayer.overCallFunc");
