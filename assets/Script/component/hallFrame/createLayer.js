@@ -27,7 +27,7 @@ cc.Class({
                 halfwayEnter : true,
                 allowAllin : true,
                 allowFK : true,
-                waitMode : 1,
+                allowWait : true,
                 gameType : "niuniu",
                 basicType : 0,
                 basicScore : 1,
@@ -45,7 +45,8 @@ cc.Class({
         this.allowJoinCheck = this.node.getChildByName("allowJoin").getChildByName("check_mark");
         this.allowAllinNode = this.node.getChildByName("allowAllin");
         this.allowFKNode = this.node.getChildByName("allowFK");
-        this.waitModeNode = this.node.getChildByName("waitMode");
+        this.allowWaitNode = this.node.getChildByName("allowWait");
+        this.allowWaitCheck = this.node.getChildByName("allowWait").getChildByName("check_mark");
         this.allowFKCheck = this.node.getChildByName("allowFK").getChildByName("check_mark");
         this.allowAllinCheck = this.allowAllinNode.getChildByName("check_mark");
         this.initCreateRoomLayer();
@@ -147,21 +148,10 @@ cc.Class({
         else
             this.allowFK = this.curRoomInfo.allowFK;
 
-        if(this.curRoomInfo.waitMode == null)
-            this.waitMode = 1;
-        else{
-            this.waitMode = this.curRoomInfo.waitMode;
-            console.log("this.waitMode====="+this.waitMode);
-            this.waitModeNode.getChildByName("toggle1").getComponent("cc.Toggle").isChecked = false;
-            this.waitModeNode.getChildByName("toggle2").getComponent("cc.Toggle").isChecked = false;
-            this.waitModeNode.getChildByName("toggle3").getComponent("cc.Toggle").isChecked = false;
-            if(this.waitMode == 0)
-                this.waitModeNode.getChildByName("toggle2").getComponent("cc.Toggle").isChecked = true;
-            else if(this.waitMode == 1)
-                this.waitModeNode.getChildByName("toggle1").getComponent("cc.Toggle").isChecked = true;
-            else if(this.waitMode == 2)
-                this.waitModeNode.getChildByName("toggle3").getComponent("cc.Toggle").isChecked = true;
-        }
+        if(this.curRoomInfo.allowWait == null)
+            this.allowWait = true;
+        else
+            this.allowWait = this.curRoomInfo.allowWait;
         console.log(this.curRoomInfo);
 
         this.gameType = this.curRoomInfo.gameType;
@@ -382,10 +372,10 @@ cc.Class({
         {
             this.allowJoinCheck.active = false;
         }
-        // if(this.waitMode == false)
-        // {
-        //     this.waitModeCheck.active = false;
-        // }
+        if(this.allowWait == false)
+        {
+            this.allowWaitCheck.active = false;
+        }
         if(this.allowAllin == false)
             this.allowAllinCheck.active = false;
         if(this.allowFK == false)
@@ -414,7 +404,7 @@ cc.Class({
             halfwayEnter : this.halfwayEnter,
             allowAllin : this.allowAllin,
             allowFK : this.allowFK,
-            waitMode : this.waitMode,
+            allowWait : this.allowWait,
             gameType : this.gameType,
             basicType : this.basicType,
             basicScore : this.basicScore,
@@ -451,7 +441,7 @@ cc.Class({
             {
                 this.gameType = "sanKung";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "newRoom","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,basicType:this.basicType,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode,basicType:this.basicType,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,joinCallFunc);
@@ -460,14 +450,14 @@ cc.Class({
             }else if(this.gameMode == 8){
                 this.gameType = "zhajinhua";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "newRoom","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,joinCallFunc);
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, curBasicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,joinCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, curBasicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.allowWait,joinCallFunc);
             }
             console.log("gameType==="+this.gameType+"@@@consumeMode==="+this.consumeMode+"@@@gameNumber==="+this.gameTime+"@@@bankerMode==="+this.bankerMode);
         }else if(index == 1){
@@ -481,7 +471,7 @@ cc.Class({
             {
                 this.gameType = "sanKung";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,cardMode:this.cardMode,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,createCallFunc);
@@ -490,14 +480,14 @@ cc.Class({
             }else if(this.gameMode == 8){
                 this.gameType = "zhajinhua";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,isWait:this.allowWait,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         self.createCallBack(data,self.createType,createCallFunc);
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, curBasicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,createCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, curBasicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.allowWait,createCallFunc);
             }
         }
         this.saveRoomInfo();
@@ -733,11 +723,6 @@ cc.Class({
         this.stuffyRound = parseInt(customEventData);
     },
 
-    onChooseWaitMode:function(event, customEventData){
-        console.log("WaitMode" + customEventData);
-        this.waitMode = parseInt(customEventData);
-    },
-
     btnClickCheckBox:function(){
         if(this.halfwayEnter == true)
         {
@@ -772,14 +757,14 @@ cc.Class({
     },
 
     btnClickCheckBox4:function(){
-        // if(this.waitMode == true)
-        // {
-        //     this.waitMode = false;
-        //     this.waitModeCheck.active = false;
-        // }else{
-        //     this.waitMode = true;
-        //     this.waitModeCheck.active = true;
-        // }
+        if(this.allowWait == true)
+        {
+            this.allowWait = false;
+            this.allowWaitCheck.active = false;
+        }else{
+            this.allowWait = true;
+            this.allowWaitCheck.active = true;
+        }
     },
     
     changeDiamondExpendNum:function(){

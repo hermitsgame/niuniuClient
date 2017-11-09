@@ -268,8 +268,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 839,
-      "height": 497
+      "width": 841,
+      "height": 499
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -296,7 +296,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "6e2767cf-602d-41af-a1ae-76189939ed50"
+      "__uuid__": "79671007-4791-4d92-b2b3-231703d82a2b"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -311,7 +311,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "ab6f9a94-c9dd-4ee1-baff-593a7a4f4096"
+    }
   },
   {
     "__type__": "cc.Button",
@@ -412,8 +414,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 410,
-      "height": 126
+      "width": 412,
+      "height": 128
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -440,7 +442,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "87140a4a-bef3-4db5-b738-f53ff2a723d8"
+      "__uuid__": "180cc4f1-d3de-4a9a-874a-954fe74af8af"
     },
     "_type": 1,
     "_sizeMode": 1,
@@ -455,7 +457,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "ab6f9a94-c9dd-4ee1-baff-593a7a4f4096"
+    }
   },
   {
     "__type__": "cc.Button",
@@ -509,9 +513,7 @@
       "b": 255,
       "a": 255
     },
-    "_N$normalSprite": {
-      "__uuid__": "87140a4a-bef3-4db5-b738-f53ff2a723d8"
-    },
+    "_N$normalSprite": null,
     "_N$disabledSprite": {
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
     },
@@ -605,7 +607,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "e1db8641-a75c-4413-8136-587dae01695f"
+      "__uuid__": "470a72ea-59a2-4008-b381-3089d61cd011"
     },
     "_type": 1,
     "_sizeMode": 1,
@@ -620,7 +622,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "ab6f9a94-c9dd-4ee1-baff-593a7a4f4096"
+    }
   },
   {
     "__type__": "cc.Button",
@@ -674,9 +678,7 @@
       "b": 255,
       "a": 255
     },
-    "_N$normalSprite": {
-      "__uuid__": "87140a4a-bef3-4db5-b738-f53ff2a723d8"
-    },
+    "_N$normalSprite": null,
     "_N$disabledSprite": {
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
     },

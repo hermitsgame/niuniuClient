@@ -1,4 +1,4 @@
-require("pomeloClient")
+var pomeloClient = require("pomeloClient");
 var confige = require("confige");
 cc.Class({
     extends: cc.Component,
@@ -8,6 +8,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        pomeloClient();
         var loadNode = cc.find('loadNode').getComponent('loadNode'); //this.node.getChildByName("loadNode").getComponent("loadNode");
         loadNode.onInit();
         loadNode.hideNode();
@@ -67,6 +68,12 @@ cc.Class({
         }else if(cc.sys.platform == cc.sys.MOBILE_BROWSER){
             confige.shareTitle = "我爱牛牛,点击可玩,无需下载";
             confige.shareDes = "我爱牛牛H5,安全无挂,放心畅玩!";
+
+            // confige.curUsePlatform = 0;
+            // this.btn_loginNode2.active = false;
+            // this.btn_loginNode1.x = 0;
+            // console.log("cc.sys.platform == cc.sys.DESKTOP_BROWSER");
+
             // cc.game.setFrameRate(40);
             // confige.curUsePlatform = 0;
             // this.btn_loginNode2.active = false;

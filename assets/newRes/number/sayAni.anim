@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "sayAni",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.8,
+  "sample": 20,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "722838e0-d4c7-4160-b557-0afa5f43685b"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "c97bca9f-d85d-4ef7-83b9-ff3116031efc"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "b4db26bf-f91d-4e50-9712-67b6e1d55865"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "fe55a938-357f-4a78-98d2-ab9fc855eff7"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

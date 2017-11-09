@@ -4,14 +4,20 @@
       true
     ]
   ],
-  "design-resolution-height": 720,
-  "design-resolution-width": 1280,
+  "design-resolution-height": 640,
+  "design-resolution-width": 960,
   "excluded-modules": [
-    "ParticleSystem",
-    "TiledMap",
-    "Spine Skeleton",
+    "Chipmunk",
+    "Camera",
+    "StudioComponent",
+    "Physics",
     "DragonBones",
-    "StudioComponent"
+    "RichText",
+    "WebView",
+    "VideoPlayer",
+    "Spine Skeleton",
+    "TiledMap",
+    "ParticleSystem"
   ],
   "fit-height": true,
   "fit-width": false,
@@ -23,7 +29,7 @@
     "height": 640,
     "width": 960
   },
-  "start-scene": "e061b48c-7436-439a-8abd-f93a3b01abc9",
+  "start-scene": "current",
   "use-customize-simulator": false,
   "use-project-simulator-setting": false
 }
