@@ -382,10 +382,10 @@ cc.Class({
         {
             this.allowJoinCheck.active = false;
         }
-        if(this.waitMode == false)
-        {
-            this.waitModeCheck.active = false;
-        }
+        // if(this.waitMode == false)
+        // {
+        //     this.waitModeCheck.active = false;
+        // }
         if(this.allowAllin == false)
             this.allowAllinCheck.active = false;
         if(this.allowFK == false)
