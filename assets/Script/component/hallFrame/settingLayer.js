@@ -18,6 +18,7 @@ cc.Class({
         this.btnOpenSound = this.node.getChildByName("btnOpenS");
         this.btnCloseSound = this.node.getChildByName("btnCloseS");
 
+
         if(confige.musicEnable == true)
             this.btnOpenMusic.active = false;
         else
@@ -29,6 +30,7 @@ cc.Class({
             this.btnCloseSound.active = false;
 
         this.btnRefresh = this.node.getChildByName("btnRefresh");
+        this.btnResetLogin = this.node.getChildByName("btnResetLogin");
         this.isInit = true;
     },
 
@@ -81,6 +83,18 @@ cc.Class({
 
     btnRefreshClick:function(){
         this.parent.btnClickRefresh();
+    },
+
+    showResetLogin:function(){
+        this.btnResetLogin.active = true;
+    },
+
+    btnResetLoginClick:function(){
+        cc.sys.localStorage.setItem("wxLastLoginDay",null);
+        cc.sys.localStorage.setItem("wxRefreshToken",null);
+        cc.sys.localStorage.setItem("userSetting",null);
+        cc.sys.localStorage.setItem("roomInfo",null);
+        cc.game.restart();
     },
 
     showLayer:function(){

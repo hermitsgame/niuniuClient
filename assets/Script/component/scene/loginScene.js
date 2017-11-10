@@ -8,166 +8,166 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        var loadNode = cc.find('loadNode').getComponent('loadNode'); //this.node.getChildByName("loadNode").getComponent("loadNode");
-        loadNode.onInit();
-        loadNode.hideNode();
-        // cc.loader.onProgress = function(completedCount, totalCount, item) {
-        //     cc.log('step 1----------');
-        //     var progress = (completedCount / totalCount).toFixed(2);
-        //     cc.log(progress + '%' + completedCount + "///" + totalCount);
-        //     var numString = "" + completedCount + "/" + totalCount;
-        //     confige.loadNode.showNode();
-        //     confige.loadNode.setProgress(progress,numString);
-        // };
-        // cc.loader.onComplete = function(errors, items){
-        //     cc.log('loader.onComplete');
-        //     confige.loadNode.hideNode();
-        // }; 
+        // var loadNode = cc.find('loadNode').getComponent('loadNode'); //this.node.getChildByName("loadNode").getComponent("loadNode");
+        // loadNode.onInit();
+        // loadNode.hideNode();
+        // // cc.loader.onProgress = function(completedCount, totalCount, item) {
+        // //     cc.log('step 1----------');
+        // //     var progress = (completedCount / totalCount).toFixed(2);
+        // //     cc.log(progress + '%' + completedCount + "///" + totalCount);
+        // //     var numString = "" + completedCount + "/" + totalCount;
+        // //     confige.loadNode.showNode();
+        // //     confige.loadNode.setProgress(progress,numString);
+        // // };
+        // // cc.loader.onComplete = function(errors, items){
+        // //     cc.log('loader.onComplete');
+        // //     confige.loadNode.hideNode();
+        // // }; 
 
-        pomelo.clientScene = this;
-        confige.curSceneIndex = 0;
+        // pomelo.clientScene = this;
+        // confige.curSceneIndex = 0;
 
-        this.editBox = this.node.getChildByName("editBox");
-        this.editBox.active = false;
+        // this.editBox = this.node.getChildByName("editBox");
+        // this.editBox.active = false;
         
-        this.checkIco = this.node.getChildByName("check_mark");
-        this.checkShow = true;
+        // this.checkIco = this.node.getChildByName("check_mark");
+        // this.checkShow = true;
         
-        this.btn_loginNode1 = this.node.getChildByName("btn_traveler");
-        this.btn_loginNode2 = this.node.getChildByName("btn_weixin");
-        this.btn_login1 = this.btn_loginNode1.getComponent("cc.Button");
-        this.btn_login2 = this.btn_loginNode2.getComponent("cc.Button");
+        // this.btn_loginNode1 = this.node.getChildByName("btn_traveler");
+        // this.btn_loginNode2 = this.node.getChildByName("btn_weixin");
+        // this.btn_login1 = this.btn_loginNode1.getComponent("cc.Button");
+        // this.btn_login2 = this.btn_loginNode2.getComponent("cc.Button");
         
-        this.loadingLayer = this.node.getChildByName("loadingLayer").getComponent("loadingLayer");
-        this.loadingLayer.onInit();
+        // this.loadingLayer = this.node.getChildByName("loadingLayer").getComponent("loadingLayer");
+        // this.loadingLayer.onInit();
 
-        console.log("curUsePlatform === " + cc.sys.platform);
-        if(cc.sys.platform == cc.sys.DESKTOP_BROWSER)
-        {
-            confige.curUsePlatform = 0;
-            this.btn_loginNode2.active = false;
-            this.btn_loginNode1.x = 0;
-            console.log("cc.sys.platform == cc.sys.DESKTOP_BROWSER");
-        }else if(cc.sys.platform == cc.sys.ANDROID){
-            confige.shareTitle = "我爱牛牛,快来下载加入吧~";
-            confige.shareDes = "我爱牛牛,一起来玩!";
-            confige.curUsePlatform = 1;
-            this.btn_loginNode1.active = false;
-            this.btn_loginNode2.x = 0;
-            console.log("cc.sys.platform == cc.sys.ANDROID");
-        }else if(cc.sys.platform == cc.sys.IPHONE || cc.sys.platform == cc.sys.IPAD){
-            confige.shareTitle = "我爱牛牛,快来下载加入吧~";
-            confige.shareDes = "我爱牛牛,一起来玩!";
-            confige.curUsePlatform = 2;
-            console.log("cc.sys.platform == cc.sys.IPHONE");
-            this.btn_loginNode1.active = false;
-            this.btn_loginNode2.x = 0;
-            if(cc.sys.platform == cc.sys.IPAD)
-                cc.view.setDesignResolutionSize(1280,720,cc.ResolutionPolicy.EXACT_FIT);
-        }else if(cc.sys.platform == cc.sys.MOBILE_BROWSER){
-            confige.shareTitle = "我爱牛牛,点击可玩,无需下载";
-            confige.shareDes = "我爱牛牛H5,安全无挂,放心畅玩!";
-            // cc.game.setFrameRate(40);
-            // confige.curUsePlatform = 0;
-            // this.btn_loginNode2.active = false;
-            // this.btn_loginNode1.x = 0;
-            confige.curUsePlatform = 3;
-            this.h5LoginError = this.node.getChildByName("h5LoginError");
-            console.log("cc.sys.platform == cc.sys.MOBILE_BROWSER");
+        // console.log("curUsePlatform === " + cc.sys.platform);
+        // if(cc.sys.platform == cc.sys.DESKTOP_BROWSER)
+        // {
+        //     confige.curUsePlatform = 0;
+        //     this.btn_loginNode2.active = false;
+        //     this.btn_loginNode1.x = 0;
+        //     console.log("cc.sys.platform == cc.sys.DESKTOP_BROWSER");
+        // }else if(cc.sys.platform == cc.sys.ANDROID){
+        //     confige.shareTitle = "我爱牛牛,快来下载加入吧~";
+        //     confige.shareDes = "我爱牛牛,一起来玩!";
+        //     confige.curUsePlatform = 1;
+        //     this.btn_loginNode1.active = false;
+        //     this.btn_loginNode2.x = 0;
+        //     console.log("cc.sys.platform == cc.sys.ANDROID");
+        // }else if(cc.sys.platform == cc.sys.IPHONE || cc.sys.platform == cc.sys.IPAD){
+        //     confige.shareTitle = "我爱牛牛,快来下载加入吧~";
+        //     confige.shareDes = "我爱牛牛,一起来玩!";
+        //     confige.curUsePlatform = 2;
+        //     console.log("cc.sys.platform == cc.sys.IPHONE");
+        //     this.btn_loginNode1.active = false;
+        //     this.btn_loginNode2.x = 0;
+        //     if(cc.sys.platform == cc.sys.IPAD)
+        //         cc.view.setDesignResolutionSize(1280,720,cc.ResolutionPolicy.EXACT_FIT);
+        // }else if(cc.sys.platform == cc.sys.MOBILE_BROWSER){
+        //     confige.shareTitle = "我爱牛牛,点击可玩,无需下载";
+        //     confige.shareDes = "我爱牛牛H5,安全无挂,放心畅玩!";
+        //     // cc.game.setFrameRate(40);
+        //     // confige.curUsePlatform = 0;
+        //     // this.btn_loginNode2.active = false;
+        //     // this.btn_loginNode1.x = 0;
+        //     confige.curUsePlatform = 3;
+        //     this.h5LoginError = this.node.getChildByName("h5LoginError");
+        //     console.log("cc.sys.platform == cc.sys.MOBILE_BROWSER");
 
-            // if(cc.sys.platform == cc.sys.MOBILE_BROWSER){
-                this.bgNode = this.node.getChildByName("loginBg");
-                this.bgNode.height = 790;
-                cc.view.setDesignResolutionSize(1280,790,cc.ResolutionPolicy.EXACT_FIT);
-            // }
+        //     // if(cc.sys.platform == cc.sys.MOBILE_BROWSER){
+        //         this.bgNode = this.node.getChildByName("loginBg");
+        //         this.bgNode.height = 790;
+        //         cc.view.setDesignResolutionSize(1280,790,cc.ResolutionPolicy.EXACT_FIT);
+        //     // }
             
-            this.btn_loginNode1.active = false;
-            this.btn_loginNode2.active = false;
-            // this.btn_loginNode1.x = 0;
+        //     this.btn_loginNode1.active = false;
+        //     this.btn_loginNode2.active = false;
+        //     // this.btn_loginNode1.x = 0;
 
-            confige.loginType = 2;
+        //     confige.loginType = 2;
 
-            var RequestData = {};
-            RequestData = this.GetRequest();
-            console.log("打印url参数!!!!!");
-            console.log(RequestData);
-            if(RequestData.code)
-            {
+        //     var RequestData = {};
+        //     RequestData = this.GetRequest();
+        //     console.log("打印url参数!!!!!");
+        //     console.log(RequestData);
+        //     if(RequestData.code)
+        //     {
 
-                // wx.config({
-                //     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                //     appId: RequestData.appid, // 必填，企业号的唯一标识，此处填写企业号corpid
-                //     timestamp: RequestData.timestamp, // 必填，生成签名的时间戳
-                //     nonceStr: RequestData.noncestr, // 必填，生成签名的随机串
-                //     signature: RequestData.signature,// 必填，签名，见附录1
-                //     jsApiList: [    "onMenuShareTimeline",
-                //                     "onMenuShareAppMessage"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                // });
-                if(RequestData.room_num)
-                    confige.h5RoomID = RequestData.room_num;
-                confige.curUseCode = RequestData.code;
-                pomelo.clientLogin(-1,-1);
-                this.showLoading();
-            }
-        }
-        
-        
-        // if(cc.sys.platform != cc.sys.MOBILE_BROWSER)
-        // {
-            console.log("loadRes Native!!!!!!!!!!!!!!!!!!!")
-            // this.initAudio();
-            // this.initGameRes();
-        // }else{
-        //     console.log("loadRes H5!!!!!!!!!!!!!!!!!!!")
-        //     this.H5ResNode = this.node.getChildByName("H5ResNode");
-        //     this.initAudioH5();
-        //     this.initGameResH5();
-        // }
-        
-        this.initLocalData();
-        
-        cc.loader.loadRes("sound/game_bgm", function (err, audio) {
-            confige.audioList["bgm"] = audio;
-            if(confige.musicEnable == true)
-                if(confige.audioBgId == null)
-                    confige.audioBgId = cc.audioEngine.play(audio,true,confige.audioVolume);
-        });
-
-        this.versionError = this.node.getChildByName("versionError");
-        this.versionNum = this.node.getChildByName("versionNum").getComponent("cc.Label");
-        this.versionNum.string = confige.versionCheck.split("&")[0];
-
-        cc.log("onLoad!!!!!!!!!!!!");
-
-        cc.sys.localStorage.setItem('currentVersion',confige.curVersion);
-        console.log("currentVersion === " + cc.sys.localStorage.getItem('currentVersion'));
-        // //大版本更新的包里面要带上下列处理，把热更新目录清除
-        // // 之前版本保存在 local Storage 中的版本号，如果没有认为是旧版本
-        // var previousVersion = cc.sys.localStorage.getItem('currentVersion');
-        // if(previousVersion == null)
-        //     previousVersion = "1.1.0";
-        // console.log("previousVersion111 === " + previousVersion);
-        // // game.currentVersion 为该版本的常量
-        // if(confige.curUsePlatform == 1 && confige.curUsePlatform == 2)
-        // {
-        //     if (previousVersion < confige.curVersion) {
-        //         // 热更新的储存路径，如果旧版本中有多个，可能需要记录在列表中，全部清理
-        //         var storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'blackjack-remote-asset');
-        //         jsb.fileUtils.removeDirectory(storagePath);
-        //         cc.sys.localStorage.setItem('currentVersion',confige.curVersion);
-        //         cc.sys.localStorage.setItem('HotUpdateSearchPaths', null);
-        //         cc.audioEngine.stopAll();
-        //         cc.game.restart();
+        //         // wx.config({
+        //         //     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //         //     appId: RequestData.appid, // 必填，企业号的唯一标识，此处填写企业号corpid
+        //         //     timestamp: RequestData.timestamp, // 必填，生成签名的时间戳
+        //         //     nonceStr: RequestData.noncestr, // 必填，生成签名的随机串
+        //         //     signature: RequestData.signature,// 必填，签名，见附录1
+        //         //     jsApiList: [    "onMenuShareTimeline",
+        //         //                     "onMenuShareAppMessage"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        //         // });
+        //         if(RequestData.room_num)
+        //             confige.h5RoomID = RequestData.room_num;
+        //         confige.curUseCode = RequestData.code;
+        //         pomelo.clientLogin(-1,-1);
+        //         this.showLoading();
         //     }
         // }
-        // console.log("previousVersion222 === " + previousVersion);
+        
+        
+        // // if(cc.sys.platform != cc.sys.MOBILE_BROWSER)
+        // // {
+        //     console.log("loadRes Native!!!!!!!!!!!!!!!!!!!")
+        //     // this.initAudio();
+        //     // this.initGameRes();
+        // // }else{
+        // //     console.log("loadRes H5!!!!!!!!!!!!!!!!!!!")
+        // //     this.H5ResNode = this.node.getChildByName("H5ResNode");
+        // //     this.initAudioH5();
+        // //     this.initGameResH5();
+        // // }
+        
+        // this.initLocalData();
+        
+        // cc.loader.loadRes("sound/game_bgm", function (err, audio) {
+        //     confige.audioList["bgm"] = audio;
+        //     if(confige.musicEnable == true)
+        //         if(confige.audioBgId == null)
+        //             confige.audioBgId = cc.audioEngine.play(audio,true,confige.audioVolume);
+        // });
 
-        this.updateLayer = this.node.getChildByName("updateLayer").getComponent("HotUpdate");
-        this.updateLayer.onInit();
+        // this.versionError = this.node.getChildByName("versionError");
+        // this.versionNum = this.node.getChildByName("versionNum").getComponent("cc.Label");
+        // this.versionNum.string = confige.versionCheck.split("&")[0];
 
-        if (cc.sys.isNative) {
-            this.updateLayer.checkUpdate();
-        }
+        // cc.log("onLoad!!!!!!!!!!!!");
+
+        // cc.sys.localStorage.setItem('currentVersion',confige.curVersion);
+        // console.log("currentVersion === " + cc.sys.localStorage.getItem('currentVersion'));
+        // // //大版本更新的包里面要带上下列处理，把热更新目录清除
+        // // // 之前版本保存在 local Storage 中的版本号，如果没有认为是旧版本
+        // // var previousVersion = cc.sys.localStorage.getItem('currentVersion');
+        // // if(previousVersion == null)
+        // //     previousVersion = "1.1.0";
+        // // console.log("previousVersion111 === " + previousVersion);
+        // // // game.currentVersion 为该版本的常量
+        // // if(confige.curUsePlatform == 1 && confige.curUsePlatform == 2)
+        // // {
+        // //     if (previousVersion < confige.curVersion) {
+        // //         // 热更新的储存路径，如果旧版本中有多个，可能需要记录在列表中，全部清理
+        // //         var storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'blackjack-remote-asset');
+        // //         jsb.fileUtils.removeDirectory(storagePath);
+        // //         cc.sys.localStorage.setItem('currentVersion',confige.curVersion);
+        // //         cc.sys.localStorage.setItem('HotUpdateSearchPaths', null);
+        // //         cc.audioEngine.stopAll();
+        // //         cc.game.restart();
+        // //     }
+        // // }
+        // // console.log("previousVersion222 === " + previousVersion);
+
+        // this.updateLayer = this.node.getChildByName("updateLayer").getComponent("HotUpdate");
+        // this.updateLayer.onInit();
+
+        // if (cc.sys.isNative) {
+        //     this.updateLayer.checkUpdate();
+        // }
     },
     
     start: function () {
