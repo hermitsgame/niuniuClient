@@ -94,7 +94,10 @@ cc.Class({
         cc.sys.localStorage.setItem("wxRefreshToken",null);
         cc.sys.localStorage.setItem("userSetting",null);
         cc.sys.localStorage.setItem("roomInfo",null);
-        cc.game.restart();
+        cc.sys.localStorage.setItem("firstOpen",-1);
+        this.scheduleOnce(function() {
+            cc.game.restart();
+        }, 0.1);
     },
 
     showLayer:function(){
