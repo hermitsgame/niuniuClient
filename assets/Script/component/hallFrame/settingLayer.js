@@ -29,6 +29,7 @@ cc.Class({
             this.btnCloseSound.active = false;
 
         this.btnRefresh = this.node.getChildByName("btnRefresh");
+        this.btnResetLogin = this.node.getChildByName("btnResetLogin");
         this.isInit = true;
     },
 
@@ -81,6 +82,21 @@ cc.Class({
 
     btnRefreshClick:function(){
         this.parent.btnClickRefresh();
+    },
+
+    showResetLogin:function(){
+        this.btnResetLogin.active = true;
+    },
+
+    btnResetLoginClick:function(){
+        cc.sys.localStorage.setItem("wxLastLoginDay", null);
+        cc.sys.localStorage.setItem("wxRefreshToken", null);
+        cc.sys.localStorage.setItem("userSetting", null);
+        cc.sys.localStorage.setItem("roomInfo", null);
+        cc.sys.localStorage.setItem("firstOpen", -1);
+        this.scheduleOnce(function(){
+            cc.game.restart();
+        },0.1);
     },
 
     showLayer:function(){

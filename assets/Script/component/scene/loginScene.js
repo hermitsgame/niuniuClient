@@ -204,7 +204,7 @@ cc.Class({
         {
             cc.sys.localStorage.setItem('check_invite',false);
         }
-        if(cc.sys.localStorage.getItem('firstOpen') == null)    //首次进入游戏
+        if(cc.sys.localStorage.getItem('firstOpen') == null || cc.sys.localStorage.getItem('firstOpen') == -1)    //首次进入游戏
         {
             cc.sys.localStorage.setItem('firstOpen', false);
             

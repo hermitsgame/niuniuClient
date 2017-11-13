@@ -405,6 +405,7 @@ cc.Class({
                             self.settingLayer = newLayer.getComponent("settingLayer");
                             self.settingLayer.showLayer();
                             self.settingLayer.parent = self;
+                            self.settingLayer.showResetLogin();
                         });
                         self.settingLayerLoad = true;
                     }
