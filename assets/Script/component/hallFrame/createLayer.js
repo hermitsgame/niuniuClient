@@ -601,7 +601,15 @@ cc.Class({
                 this.createLayer3.getChildByName("basicType").active = true;
                 this.btnLight7.active = true;
             }else if(type == 8){
-                this.jinHuaGameTime.string = "15局";
+                if(this.newPlayerNum == 9){
+                    this.jinHuaGameTime.string = "15局";
+                    if(this.gameTime == 20)
+                        this.gameTime = 15;
+                }else{
+                    this.jinHuaGameTime.string = "20局";
+                    if(this.gameTime == 15)
+                        this.gameTime = 20;
+                }
                 this.createLayer1.active = false;
                 this.createLayer3.active = true;
                 this.createLayer3.getChildByName("bankerMode").active = false;
@@ -697,7 +705,7 @@ cc.Class({
     onChooseGameTime:function(event, customEventData){
         console.log("gameTime" + customEventData);
         this.gameTime = parseInt(customEventData);
-        if(this.gameTime == 20 && this.gameType == "zhajinhua")
+        if(this.gameTime == 20 && this.newPlayerNum == 9 && this.gameType == "zhajinhua")
             this.gameTime = 15;
         // this.showRoomExpend();
     },
@@ -801,6 +809,8 @@ cc.Class({
             this.onInit();
         this.node.active = true;
         this.newPlayerNum = playerNumber;
+        if(this.gameMode == 8)
+            this.showCreateRoomType(8);
     },
 
     hideLayer:function(){
