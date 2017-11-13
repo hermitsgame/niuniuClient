@@ -101,6 +101,7 @@ cc.Class({
         this.resetToggleList[20] = this.createLayer3.getChildByName("mingCardMode");
         this.resetToggleList[21] = this.createLayer3.getChildByName("basicType");
         
+        this.jinHuaGameTime = this.resetToggleList[13].getChildByName("toggle2").getChildByName("New Label").getComponent("cc.Label");
         // this.resetCreateRoomData();
         // this.showCreateRoomType(1);
         // this.showRoomExpend();
@@ -588,6 +589,7 @@ cc.Class({
                 this.btnLight6.active = true;
                 this.allowFKNode.active = true;
             }else if(type == 7){
+                this.jinHuaGameTime.string = "20局";
                 this.createLayer1.active = false;
                 this.createLayer3.active = true;
                 this.createLayer3.getChildByName("bankerMode").active = true;
@@ -599,6 +601,7 @@ cc.Class({
                 this.createLayer3.getChildByName("basicType").active = true;
                 this.btnLight7.active = true;
             }else if(type == 8){
+                this.jinHuaGameTime.string = "15局";
                 this.createLayer1.active = false;
                 this.createLayer3.active = true;
                 this.createLayer3.getChildByName("bankerMode").active = false;
@@ -694,6 +697,8 @@ cc.Class({
     onChooseGameTime:function(event, customEventData){
         console.log("gameTime" + customEventData);
         this.gameTime = parseInt(customEventData);
+        if(this.gameTime == 20 && this.gameType == "zhajinhua")
+            this.gameTime = 15;
         // this.showRoomExpend();
     },
 
