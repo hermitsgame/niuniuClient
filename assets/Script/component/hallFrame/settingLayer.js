@@ -92,7 +92,27 @@ cc.Class({
         cc.sys.localStorage.setItem("wxLastLoginDay", null);
         cc.sys.localStorage.setItem("wxRefreshToken", null);
         cc.sys.localStorage.setItem("userSetting", null);
-        cc.sys.localStorage.setItem("roomInfo", null);
+        // cc.sys.localStorage.setItem("roomInfo", null);
+            this.curRoomInfo = {
+                cardMode : 1,
+                gameMode : 101,
+                bankerMode : 1,
+                consumeMode : 2,
+                gameTime : 10,
+                playerNum : 4,
+                halfwayEnter : true,
+                allowAllin : true,
+                allowFK : true,
+                waitMode : 1,
+                gameType : "mingpaiqz",
+                basicType : 0,
+                basicScore : 1,
+                maxBet : 5,
+                maxRound : 10,
+                stuffyRound : 1
+            };
+            cc.sys.localStorage.setItem('roomInfo', JSON.stringify(this.curRoomInfo));
+            
         cc.sys.localStorage.setItem("firstOpen", -1);
         this.scheduleOnce(function(){
             cc.game.restart();
