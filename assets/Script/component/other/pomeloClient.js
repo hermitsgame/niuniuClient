@@ -507,14 +507,14 @@ pomelo.clientCreateJinHua = function(){
 
 };
 
-pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait, cbTrue,cbFalse) {
+pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, BasicType, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait, cbTrue,cbFalse) {
         console.log("on create room!")
         var createType = CreateType;
 
         if(GameType == "mingpaiqz")
         {
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.flag == false)
@@ -539,7 +539,7 @@ pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, C
             );
         }else{
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType,basicType:BasicScore,basic: BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.flag == false)

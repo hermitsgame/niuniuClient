@@ -19,7 +19,7 @@ cc.Class({
         {   
             this.curRoomInfo = {
                 cardMode : 1,
-                gameMode : 1,
+                gameMode : 101,
                 bankerMode : 1,
                 consumeMode : 2,
                 gameTime : 10,
@@ -28,7 +28,7 @@ cc.Class({
                 allowAllin : true,
                 allowFK : true,
                 waitMode : 1,
-                gameType : "niuniu",
+                gameType : "mingpaiqz",
                 basicType : 0,
                 basicScore : 1,
                 maxBet : 5,
@@ -100,6 +100,8 @@ cc.Class({
         this.resetToggleList[19] = this.createLayer3.getChildByName("stuffyRound");
         this.resetToggleList[20] = this.createLayer3.getChildByName("mingCardMode");
         this.resetToggleList[21] = this.createLayer3.getChildByName("basicType");
+
+        this.resetToggleList[22] = this.createLayer2.getChildByName("basicScore3");
         
         this.jinHuaGameTime = this.resetToggleList[13].getChildByName("toggle2").getChildByName("New Label").getComponent("cc.Label");
         // this.resetCreateRoomData();
@@ -307,15 +309,30 @@ cc.Class({
                     this.resetToggleList[10].getChildByName("toggle3").getComponent("cc.Toggle").isChecked = false;
                     this.resetToggleList[10].getChildByName("toggle4").getComponent("cc.Toggle").isChecked = false;
                     this.resetToggleList[10].getChildByName("toggle5").getComponent("cc.Toggle").isChecked = false;
+                    this.resetToggleList[22].getChildByName("toggle1").getComponent("cc.Toggle").isChecked = false;
+                    this.resetToggleList[22].getChildByName("toggle2").getComponent("cc.Toggle").isChecked = false;
+                    this.resetToggleList[22].getChildByName("toggle3").getComponent("cc.Toggle").isChecked = false;
+                    this.resetToggleList[22].getChildByName("toggle4").getComponent("cc.Toggle").isChecked = false;
+                    this.resetToggleList[22].getChildByName("toggle5").getComponent("cc.Toggle").isChecked = false;
                     if(this.basicScore == 1)
-                        this.resetToggleList[10].getChildByName("toggle1").getComponent("cc.Toggle").isChecked = true;
+                        this.resetToggleList[22].getChildByName("toggle1").getComponent("cc.Toggle").isChecked = true;
                     else if(this.basicScore == 2)
-                        this.resetToggleList[10].getChildByName("toggle2").getComponent("cc.Toggle").isChecked = true;
+                        this.resetToggleList[22].getChildByName("toggle2").getComponent("cc.Toggle").isChecked = true;
                     else if(this.basicScore == 3)
-                        this.resetToggleList[10].getChildByName("toggle3").getComponent("cc.Toggle").isChecked = true;
+                        this.resetToggleList[22].getChildByName("toggle3").getComponent("cc.Toggle").isChecked = true;
                     else if(this.basicScore == 4)
-                        this.resetToggleList[10].getChildByName("toggle4").getComponent("cc.Toggle").isChecked = true;
+                        this.resetToggleList[22].getChildByName("toggle4").getComponent("cc.Toggle").isChecked = true;
                     else if(this.basicScore == 5)
+                        this.resetToggleList[22].getChildByName("toggle5").getComponent("cc.Toggle").isChecked = true;
+                    if(this.basicType == 1)
+                        this.resetToggleList[10].getChildByName("toggle1").getComponent("cc.Toggle").isChecked = true;
+                    else if(this.basicType == 2)
+                        this.resetToggleList[10].getChildByName("toggle2").getComponent("cc.Toggle").isChecked = true;
+                    else if(this.basicType == 3)
+                        this.resetToggleList[10].getChildByName("toggle3").getComponent("cc.Toggle").isChecked = true;
+                    else if(this.basicType == 4)
+                        this.resetToggleList[10].getChildByName("toggle4").getComponent("cc.Toggle").isChecked = true;
+                    else if(this.basicType == 5)
                         this.resetToggleList[10].getChildByName("toggle5").getComponent("cc.Toggle").isChecked = true;
 
                     if(this.bankerMode == 1){
@@ -428,13 +445,10 @@ cc.Class({
 
     onBtnCreateRoom:function(event, customEventData){
         var index = parseInt(customEventData);
-        // if(this.gameMode > 2 && this.gameMode != 6 && this.gameMode != 101)
-            // this.bankerMode = 2;
-        var curBasicType = 1;
-        if(this.gameMode == 1 || this.gameMode == 4) 
-            curBasicType = this.basicType;
-        else if(this.gameMode == 101)
-            curBasicType = this.basicScore;
+
+        console.log("create room @@@@@@@@@");
+        console.log("this.basicScore ===== "+this.basicScore);
+        console.log("this.basicType ===== "+this.basicType);
 
         this.playerNum = this.newPlayerNum;
 
@@ -468,7 +482,7 @@ cc.Class({
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, curBasicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,joinCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,joinCallFunc);
             }
             console.log("gameType==="+this.gameType+"@@@consumeMode==="+this.consumeMode+"@@@gameNumber==="+this.gameTime+"@@@bankerMode==="+this.bankerMode);
         }else if(index == 1){
@@ -498,7 +512,7 @@ cc.Class({
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, curBasicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,createCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,createCallFunc);
             }
         }
         this.saveRoomInfo();
@@ -561,18 +575,23 @@ cc.Class({
         this.allowFKNode.active = false;
         this.resetToggleList[11].active = false;
         this.resetToggleList[12].active = false;
+        this.resetToggleList[22].active = false;
+        this.resetToggleList[6].active = true;
         if(type == 4)
         {
             this.createLayer2.active = true;
             this.btnLight4.active = true;
             this.resetToggleList[8].active = true;
             this.resetToggleList[10].active = false;
-        }else if(type == 5){
+        }else if(type == 5){    //this.gameType = "mingpaiqz";
             this.createLayer2.active = true;
             this.btnLight5.active = true;
             this.resetToggleList[10].active = true;
             this.resetToggleList[11].active = true;
             this.resetToggleList[8].active = false;
+
+            this.resetToggleList[22].active = true;
+            this.resetToggleList[6].active = false;
             this.allowAllinNode.active = true;
         }else{
             this.createLayer1.active = true;
@@ -582,7 +601,7 @@ cc.Class({
                 this.playerNumNode.y = -100;
                 this.btnLight1.active = true;
                 this.resetToggleList[12].active = true;
-                this.resetToggleList[12].y = -160;
+                this.resetToggleList[12].y = -95;
             }else if(type == 6){
                 this.bankerModeNode.active = true;
                 this.playerNumNode.y = -100;
@@ -627,7 +646,7 @@ cc.Class({
                 {
                     this.btnLight2.active = true;
                     this.resetToggleList[12].active = true;
-                    this.resetToggleList[12].y = -20;
+                    this.resetToggleList[12].y = -95;
                 }else{
                     this.btnLight3.active = true;
                 }
