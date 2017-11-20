@@ -504,7 +504,7 @@ cc.Class({
         this.curBankerChair = chair;
     },
 
-    showScorePool:function(score,type,bankerScore,change){
+    showScorePool:function(score,change){
         console.log("show fuck score pool!!!!!!");
         if(this.isMingCardQZ)
         {
@@ -515,12 +515,6 @@ cc.Class({
         this.gameBGNode.scorePoolLabel.string = score + ";<";
         this.gameBGNode.scorePoolNum = parseInt(score);
 
-        if(bankerScore)
-        {
-            console.log("curChair === " + this.curBankerChair + "newChiar===" + confige.getCurChair(this.curBankerChair));
-            this.gamePlayerNode.playerScoreList[this.curBankerChair] = bankerScore;
-            this.gamePlayerNode.playerInfoList[confige.getCurChair(this.curBankerChair)].setScore(this.gamePlayerNode.playerScoreList[this.curBankerChair]);
-        }
         if(change === true)
         {
             // this.gameBGNode.betItemRemoveToBanker(confige.getCurChair(this.curBankerChair));
@@ -530,6 +524,41 @@ cc.Class({
                 this.gameBGNode.betItemListAddBet(confige.getCurChair(this.curBankerChair),callFunc.score);
             };
             callFunc.score = score;
+            this.scheduleOnce(callFunc,1);
+        }
+    },
+
+    showScorePoolServer:function(curData){
+        console.log("show fuck score pool!!!!!!");
+        if(this.isMingCardQZ)
+        {
+            this.robBetNumLabel.string = curData.bonusPool;
+            return;
+        }
+        this.gameBGNode.scorePool.active = true;
+        this.gameBGNode.scorePoolLabel.string = curData.bonusPool + ";<";
+        this.gameBGNode.scorePoolNum = parseInt(curData.bonusPool);
+
+        if(curData.banker != null)
+        {
+            console.log("curChair === " + this.curBankerChair + "newChiar===" + confige.getCurChair(curData.banker));
+            this.gamePlayerNode.playerScoreList[curData.banker] = curData.bankerScore;
+            this.gamePlayerNode.playerInfoList[confige.getCurChair(curData.banker)].setScore(this.gamePlayerNode.playerScoreList[curData.banker]);
+        }
+        if(curData.oldBanker != null)
+        {
+            this.gamePlayerNode.playerScoreList[curData.oldBanker] = curData.oldBankerScore;
+            this.gamePlayerNode.playerInfoList[confige.getCurChair(curData.oldBanker)].setScore(this.gamePlayerNode.playerScoreList[curData.oldBanker]);
+        }
+        if(curData.change === true)
+        {
+            // this.gameBGNode.betItemRemoveToBanker(confige.getCurChair(this.curBankerChair));
+            var callFunc = function(){
+                this.gameBGNode.betItemListClean();
+                console.log("fuck you scorePool 丢钱出去！！！！！！！！！！！！！！")
+                this.gameBGNode.betItemListAddBet(confige.getCurChair(this.curBankerChair),callFunc.bonusPool);
+            };
+            callFunc.bonusPool = curData.bonusPool;
             this.scheduleOnce(callFunc,1);
         }
     },
@@ -557,14 +586,14 @@ cc.Class({
             this.allBetNum += betNum;
             this.gamePlayerNode.curBetNumList[chair] += betNum;
             this.gamePlayerNode.betNumLabelList[chair].string = this.gamePlayerNode.curBetNumList[chair].toString() + "分";
-            this.showScorePool(this.allBetNum,1);
+            this.showScorePool(this.allBetNum);
             return;
         }
         this.allBetNum = this.allBetNum + betNum;
         if(chair == 0)
             this.myBetNum = this.myBetNum + betNum;
         if(this.gameMode != 3)
-            this.showScorePool(this.allBetNum,1);
+            this.showScorePool(this.allBetNum);
         this.gamePlayerNode.curBetNumList[chair] += betNum;
         this.gamePlayerNode.betNumLabelList[chair].string = this.gamePlayerNode.curBetNumList[chair].toString() + "分";
         if(confige.soundEnable == true)
@@ -679,7 +708,7 @@ cc.Class({
         if(this.gameMode == 3)
             this.gameBGNode.betItemRemoveToBanker(confige.getCurChair(data.chair));
         else
-            this.showScorePool(data.bonusPool,0);
+            this.showScorePool(data.bonusPool);
             // this.showScorePool(data.bonusPool,0,false,true);
         this.gamePlayerNode.playerList[confige.getCurChair(data.chair)].getChildByName("banker").active = false;
         this.gamePlayerNode.lightBgList[confige.getCurChair(data.chair)].active = false;
@@ -888,10 +917,17 @@ cc.Class({
                 {
                     console.log("this.scorePoolNum==="+this.gameBGNode.scorePoolNum);
                     console.log("this.playerCount==="+this.gamePlayerNode.playerCount);
-                    var curMin = Math.max(Math.floor(this.gameBGNode.scorePoolNum / this.gamePlayerNode.playerCount / 5), 1);// - this.myBetNum;
-                    if(curMin > 40)
-                        curMin = 40;
-                    var curMax = Math.min(Math.floor(this.gameBGNode.scorePoolNum/(this.gamePlayerNode.playerCount-1)), 40); - this.myBetNum;
+                    // var curMin = Math.max(Math.floor(this.gameBGNode.scorePoolNum / this.gamePlayerNode.playerCount / 5), 1);// - this.myBetNum;
+                    // var curMin = Math.max(Math.floor(this.gameBGNode.scorePoolNum / this.gamePlayerNode.playerCount / 5), 1);
+                    // if(curMin > 40)
+                    //     curMin = 40;
+                    // var curMax = Math.min(Math.floor(this.gameBGNode.scorePoolNum/(this.gamePlayerNode.playerCount-1)), 40); - this.myBetNum;
+                    var curMax = Math.min(Math.floor(this.gameBGNode.scorePoolNum/((confige.playerMax-1)*2)), 40);
+                    var curMin = Math.min(Math.floor(curMax/5), 40);
+                    if(curMin < 1)
+                        curMin = 1;
+                    if(curMax < 1)
+                        curMax = 1;
                     console.log("curMax ===== " + curMax);
                     this.showSlider(curMin,curMax);
                 }
@@ -1355,7 +1391,10 @@ cc.Class({
                 }
                 if(confige.curReconnectData.betList[i] == null)
                     confige.curReconnectData.betList[i] = 0;
-                this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score - confige.curReconnectData.betList[i];
+                if(this.gameMode == 3)
+                    this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score;
+                else
+                    this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score - confige.curReconnectData.betList[i];
                 // if(this.isZhajinniu)
                     // this.playerScoreList[i] -= this.zhajinniuBasic;
                 this.gamePlayerNode.playerInfoList[confige.getCurChair(i)].setScore(this.gamePlayerNode.playerScoreList[i]);
@@ -1446,7 +1485,8 @@ cc.Class({
                                 curMin = 40;
                             var curMax = Math.min(Math.floor(confige.curReconnectData.bonusPool/(this.gamePlayerNode.playerCount-1)), 40); - this.myBetNum;
                             console.log("curMax ===== " + curMax);
-                            this.showSlider(curMin,curMax);
+                            if(confige.curReconnectData.betList[this.meChair] == 0)
+                                this.showSlider(curMin,curMax);
                         }else{
                             this.betBtnBox.active = true;
                         }
@@ -1501,9 +1541,9 @@ cc.Class({
         if(this.gameMode == 3)          //斗公牛模式
         {
             if(this.onReConnect == true)
-                this.showScorePool(confige.curReconnectData.bonusPool,0,false,true);
+                this.showScorePool(confige.curReconnectData.bonusPool,true);
             else
-                this.showScorePool(confige.curReconnectData.bonusPool,0);
+                this.showScorePool(confige.curReconnectData.bonusPool);
 
         }else if(this.gameMode == 4){   //开船模式
             var dfsdfsdfsd = 0;

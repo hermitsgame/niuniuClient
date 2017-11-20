@@ -286,7 +286,10 @@ var cfg = function(){
                 else{
                     if(confige.curSceneIndex != 2)
                         break;
-                    pomelo.clientScene.showScorePool(data.bonusPool,0,data.bankerScore,data.change);
+                    if(confige.roomData.roomType == "mingpaiqz")
+                        pomelo.clientScene.showScorePool(data.bonusPool);
+                    else
+                        pomelo.clientScene.showScorePoolServer(data);
                 }
                 break; 
             case "sayMsg":
@@ -501,14 +504,14 @@ var cfg = function(){
 
     };
 
-    pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait, cbTrue,cbFalse) {
+    pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, BasicType, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait, cbTrue,cbFalse) {
             console.log("on create room!")
             var createType = CreateType;
 
             if(GameType == "mingpaiqz")
             {
                 pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                    bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
+                    bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         if(data.flag == false)
@@ -657,8 +660,8 @@ var cfg = function(){
     //         });
     //     });
     // };
-    // confige.host = "39.108.139.132"; //测试外网2
-    confige.host = "nnapi.5d8d.com";     //运营外网
+    confige.host = "120.77.157.99"; //测试外网2
+    // confige.host = "nnapi.5d8d.com";     //运营外网
     // confige.host = "192.168.1.65";          //内网
     pomelo.clientLogin = function(uid,clientLogintoken) {
         console.log("pomelo try to login!!!!!!");
