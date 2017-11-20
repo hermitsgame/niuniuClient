@@ -304,6 +304,8 @@ cc.Class({
                         this.resetToggleList[8].getChildByName("toggle3").getComponent("cc.Toggle").isChecked = true;
                     }
                 }else{
+                    if(this.basicType == 0)
+                        this.basicType = 1;
                     this.resetToggleList[10].getChildByName("toggle1").getComponent("cc.Toggle").isChecked = false;
                     this.resetToggleList[10].getChildByName("toggle2").getComponent("cc.Toggle").isChecked = false;
                     this.resetToggleList[10].getChildByName("toggle3").getComponent("cc.Toggle").isChecked = false;
@@ -692,6 +694,7 @@ cc.Class({
         }
         else if(this.gameMode == 101){
             this.gameType = "mingpaiqz";
+            this.basicType = 1;
             this.showCreateRoomType(5);
         }
         else if(this.gameMode == 6){
