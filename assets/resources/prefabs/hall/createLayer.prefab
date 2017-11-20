@@ -26240,7 +26240,7 @@
     "node": {
       "__id__": 812
     },
-    "_enabled": false,
+    "_enabled": true,
     "_spriteFrame": {
       "__uuid__": "86485198-994d-4332-9fc0-e846cdad76f2"
     },
