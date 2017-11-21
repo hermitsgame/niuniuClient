@@ -705,8 +705,10 @@ cc.Class({
 
     downBanker:function(data){
         this.popBanker.active = false;
-        if(this.gameMode == 3)
+        if(this.gameMode == 3){
             this.gameBGNode.betItemRemoveToBanker(confige.getCurChair(data.chair));
+            this.showScorePool(data.bonusPool);
+        }
         else
             this.showScorePool(data.bonusPool);
             // this.showScorePool(data.bonusPool,0,false,true);
@@ -2583,6 +2585,12 @@ cc.Class({
 
         this.robBetNumNode = this.robMaxNumNode.getChildByName("curBet");
         this.robBetNumLabel = this.robBetNumNode.getChildByName("robBetNum").getComponent("cc.Label");
+
+        this.basicNode = this.gameBGNode.mainBg.getChildByName("basic");
+        this.basicNumLabel = this.basicNode.getChildByName("basicNum").getComponent("cc.Label")
+        this.basicNode.active = true;
+        this.basicNumLabel.string = confige.roomData.basic;
+
         if(this.isAllowAllin == false)
         {
             this.robBetBtnBox.getChildByName("bet4").active = false;
