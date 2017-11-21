@@ -413,6 +413,9 @@ var cfg = function(){
                 else
                     pomelo.clientScene.readyBegin(data.waitTime);
                 break;
+            case "recover":
+                pomelo.clientScene.gameInfoNode.btnClickRefresh();
+                break;
         }
     };
             

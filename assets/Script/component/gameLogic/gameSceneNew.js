@@ -218,6 +218,9 @@ cc.Class({
     startLater: function () {
         this.gamePlayerNode.onStart();
         
+        if(this.joinState == 1100)
+            gameData.gameInfoNode.btn_continue.active = true;
+
         if(this.isZhajinniu == true)
         {
             this.initZhajinniuLayer();
@@ -1684,15 +1687,16 @@ cc.Class({
             var curState = confige.curReconnectData.state;
             if(curState != 1005 && curState != 1001)
             {
-                var robStateList = confige.curReconnectData.roomInfo.robState;
-                for(var i in robStateList)
-                {
-                    if(robStateList[i] != -1)
-                    {
-                        if(robStateList[i] > this.curRobMaxNum)
-                            this.curRobMaxNum = robStateList[i];
-                    }
-                }
+                // var robStateList = confige.curReconnectData.roomInfo.robState;
+                // for(var i in robStateList)
+                // {
+                //     if(robStateList[i] != -1)
+                //     {
+                //         if(robStateList[i] > this.curRobMaxNum)
+                //             this.curRobMaxNum = robStateList[i];
+                //     }
+                // }
+                this.curRobMaxNum = confige.curReconnectData.roomInfo.maxRob;
                 if(this.curRobMaxNum == 0)
                     this.curRobMaxNum = 1;
                 this.robMaxNumNode.active = true;
@@ -2565,7 +2569,7 @@ cc.Class({
                 this.robBetBtnBox.getChildByName("bet4").x = 225;
                 break;
             case 5:
-                this.mpqzBetNum1 = 2;
+                this.mpqzBetNum1 = 2; 
                 this.mpqzBetNum2 = 4;
                 this.mpqzBetNum3 = 6;
                 this.robBetBtnBox.getChildByName("bet3").active = true;

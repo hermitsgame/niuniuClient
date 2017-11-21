@@ -90,6 +90,7 @@ cc.Class({
 
         this.btn_inviteFriend = this.node.getChildByName("btn_inviteFriend");
         this.btn_close = this.node.getChildByName("btn_close").getComponent("cc.Button");
+        this.btn_continue = this.node.getChildByName("btn_continue");
 
         var timeLabel = this.roomInfo.getChildByName("nowTime").getComponent("cc.Label");
         var refleshTime = function(){
@@ -1096,4 +1097,12 @@ cc.Class({
         return xmlHttp;  
     },
 
+    btnContinueClick:function(){
+        console.log("ready to continue");
+        this.btn_continue.active = false;
+        pomelo.clientSend("recover",null, function(data){
+            console.log(data);
+            console.log("recover????????");
+        });
+    },
 });
