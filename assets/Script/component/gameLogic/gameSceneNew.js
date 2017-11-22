@@ -2585,6 +2585,12 @@ cc.Class({
 
         this.robBetNumNode = this.robMaxNumNode.getChildByName("curBet");
         this.robBetNumLabel = this.robBetNumNode.getChildByName("robBetNum").getComponent("cc.Label");
+
+        this.basicNode = this.gameBGNode.mainBg.getChildByName("basic");
+        this.basicNumLabel = this.basicNode.getChildByName("basicNum").getComponent("cc.Label")
+        this.basicNode.active = true;
+        this.basicNumLabel.string = confige.roomData.basic;
+
         if(this.isAllowAllin == false)
         {
             this.robBetBtnBox.getChildByName("bet4").active = false;
