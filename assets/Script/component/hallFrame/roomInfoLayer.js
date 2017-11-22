@@ -343,40 +343,47 @@ cc.Class({
                 curDes = "九人场,"
             else
                 curDes = "六人场,"
+            
+            if(curData.gameMode == 1 || curData.gameType == "sanKung")
+            {
+                switch(curData.basicType)
+                {
+                    case 0:
+                        curDes += "押注1/2/3/5,";
+                        break;
+                    case 1:
+                        curDes += "押注1/5/10/20,";
+                        break;
+                }
+            }
+            
             if(curData.gameType == "zhajinniu"){
                 curDes += "底分" + curData.basic + ",";
             }else if(curData.gameType == "mingpaiqz"){
-                switch(curData.basic)
+                switch(curData.basicType)
                 {
                     case 1:
-                        curDes += "底分1/2,";
+                        curDes += "押注1/2,";
                         break;
                     case 2:
-                        curDes += "底分2/4,";
+                        curDes += "押注2/4,";
                         break;
                     case 3:
-                        curDes += "底分4/8,";
+                        curDes += "押注4/8,";
                         break;
                     case 4:
-                        curDes += "底分1/3/5,";
+                        curDes += "押注1/3/5,";
                         break;
                     case 5:
-                        curDes += "底分2/4/6,";
+                        curDes += "押注2/4/6,";
                         break;
                 }
+                if(curData.basic)
+                    curDes += "底分" + curData.basic + ",";
             }else if(curData.gameType == "zhajinhua"){
-                switch(curData.basic)
-                {
-                    case 1:
-                        curDes += "底分1,";
-                        break;
-                    case 2:
-                        curDes += "底分2,";
-                        break;
-                    case 5:
-                        curDes += "底分5,";
-                        break;
-                }
+                if(curData.basic)
+                    curDes += "底分" + curData.basic + ",";
+
                 var curMaxBet = curData.maxBet;
                 curDes += "最大单注"+curMaxBet+",";
                 var curMaxRound = curData.maxRound;

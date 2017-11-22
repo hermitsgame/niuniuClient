@@ -581,6 +581,7 @@ cc.Class({
         this.resetToggleList[12].active = false;
         this.resetToggleList[22].active = false;
         this.resetToggleList[6].active = true;
+        this.resetToggleList[5].y = 230;
         if(type == 4)
         {
             this.createLayer2.active = true;
@@ -594,6 +595,7 @@ cc.Class({
             this.resetToggleList[11].active = true;
             this.resetToggleList[8].active = false;
 
+            this.resetToggleList[5].y = 165;
             this.resetToggleList[22].active = true;
             this.resetToggleList[6].active = false;
             this.allowAllinNode.active = true;
