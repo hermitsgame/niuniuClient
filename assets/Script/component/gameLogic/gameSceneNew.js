@@ -1482,11 +1482,12 @@ cc.Class({
                     {
                         if(this.gameMode == 3)
                         {
-                            var curMin = Math.max(Math.floor(confige.curReconnectData.bonusPool / this.gamePlayerNode.playerCount / 5), 1);// - this.myBetNum;
-                            if(curMin > 40)
-                                curMin = 40;
-                            var curMax = Math.min(Math.floor(confige.curReconnectData.bonusPool/(this.gamePlayerNode.playerCount-1)), 40); - this.myBetNum;
-                            console.log("curMax ===== " + curMax);
+                            var curMax = Math.min(Math.floor(confige.curReconnectData.bonusPool/((confige.playerMax-1)*2)), 40);
+                            var curMin = Math.min(Math.floor(curMax/5), 40);
+                            if(curMin < 1)
+                                curMin = 1;
+                            if(curMax < 1)
+                                curMax = 1;
                             if(confige.curReconnectData.betList[this.meChair] == 0)
                                 this.showSlider(curMin,curMax);
                         }else{
