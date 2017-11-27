@@ -27,6 +27,7 @@ cc.Class({
                 halfwayEnter : true,
                 allowAllin : true,
                 allowFK : true,
+                allowSpecial : false,
                 waitMode : 1,
                 gameType : "mingpaiqz",
                 basicType : 0,
@@ -48,10 +49,15 @@ cc.Class({
         this.waitModeNode = this.node.getChildByName("waitMode");
         this.allowFKCheck = this.node.getChildByName("allowFK").getChildByName("check_mark");
         this.allowAllinCheck = this.allowAllinNode.getChildByName("check_mark");
+        this.specialNode = this.node.getChildByName("specialNode");
+        this.allowSpecialNode = this.node.getChildByName("allowSpecial");
+        this.allowSpecialCheck = this.allowSpecialNode.getChildByName("check_mark");
+
         this.initCreateRoomLayer();
         this.resumeRoomInfo();
         this.bankerModeBox = this.node.getChildByName("bankerMode");
         this.basicScoreBox = this.node.getChildByName("basicScore");
+
         this.isInit = true;
     },
 
@@ -148,6 +154,11 @@ cc.Class({
             this.allowFK = true;
         else
             this.allowFK = this.curRoomInfo.allowFK;
+
+        if(this.curRoomInfo.allowSpecial == null)
+            this.allowSpecial = false;
+        else
+            this.allowSpecial = this.curRoomInfo.allowSpecial;
 
         if(this.curRoomInfo.waitMode == null)
             this.waitMode = 1;
@@ -397,6 +408,11 @@ cc.Class({
             }
         }
 
+        if(this.allowSpecial == false)
+            this.allowSpecialCheck.active = false;
+        else 
+            this.allowSpecialCheck.active = true;
+
         if(this.halfwayEnter == false)
         {
             this.allowJoinCheck.active = false;
@@ -433,6 +449,7 @@ cc.Class({
             halfwayEnter : this.halfwayEnter,
             allowAllin : this.allowAllin,
             allowFK : this.allowFK,
+            allowSpecial : this.allowSpecial,
             waitMode : this.waitMode,
             gameType : this.gameType,
             basicType : this.basicType,
@@ -473,6 +490,11 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,basicType:this.basicType,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
+                        if(data.code && data.code == 119)
+                        {
+                            pomelo.disconnect();
+                            return;
+                        }
                         self.createCallBack(data,self.createType,joinCallFunc);
                     }
                 );
@@ -482,11 +504,16 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
+                        if(data.code && data.code == 119)
+                        {
+                            pomelo.disconnect();
+                            return;
+                        }
                         self.createCallBack(data,self.createType,joinCallFunc);
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,joinCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,this.allowSpecial,joinCallFunc);
             }
             console.log("gameType==="+this.gameType+"@@@consumeMode==="+this.consumeMode+"@@@gameNumber==="+this.gameTime+"@@@bankerMode==="+this.bankerMode);
         }else if(index == 1){
@@ -503,6 +530,11 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
+                        if(data.code && data.code == 119)
+                        {
+                            pomelo.disconnect();
+                            return;
+                        }
                         self.createCallBack(data,self.createType,createCallFunc);
                     }
                 );
@@ -512,11 +544,16 @@ cc.Class({
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
+                        if(data.code && data.code == 119)
+                        {
+                            pomelo.disconnect();
+                            return;
+                        }
                         self.createCallBack(data,self.createType,createCallFunc);
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,createCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,this.allowSpecial,createCallFunc);
             }
         }
         this.saveRoomInfo();
@@ -582,6 +619,8 @@ cc.Class({
         this.resetToggleList[22].active = false;
         this.resetToggleList[6].active = true;
         this.resetToggleList[5].y = 230;
+
+        this.allowSpecialNode.active = true;
         if(type == 4)
         {
             this.createLayer2.active = true;
@@ -614,6 +653,7 @@ cc.Class({
                 this.btnLight6.active = true;
                 this.allowFKNode.active = true;
             }else if(type == 7){
+                this.allowSpecialNode.active = false;
                 this.jinHuaGameTime.string = "20局";
                 this.createLayer1.active = false;
                 this.createLayer3.active = true;
@@ -626,6 +666,7 @@ cc.Class({
                 this.createLayer3.getChildByName("basicType").active = true;
                 this.btnLight7.active = true;
             }else if(type == 8){
+                this.allowSpecialNode.active = false;
                 if(this.newPlayerNum == 9){
                     this.jinHuaGameTime.string = "15局";
                     if(this.gameTime == 20)
@@ -820,6 +861,17 @@ cc.Class({
         //     this.waitModeCheck.active = true;
         // }
     },
+
+    btnClickSpecialCheck:function(){
+        if(this.allowSpecial == true)
+        {
+            this.allowSpecial = false;
+            this.allowSpecialCheck.active = false;
+        }else{
+            this.allowSpecial = true;
+            this.allowSpecialCheck.active = true;
+        }
+    },
     
     changeDiamondExpendNum:function(){
         if(this.consumeMode == 2)
@@ -828,6 +880,14 @@ cc.Class({
             this.diamondExpend = Math.ceil(this.gameTime/10);
         else if(this.consumeMode == 3)
             this.diamondExpend = 3*this.gameTime/10;//Math.ceil(this.playerNum*this.gameTime/10);
+    },
+
+    btnShowSpecialTips:function(){
+        this.specialNode.active = true;
+    },
+
+    btnHideSpecialTips:function(){
+        this.specialNode.active = false;
     },
 
     showLayer:function(playerNumber){

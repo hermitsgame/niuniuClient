@@ -54,12 +54,14 @@ var cfg = {
   curHistory : {},
   curSex : 1,   //1:M,0:F;
 
+  specialType : false,
 	roomPlayer : -1,
   roomId : -1,
   roomData : -1,
   cardFrameMap : {},
   niuTypeFrameMap : {},
   niuTypeFrameMapFK : {},
+  niuTypeFrameMapSpecial : {},
   sanKungTypeFrameMap : {},
   jinHuaTypeFrameMap : {},
 

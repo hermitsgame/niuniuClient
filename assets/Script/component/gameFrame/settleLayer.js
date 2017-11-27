@@ -69,7 +69,7 @@ cc.Class({
         this.node.active = false;
     },
 
-    addOneSettle:function(name, type, score, gameType,handCard,chair){     //0:nomal;1:FK;2:sanKung;3:jinHua
+    addOneSettle:function(name, type, score, gameType,handCard,chair){     //0:nomal;1:Special;2:sanKung;3:jinHua
         console.log("addOneSettle!!!!!!!!!!!!!")
         var newSettle = {};
         if(confige.playerMax == 6)
@@ -88,7 +88,7 @@ cc.Class({
             if(gameType == 0)
                 newType.spriteFrame = confige.niuTypeFrameMap[type];
             else if(gameType == 1)
-                newType.spriteFrame = confige.niuTypeFrameMapFK[type];
+                newType.spriteFrame = confige.niuTypeFrameMapSpecial[type];
             else if(gameType == 2)
                 newType.spriteFrame = confige.sanKungTypeFrameMap[type];
             else if(gameType == 3)
