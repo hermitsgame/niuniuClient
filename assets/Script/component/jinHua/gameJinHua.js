@@ -779,6 +779,12 @@ cc.Class({
     //根据重连数据重现游戏状态
     recoverGame:function(){
         this.onReConnect = true;
+        if(confige.curReconnectData.state == 1100){
+            gameData.gameInfoNode.btn_continue.active = true;
+            this.readyBtn.active = false;
+            this.gameInfoNode.btn_inviteFriend.active = false;
+            return;
+        }
         console.log("处理重连数据");
         console.log("当前参与游戏的人数===" + this.gamePlayerNode.playerCount);
         var watchPlayer = 0;

@@ -1,6 +1,8 @@
 var gameData = require("gameData");
 var confige = require("confige");
 var FKLogic = require("FengKuangLogic");
+var SpecialLogic = require("SpecialNiuNiuLogic");
+
 cc.Class({
     extends: cc.Component,
 
@@ -130,6 +132,10 @@ cc.Class({
             this.isFengKuang = true;
         }
 
+        this.isSpecial = false;
+        if(confige.specialType == true)
+            this.isSpecial = true;
+
         this.joinState = confige.roomData.state;
         this.gameBegin = false;     //本房间游戏开始
         this.gameStart = false;     //当前局游戏开始
@@ -217,7 +223,7 @@ cc.Class({
 
     startLater: function () {
         this.gamePlayerNode.onStart();
-        
+
         if(this.isZhajinniu == true)
         {
             this.initZhajinniuLayer();
@@ -1059,9 +1065,9 @@ cc.Class({
 
         var handCard = this.gamePlayerNode.playerCardList[this.meChair];
         var curNiuType = 0;
-        if(this.isFengKuang){
-            curNiuType = FKLogic.getType(handCard);
-            console.log("this.isFengKuang+++++"+curNiuType);
+        if(this.isSpecial){
+            curNiuType = SpecialLogic.getType(handCard);
+            console.log("this.isSpecial+++++"+curNiuType);
             console.log(handCard);
         }
         else
@@ -1273,7 +1279,7 @@ cc.Class({
                             }
                         }
                     }
-                    if(self.isFengKuang)
+                    if(self.isSpecial)
                         self.gameInfoNode.settleLayer.addOneSettle(confige.roomData.player[i].playerInfo.nickname, niuType, data.curScores[i],1,data.player[i].handCard,i);
                     else
                         self.gameInfoNode.settleLayer.addOneSettle(confige.roomData.player[i].playerInfo.nickname, niuType, data.curScores[i],0,data.player[i].handCard,i);
@@ -1345,6 +1351,13 @@ cc.Class({
     //根据重连数据重现游戏状态
     recoverGame:function(){
         this.onReConnect = true;
+        if(confige.curReconnectData.state == 1100){
+            gameData.gameInfoNode.btn_continue.active = true;
+            this.readyBtn.active = false;
+            this.gameInfoNode.btn_inviteFriend.active = false;
+            this.basicNode.active = false;
+            return;
+        }
         console.log("处理重连数据");
         console.log("当前参与游戏的人数===" + this.gamePlayerNode.playerCount);
         var watchPlayer = 0;
@@ -1685,15 +1698,16 @@ cc.Class({
             var curState = confige.curReconnectData.state;
             if(curState != 1005 && curState != 1001)
             {
-                var robStateList = confige.curReconnectData.roomInfo.robState;
-                for(var i in robStateList)
-                {
-                    if(robStateList[i] != -1)
-                    {
-                        if(robStateList[i] > this.curRobMaxNum)
-                            this.curRobMaxNum = robStateList[i];
-                    }
-                }
+                // var robStateList = confige.curReconnectData.roomInfo.robState;
+                // for(var i in robStateList)
+                // {
+                //     if(robStateList[i] != -1)
+                //     {
+                //         if(robStateList[i] > this.curRobMaxNum)
+                //             this.curRobMaxNum = robStateList[i];
+                //     }
+                // }
+                this.curRobMaxNum = confige.curReconnectData.roomInfo.maxRob;
                 if(this.curRobMaxNum == 0)
                     this.curRobMaxNum = 1;
                 this.robMaxNumNode.active = true;
@@ -2566,7 +2580,7 @@ cc.Class({
                 this.robBetBtnBox.getChildByName("bet4").x = 225;
                 break;
             case 5:
-                this.mpqzBetNum1 = 2;
+                this.mpqzBetNum1 = 2; 
                 this.mpqzBetNum2 = 4;
                 this.mpqzBetNum3 = 6;
                 this.robBetBtnBox.getChildByName("bet3").active = true;
@@ -2701,30 +2715,34 @@ cc.Class({
             {
                 var spriteFrame = newNode.getChildByName("niu_"+i).getComponent("cc.Sprite").spriteFrame;
                 confige.niuTypeFrameMap[i] = spriteFrame;
+
                 if(i <= 10){
-                    confige.niuTypeFrameMapFK[i] = spriteFrame;
+                    confige.niuTypeFrameMapSpecial[i] = spriteFrame;
                 }else{
                     switch(i){
+                        case 11:
+                            confige.niuTypeFrameMapSpecial[11] = spriteFrame;
+                            break;
                         case 12:
-                            confige.niuTypeFrameMapFK[15] = spriteFrame;
+                            confige.niuTypeFrameMapSpecial[12] = spriteFrame;
                             break;
                         case 13:
-                            confige.niuTypeFrameMapFK[16] = spriteFrame;
+                            confige.niuTypeFrameMapSpecial[16] = spriteFrame;
                             break;
                         case 14:
-                            confige.niuTypeFrameMapFK[14] = spriteFrame;
+                            confige.niuTypeFrameMapSpecial[17] = spriteFrame;
                             break;
                         case 15:
-                            confige.niuTypeFrameMapFK[11] = spriteFrame;
+                            confige.niuTypeFrameMapSpecial[13] = spriteFrame;
                             break;
                         case 16:
-                            confige.niuTypeFrameMapFK[12] = spriteFrame;
+                            confige.niuTypeFrameMapSpecial[14] = spriteFrame;
                             break;
                         case 17:
-                            confige.niuTypeFrameMapFK[13] = spriteFrame;
+                            confige.niuTypeFrameMapSpecial[15] = spriteFrame;
                             break;
                         case 18:
-                            confige.niuTypeFrameMapFK[17] = spriteFrame;
+                            confige.niuTypeFrameMapSpecial[18] = spriteFrame;
                             break;
                     }
                 }

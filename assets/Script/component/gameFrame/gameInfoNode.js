@@ -1,5 +1,6 @@
 var gameData = require("gameData");
 var confige = require("confige");
+
 cc.Class({
     extends: cc.Component,
 
@@ -90,6 +91,7 @@ cc.Class({
 
         this.btn_inviteFriend = this.node.getChildByName("btn_inviteFriend");
         this.btn_close = this.node.getChildByName("btn_close").getComponent("cc.Button");
+        this.btn_continue = this.node.getChildByName("btn_continue");
 
         var timeLabel = this.roomInfo.getChildByName("nowTime").getComponent("cc.Label");
         var refleshTime = function(){
@@ -469,7 +471,7 @@ cc.Class({
                 curDes = "九人场,"
             else
                 curDes = "六人场,"
-
+            
             if(confige.roomData.gameMode == 1 || confige.roomData.gameMode == 4)
             {
                 switch(confige.roomData.basicType)
@@ -615,7 +617,7 @@ cc.Class({
             else
                 curDes = "六人场,"
 
-            if(confige.roomData.gameMode == 1 || confige.roomData.roomType == "sanKung")
+            if(confige.roomData.gameMode == 1 || confige.roomData.gameMode == 4)
             {
                 switch(confige.roomData.basicType)
                 {
@@ -1105,4 +1107,12 @@ cc.Class({
         return xmlHttp;  
     },
 
+    btnContinueClick:function(){
+        console.log("ready to continue");
+        this.btn_continue.active = false;
+        pomelo.clientSend("recover",null, function(data){
+            console.log(data);
+            console.log("recover????????");
+        });
+    },
 });

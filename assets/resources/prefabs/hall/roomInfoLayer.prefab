@@ -3572,6 +3572,7 @@
     },
     "_enabled": true,
     "itemIndex": -1,
+    "oriNumber": -1,
     "parent": null,
     "editBox": {
       "__id__": 104

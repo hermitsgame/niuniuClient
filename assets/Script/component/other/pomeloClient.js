@@ -55,6 +55,10 @@ pomelo.dealWithOnMessage = function(data){
             confige.gameSceneLoadOver = false;
             confige.gameSceneLoadData = [];
             confige.playerMax = confige.roomData.playerNumber;
+            if(confige.roomData.special)
+                confige.specialType = true;
+            else
+                confige.specialType = false;
             if(confige.curSceneIndex == 1)
                 confige.curGameScene.loadingLayer.showLoading();
 
@@ -108,6 +112,11 @@ pomelo.dealWithOnMessage = function(data){
                     confige.roomPlayer = data.reconnection.roomInfo.player;
                     confige.roomId = data.reconnection.roomInfo.roomId;
                     confige.playerMax = confige.roomData.playerNumber;
+                    if(confige.roomData.special)
+                        confige.specialType = true;
+                    else
+                        confige.specialType = false;
+
                     if(confige.curReconnectType == confige.ON_HALL)
                     {
                         //自动跳转游戏场景并恢复数据
@@ -419,6 +428,9 @@ pomelo.dealWithOnMessage = function(data){
             else
                 pomelo.clientScene.readyBegin(data.waitTime);
             break;
+        case "recover":
+            pomelo.clientScene.gameInfoNode.btnClickRefresh();
+            break;
     }
 };
         
@@ -510,14 +522,14 @@ pomelo.clientCreateJinHua = function(){
 
 };
 
-pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, BasicType, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait, cbTrue,cbFalse) {
+pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, BasicType, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait,AllowSpecial, cbTrue,cbFalse) {
         console.log("on create room!")
         var createType = CreateType;
 
         if(GameType == "mingpaiqz")
         {
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.flag == false)
@@ -542,7 +554,7 @@ pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, C
             );
         }else{
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.flag == false)
@@ -668,8 +680,8 @@ pomelo.goldQuite = function() {
 // };
 // confige.host = "120.55.61.144"; //测试外网2
 // confige.host = "update.5d8d.com";    //测试外网
-confige.host = "nnapi.5d8d.com";     //运营外网
-// confige.host = "192.168.1.65";          //内网
+// confige.host = "nnapi.5d8d.com";     //运营外网
+confige.host = "192.168.1.65";          //内网
 pomelo.clientLogin = function(uid,clientLogintoken) {
     console.log("pomelo try to login!!!!!!");
     var route = 'gate.gateHandler.queryEntry';

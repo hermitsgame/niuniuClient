@@ -66,19 +66,16 @@ cc.Class({
         //     //this.noticeList[this.noticeCount] = newNotice;
         //     this.noticeCount ++;
         // }
-        // if(noticeData[1].content == "")
-            // this.testLabel.string = "没有公告";
-        // else
         this.testLabel.string = noticeData[1].content;
 
         this.testContent.y = 0;
         var self = this;
         var callFunc = function(){
-            console.log(self.testContent)
             if(self.testNode.height > 350)
                 self.testContent.height = self.testNode.height + 30;
         };
         this.scheduleOnce(callFunc,0.05);
+        
         // this.hasNotice = true;
     },
 });
