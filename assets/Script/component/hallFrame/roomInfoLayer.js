@@ -36,6 +36,11 @@ cc.Class({
         this.roomInfoItemList2 = [];
         this.roomInfoData = {};
 
+        this.refreshListData = {};
+        this.countLayer = this.node.getChildByName("countLayer");
+        this.countContent = this.countLayer.getChildByName("infoView").getChildByName("view").getChildByName("content");
+        this.countLabelNode = this.countContent.getChildByName("mainLabel");
+        this.countLabel = this.countLabelNode.getComponent("cc.Label");
         this.isInit = true;
     },
 
@@ -46,6 +51,8 @@ cc.Class({
         pomelo.request("connector.entryHandler.getAgencyRoom",null, function(data) {
             console.log(data);
             self.roomInfoData = data.List;
+            self.refreshListData = data.refreshList;
+            self.updateCountLayer();
             var roomInfoItemCount = 0;
             for(var i in data.List)
             {
@@ -525,6 +532,84 @@ cc.Class({
                 }
             }
         );
+    },
+
+    hideCount:function(){
+        this.countLayer.active = false;
+    },
+
+    btnShowCount:function(){
+        this.countLayer.active = true;
+    },
+
+    updateCountLayer:function(){
+        console.log("refreshListData=====");
+        console.log(this.refreshListData);
+        var newCountStr = "";
+        if(this.refreshListData && this.refreshListData.agencyStatistics)
+        {
+            var curData = this.refreshListData.agencyStatistics;
+            for(var i in curData)
+            {
+                console.log("fuck i =====" + i);
+                console.log(curData[i]);
+                var newDateStr = "";
+                var newDateString = i.toString();
+                newDateStr = newDateString.substring(0,4) + "/" + newDateString.substring(4,6) + "/" + newDateString.substring(6,8);
+                newCountStr += newDateStr + "\n\n";
+                if(curData[i]["101"])
+                {
+                    var newGameModeStr = "明牌抢庄";
+                    for(var j in curData[i]["101"])
+                        for(var k in curData[i]["101"][j])
+                            newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["101"][j][k] + "场\n";
+                    newCountStr += newGameModeStr;
+                }
+                if(curData[i]["1"])
+                {
+                    var newGameModeStr = "普通牛牛";
+                    for(var j in curData[i]["1"])
+                        for(var k in curData[i]["1"][j])
+                            newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["1"][j][k] + "场\n";
+                    newCountStr += newGameModeStr;
+                }
+                if(curData[i]["3"])
+                {
+                    var newGameModeStr = "斗公牛";
+                    for(var j in curData[i]["3"])
+                        for(var k in curData[i]["3"][j])
+                            newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["3"][j][k] + "场\n";
+                    newCountStr += newGameModeStr;
+                }
+                if(curData[i]["7"])
+                {
+                    var newGameModeStr = "比三张";
+                    for(var j in curData[i]["7"])
+                        for(var k in curData[i]["7"][j])
+                            newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["7"][j][k] + "场\n";
+                    newCountStr += newGameModeStr;
+                }
+                if(curData[i]["8"])
+                {
+                    var newGameModeStr = "拼三张";
+                    for(var j in curData[i]["8"])
+                        for(var k in curData[i]["8"][j])
+                            newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["8"][j][k] + "场\n";
+                    newCountStr += newGameModeStr;
+                }
+                newCountStr += "代开房总共消耗" + curData[i].useDiamond + "钻(不含开房)\n\n\n";
+            }
+        }
+        console.log(newCountStr);
+        this.countLabel.string = newCountStr;
+
+        var self = this;
+        this.scheduleOnce(function() {
+            if(self.countLabelNode.height > 450)
+                self.countContent.height = self.countLabelNode.height;
+            else
+                self.countContent.height = 450;
+        }, 0.1);
     },
 
     showLayer:function(){

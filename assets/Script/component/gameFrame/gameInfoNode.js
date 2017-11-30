@@ -135,6 +135,9 @@ cc.Class({
         this.finishLayer = this.layerNode2.getChildByName("finishLayer").getComponent("finishLayer");
         this.finishLayer.onInit();
 
+        this.gameRoomInfoLayer = this.layerNode2.getChildByName("gameRoomInfoLayer").getComponent("gameRoomInfoLayer");
+        this.gameRoomInfoLayer.onInit()
+
         this.quickStringList = {};
         this.quickStringList[0] = "快点啊,等到花儿都谢了!";
         this.quickStringList[1] = "不要吵了,不要吵了,专心玩游戏吧!";
@@ -1114,5 +1117,9 @@ cc.Class({
             console.log(data);
             console.log("recover????????");
         });
+    },
+
+    showRoomInfoLayer:function(){
+        this.gameRoomInfoLayer.showLayer();
     },
 });
