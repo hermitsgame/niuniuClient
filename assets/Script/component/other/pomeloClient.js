@@ -217,12 +217,12 @@ pomelo.dealWithOnMessage = function(data){
             break;
         case "gameOver":
             confige.curReconnectType = confige.ON_OVER;
-            if(pomelo.clientScene.gameInfoNode.gameBegin == true)
+            if(pomelo.clientScene.gameBegin == true)
             {
                 pomelo.clientScene.gameInfoNode.showOverLayer(data);
             }else{
                 cc.director.loadScene('NewHallScene');
-                if(confige.curGameScene.yuyinTimeOut != -1)
+                if(confige.curGameScene.gameInfoNode.yuyinTimeOut != -1)
                 {
                     clearTimeout(confige.curGameScene.gameInfoNode.yuyinTimeOut);
                 }
@@ -493,6 +493,11 @@ pomelo.clientSend = function(code,msg,cbTrue,cbFalse) {
         pomelo.request("connector.entryHandler.sendData", {"code" : code,"params" : msg}, function(data) {
             console.log("on send!!!");
             console.log(data);
+            if(data.code && data.code == 119)
+            {
+                pomelo.disconnect();
+                return;
+            }
             if(data.flag == false)
             {
                 if(cbFalse)
@@ -532,6 +537,11 @@ pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, C
                 bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
+                    if(data.code && data.code == 119)
+                    {
+                        pomelo.disconnect();
+                        return;
+                    }
                     if(data.flag == false)
                     {
                         if(cbFalse)
@@ -557,6 +567,11 @@ pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, C
                 bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
+                    if(data.code && data.code == 119)
+                    {
+                        pomelo.disconnect();
+                        return;
+                    }
                     if(data.flag == false)
                     {
                         if(cbFalse)
