@@ -557,12 +557,12 @@ cc.Class({
                 var newDateString = i.toString();
                 newDateStr = newDateString.substring(0,4) + "/" + newDateString.substring(4,6) + "/" + newDateString.substring(6,8);
                 newCountStr += newDateStr + "\n\n";
-                if(curData[i]["101"])
+                if(curData[i]["2"])
                 {
                     var newGameModeStr = "明牌抢庄";
-                    for(var j in curData[i]["101"])
-                        for(var k in curData[i]["101"][j])
-                            newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["101"][j][k] + "场\n";
+                    for(var j in curData[i]["2"])
+                        for(var k in curData[i]["2"][j])
+                            newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["2"][j][k] + "场\n";
                     newCountStr += newGameModeStr;
                 }
                 if(curData[i]["1"])

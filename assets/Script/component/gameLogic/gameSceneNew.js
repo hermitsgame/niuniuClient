@@ -672,7 +672,7 @@ cc.Class({
         {
             if(this.gameMode == 3)          //斗公牛模式特殊处理
             {
-                curBetNum = Math.min(Math.floor(this.gameBGNode.scorePoolNum/(this.gamePlayerNode.playerCount-1)), 40) - this.myBetNum;
+                curBetNum = Math.min(Math.floor((this.gameBGNode.scorePoolNum/((this.gamePlayerNode.playerCount-1)*2))*1.5), 40) - this.myBetNum;
                 console.log("new curBetNum ===== " + curBetNum);
             }else{
                 curBetNum = 4;
@@ -930,7 +930,8 @@ cc.Class({
                     // if(curMin > 40)
                     //     curMin = 40;
                     // var curMax = Math.min(Math.floor(this.gameBGNode.scorePoolNum/(this.gamePlayerNode.playerCount-1)), 40); - this.myBetNum;
-                    var curMax = Math.min(Math.floor(this.gameBGNode.scorePoolNum/((confige.playerMax-1)*2)), 40);
+                    console.log("fuck@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+Math.floor((this.gameBGNode.scorePoolNum/((confige.playerMax-1)*2))*1.5));
+                    var curMax = Math.min(Math.floor((this.gameBGNode.scorePoolNum/((confige.playerMax-1)*2))*1.5), 40);
                     var curMin = Math.min(Math.floor(curMax/5), 40);
                     if(curMin < 1)
                         curMin = 1;
@@ -1494,8 +1495,8 @@ cc.Class({
                     if(!this.isMingCardQZ)
                     {
                         if(this.gameMode == 3)
-                        {
-                            var curMax = Math.min(Math.floor(confige.curReconnectData.bonusPool/((confige.playerMax-1)*2)), 40);
+                        {    
+                            var curMax = Math.min(Math.floor((confige.curReconnectData.bonusPool/((confige.playerMax-1)*2))*1.5), 40);
                             var curMin = Math.min(Math.floor(curMax/5), 40);
                             if(curMin < 1)
                                 curMin = 1;
