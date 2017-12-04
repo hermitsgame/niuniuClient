@@ -850,7 +850,7 @@ cc.Class({
                 }
                 if(confige.curReconnectData.betList[i] == null)
                     confige.curReconnectData.betList[i] = 0;
-                this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score;// - confige.curReconnectData.betList[i];
+                this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score;
                 this.gamePlayerNode.playerInfoList[confige.getCurChair(i)].setScore(this.gamePlayerNode.playerScoreList[i]);
                 if(confige.curReconnectData.roomInfo.player[i].isBanker == true)
                 {

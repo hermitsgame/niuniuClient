@@ -1410,7 +1410,7 @@ cc.Class({
                 if(this.gameMode == 3)
                     this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score;
                 else
-                    this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score - confige.curReconnectData.betList[i];
+                    this.gamePlayerNode.playerScoreList[i] = confige.curReconnectData.roomInfo.player[i].score;
                 // if(this.isZhajinniu)
                     // this.playerScoreList[i] -= this.zhajinniuBasic;
                 this.gamePlayerNode.playerInfoList[confige.getCurChair(i)].setScore(this.gamePlayerNode.playerScoreList[i]);

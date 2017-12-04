@@ -486,6 +486,7 @@ cc.Class({
             if(this.gameMode == 7)
             {
                 this.gameType = "sanKung";
+                // this.gameType = "fourCard";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "newRoom","params" : {gameType: this.gameType,
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,basicType:this.basicType,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
@@ -526,6 +527,7 @@ cc.Class({
             if(this.gameMode == 7)
             {
                 this.gameType = "sanKung";
+                // this.gameType = "fourCard";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
                     consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,playerNumber:this.playerNum}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
