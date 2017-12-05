@@ -40,6 +40,7 @@ var pClient = function(){
         switch(data.cmd)
         {
             case "roomPlayer" :     //需要转换          OK
+                confige.specialType = false;
                 confige.roomData = data;
                 confige.roomPlayer = data.player;
                 confige.roomId = data.roomId;
@@ -71,6 +72,7 @@ var pClient = function(){
                 confige.curReconnectType = confige.ON_GAME;
                 break;
             case "userInfo" :
+                confige.specialType = false;
                 cc.loader.onProgress = function(completedCount, totalCount, item) {
                     var progress = (completedCount / totalCount).toFixed(2);
                     var numString = "" + completedCount + "/" + totalCount;
