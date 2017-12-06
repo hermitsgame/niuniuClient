@@ -2639,6 +2639,7 @@ cc.Class({
                 break;
             case 13:
                 pomelo.clientSend("useCmd",{"cmd" : "bet","bet" : this.mpqzBetNum3});
+                break;
             case 14:
                 pomelo.clientSend("useCmd",{"cmd" : "allIn"});
                 break;

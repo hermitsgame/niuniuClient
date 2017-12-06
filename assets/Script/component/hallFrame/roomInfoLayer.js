@@ -549,21 +549,23 @@ cc.Class({
         if(this.refreshListData && this.refreshListData.agencyStatistics)
         {
             var curData = this.refreshListData.agencyStatistics;
+            var newLabelList = [];
             for(var i in curData)
             {
                 console.log("fuck i =====" + i);
                 console.log(curData[i]);
+                var newLabelStr = "";
                 var newDateStr = "";
                 var newDateString = i.toString();
                 newDateStr = newDateString.substring(0,4) + "/" + newDateString.substring(4,6) + "/" + newDateString.substring(6,8);
-                newCountStr += newDateStr + "\n\n";
+                newLabelStr += newDateStr + "\n\n";
                 if(curData[i]["2"])
                 {
                     var newGameModeStr = "明牌抢庄";
                     for(var j in curData[i]["2"])
                         for(var k in curData[i]["2"][j])
                             newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["2"][j][k] + "场\n";
-                    newCountStr += newGameModeStr;
+                    newLabelStr += newGameModeStr;
                 }
                 if(curData[i]["1"])
                 {
@@ -571,7 +573,7 @@ cc.Class({
                     for(var j in curData[i]["1"])
                         for(var k in curData[i]["1"][j])
                             newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["1"][j][k] + "场\n";
-                    newCountStr += newGameModeStr;
+                    newLabelStr += newGameModeStr;
                 }
                 if(curData[i]["3"])
                 {
@@ -579,7 +581,7 @@ cc.Class({
                     for(var j in curData[i]["3"])
                         for(var k in curData[i]["3"][j])
                             newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["3"][j][k] + "场\n";
-                    newCountStr += newGameModeStr;
+                    newLabelStr += newGameModeStr;
                 }
                 if(curData[i]["7"])
                 {
@@ -587,7 +589,7 @@ cc.Class({
                     for(var j in curData[i]["7"])
                         for(var k in curData[i]["7"][j])
                             newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["7"][j][k] + "场\n";
-                    newCountStr += newGameModeStr;
+                    newLabelStr += newGameModeStr;
                 }
                 if(curData[i]["8"])
                 {
@@ -595,11 +597,16 @@ cc.Class({
                     for(var j in curData[i]["8"])
                         for(var k in curData[i]["8"][j])
                             newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["8"][j][k] + "场\n";
-                    newCountStr += newGameModeStr;
+                    newLabelStr += newGameModeStr;
                 }
-                newCountStr += "代开房总共消耗" + curData[i].useDiamond + "钻(不含开房)\n\n\n";
+                newLabelStr += "代开房总共消耗" + curData[i].useDiamond + "钻(不含开房)\n\n\n";
+                newLabelList.push(newLabelStr);
             }
         }
+        
+        for(var i=newLabelList.length-1;i>=0;i--)
+            newCountStr += newLabelList[i];
+
         console.log(newCountStr);
         this.countLabel.string = newCountStr;
 
@@ -609,7 +616,7 @@ cc.Class({
                 self.countContent.height = self.countLabelNode.height;
             else
                 self.countContent.height = 450;
-        }, 0.1);
+        }, 1);
     },
 
     showLayer:function(){

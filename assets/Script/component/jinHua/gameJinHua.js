@@ -1137,7 +1137,7 @@ cc.Class({
 
         this.zhajinniuBasic = confige.roomData.basic;
         console.log("fuck 炸金牛基础分数"+this.zhajinniuBasic);
-        this.gameInfoNode.roomTimeNode.active = false;
+        // this.gameInfoNode.roomTimeNode.active = false;
         this.roundTime = this.gameInfoNode.roomInfo.getChildByName("nowRound").getComponent("cc.Label");
 
         this.pkLayer = this.zhajinniuLayer.getChildByName("pkLayer");
