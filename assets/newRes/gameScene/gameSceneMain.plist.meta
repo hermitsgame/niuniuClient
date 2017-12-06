@@ -1124,9 +1124,9 @@
       "rawWidth": 189,
       "rawHeight": 126,
       "borderTop": 0,
-      "borderBottom": 0,
-      "borderLeft": 0,
-      "borderRight": 0,
+      "borderBottom": 74,
+      "borderLeft": 43,
+      "borderRight": 42,
       "spriteType": "normal",
       "subMetas": {}
     },
