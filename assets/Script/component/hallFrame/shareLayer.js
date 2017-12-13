@@ -17,6 +17,12 @@ cc.Class({
     onInit:function(){
         this.shareBtn1 = this.node.getChildByName("btnShareSession").getComponent("cc.Button");
         this.shareBtn2 = this.node.getChildByName("btnShareTimeline").getComponent("cc.Button");
+
+        this.label1 = this.node.getChildByName("label1").getComponent("cc.Label");
+        //共邀请好友：0人
+        this.label2 = this.node.getChildByName("label2").getComponent("cc.Label");
+        //已获得奖励：0钻石
+
         this.isInit = true;
     },
 
@@ -25,21 +31,22 @@ cc.Class({
         this.shareBtn1.interactable = false;
         this.shareBtn2.interactable = false;
         var index = parseInt(customEventData);
+        var appShareUrl = confige.sharePlus.replace('UNIONID', confige.userInfo.unionid);
         if(index == 0){
             cc.log("分享给好友");
             if(confige.curUsePlatform == 1)
             {
-                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/JSCallJAVA", "WXShare", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V", confige.shareTitle, confige.shareDes, confige.shareURL, 0);
+                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/JSCallJAVA", "WXShare", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V", confige.shareTitlePlus, confige.shareDesPlus, appShareUrl, 0);
             }else if(confige.curUsePlatform == 2){
-                jsb.reflection.callStaticMethod("JSCallOC", "WXShareTitle:andDes:andUrl:andType:",confige.shareTitle, confige.shareDes, confige.shareURL, 0);
+                jsb.reflection.callStaticMethod("JSCallOC", "WXShareTitle:andDes:andUrl:andType:",confige.shareTitlePlus, confige.shareDesPlus, appShareUrl, 0);
             }
         }else if(index == 1){
             cc.log("分享到朋友圈");
             if(confige.curUsePlatform == 1)
             {
-                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/JSCallJAVA", "WXShare", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V", confige.shareTitle, confige.shareDes, confige.shareURL, 1);
+                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/JSCallJAVA", "WXShare", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V", confige.shareTitlePlus, confige.shareDesPlus, appShareUrl, 1);
             }else if(confige.curUsePlatform == 2){
-                jsb.reflection.callStaticMethod("JSCallOC", "WXShareTitle:andDes:andUrl:andType:",confige.shareTitle, confige.shareDes, confige.shareURL, 1);
+                jsb.reflection.callStaticMethod("JSCallOC", "WXShareTitle:andDes:andUrl:andType:",confige.shareTitlePlus, confige.shareDesPlus, appShareUrl, 1);
             }
         }
         if(confige.curUsePlatform == 3)
@@ -118,10 +125,66 @@ cc.Class({
     showLayer:function(){
         if(this.isInit == false)
             this.onInit();
+        this.check_inviteData();
         this.node.active = true;
     },
 
     hideLayer:function(){
+        this.label1.string = "";
+        this.label2.string = "";
         this.node.active = false;
+    },
+
+    check_inviteData:function(){
+        var self = this;
+        var xmlHttp = this.createXMLHttpRequest();
+        var httpCallback = function(){
+            if (xmlHttp.readyState==4)
+            {// 4 = "loaded"
+                if (xmlHttp.status==200)
+                {// 200 = OK
+                    var curReturn = JSON.parse(xmlHttp.responseText);
+                    console.log(curReturn);
+                    if(curReturn.invite_num)
+                        self.label1.string = "共邀请好友：" + curReturn.invite_num + "人";
+                    else
+                        self.label1.string = "共邀请好友：0人";
+                    if(curReturn.diamond)
+                        self.label2.string = "已获得奖励：" + curReturn.diamond + "钻石";
+                    else
+                        self.label2.string = "已获得奖励：0钻石";
+                }
+            }
+            
+        };
+
+        this.scheduleOnce(function() {
+            var url = "http://pay.5d8d.com/niu_admin.php/api/getInviteInfo?game_uid="+confige.userInfo.playerId;
+            console.log("url====="+ url);
+            xmlHttp.onreadystatechange = httpCallback;
+            xmlHttp.open("GET", url, true);// 异步处理返回   
+            xmlHttp.setRequestHeader("Content-Type",  
+                    "application/x-www-form-urlencoded;");  
+            xmlHttp.send();
+        }, 0.1);
+    },
+
+    createXMLHttpRequest:function() {  
+        var xmlHttp;  
+        if (window.XMLHttpRequest) {  
+            xmlHttp = new XMLHttpRequest();  
+            if (xmlHttp.overrideMimeType)  
+                xmlHttp.overrideMimeType('text/xml');  
+        } else if (window.ActiveXObject) {  
+            try {  
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");  
+            } catch (e) {  
+                try {  
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");  
+                } catch (e) {  
+                }  
+            }  
+        } 
+        return xmlHttp;  
     },
 });

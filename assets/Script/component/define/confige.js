@@ -105,7 +105,7 @@ var cfg = {
 };
 
 
-cfg.curVersion = "1.4.34";
+cfg.curVersion = "1.4.35";
 cfg.oriPaomaText = "和谐游戏，拒绝赌博，如若发现，封号并提交公安机关处理。有事咨询客服，客服微信号：YCYX1818";
 cfg.versionCheck = "1.4.01&LSKAHDUYAPSMHAKSSA";
 cfg.resetGameData = function(){
@@ -135,6 +135,10 @@ cfg.h5ShareUrlNew = "http://pay.5d8d.com/H5Index/nnH5CDN?room_num=ROOMNUM";
 cfg.h5ShareIco = "http://update.5d8d.com/niuniuH5/MP_ICO.png";
 console.log("分享路径22222===="+cfg.h5ShareUrlNew);
 console.log("完整路径222===="+cfg.h5SignURL + cfg.h5ShareIco);
+//+confige.userInfo.unionid
+cfg.sharePlus = "http://pay.5d8d.com/index.php/NN/invite_download.html?from_union_id=UNIONID&from=singlemessage";
+cfg.shareTitlePlus = "约局啦，一起玩会牛牛，房已开好，就等你来";
+cfg.shareDesPlus = "我爱牛牛-朋友间的扑克牌局，与好友同桌斗牛";
 //
 cfg.loginType = 0;   //0:游客登陆;1:微信登陆;2:h5微信登录
 cfg.h5ShareUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd72486a200bde1db&redirect_uri=http%3a%2f%2fpay.5d8d.com%2fNN%2fnnH5CDN%3froom_num%3dROOMNUM&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";

@@ -91,6 +91,7 @@ pomelo.dealWithOnMessage = function(data){
             };
             console.log(data);
             confige.userInfo = data.data;
+            confige.userInfo.unionid = data.unionid;
             confige.playerLimits = confige.userInfo.limits;
             confige.curDiamond = confige.userInfo.diamond;
             confige.curHistory = confige.userInfo.history;
