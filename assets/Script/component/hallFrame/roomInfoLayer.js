@@ -599,7 +599,7 @@ cc.Class({
                             newGameModeStr += "(" + j + "人场" + k + "局)  :  " + curData[i]["8"][j][k] + "场\n";
                     newLabelStr += newGameModeStr;
                 }
-                newLabelStr += "代开房总共消耗" + curData[i].useDiamond + "钻(不含开房)\n\n\n";
+                newLabelStr += "代开房总共消耗" + curData[i].useDiamond + "房卡(不含开房)\n\n\n";
                 newLabelList.push(newLabelStr);
             }
         }

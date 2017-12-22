@@ -49,15 +49,15 @@ cc.Class({
         gameNumber += curRoomData.maxGameNumber;
         this.addOneLabel(gameNumber);
     
-        var consumeMode = "扣钻模式  :  ";
+        var consumeMode = "开房模式  :  ";
         if(curRoomData.consumeMode == "agency")
-            consumeMode += "代开房已扣钻";
+            consumeMode += "代开房已扣房卡";
         else if(curRoomData.consumeMode == 1)
-            consumeMode += "房主扣钻";
+            consumeMode += "房主扣房卡";
         else if(curRoomData.consumeMode == 2)
-            consumeMode += "AA扣钻";
+            consumeMode += "AA扣房卡";
         else if(curRoomData.consumeMode == 3)
-            consumeMode += "大赢家扣钻";
+            consumeMode += "大赢家扣房卡";
         this.addOneLabel(consumeMode);
 
         var halfwayEnter = "中途加入  :  ";

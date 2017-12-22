@@ -172,8 +172,10 @@ cc.Class({
         }
         
         var oriChair = confige.getCurChair(playerData.chair);
-        if(confige.WXHeadFrameList[oriChair+1])
-            newOverDataS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        // if(confige.WXHeadFrameList[oriChair+1])
+        //     newOverDataS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        if(playerData.playerInfo.head && playerData.playerInfo.head != "")
+            confige.getWXHearFrameNoSave(playerData.playerInfo.head,newOverDataS.head);
         newOverDataS.nameL.string = playerData.playerInfo.nickname;
         newOverDataS.IDL.string = playerData.uid;
 
@@ -200,8 +202,10 @@ cc.Class({
         newOverDataS.onInit();
         
         var oriChair = confige.getCurChair(playerData.chair);
-        if(confige.WXHeadFrameList[oriChair+1])
-            newOverDataS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        // if(confige.WXHeadFrameList[oriChair+1])
+        //     newOverDataS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        if(playerData.playerInfo.head && playerData.playerInfo.head != "")
+            confige.getWXHearFrameNoSave(playerData.playerInfo.head,newOverDataS.head);
         newOverDataS.nameL.string = playerData.playerInfo.nickname;
         newOverDataS.IDL.string = playerData.uid;
 
@@ -542,10 +546,12 @@ cc.Class({
         }
         
         var oriChair = confige.getCurChair(playerData.chair);
-        if(confige.WXHeadFrameList[oriChair+1])
-            this.selectInfoS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
-        else
-            this.selectInfoS.head.spriteFrame = this.headOri;
+        // if(confige.WXHeadFrameList[oriChair+1])
+        //     this.selectInfoS.head.spriteFrame = confige.WXHeadFrameList[oriChair+1];
+        // else
+        //     this.selectInfoS.head.spriteFrame = this.headOri;
+        if(playerData.playerInfo.head && playerData.playerInfo.head != "")
+            confige.getWXHearFrameNoSave(playerData.playerInfo.head,this.selectInfoS.head);
         this.selectInfoS.nameL.string = playerData.playerInfo.nickname;
         this.selectInfoS.IDL.string = playerData.uid;
 
