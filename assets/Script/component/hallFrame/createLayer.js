@@ -711,13 +711,13 @@ cc.Class({
 
         if(this.gameMode == 100)
         {
-            this.expend21.string = "(钻石" + curExpend1 + ")";
-            this.expend22.string = "(钻石" + curExpend2 + ")";
-            this.expend23.string = "(钻石" + curExpend3 + ")";
+            this.expend21.string = "(房卡" + curExpend1 + ")";
+            this.expend22.string = "(房卡" + curExpend2 + ")";
+            this.expend23.string = "(房卡" + curExpend3 + ")";
         }else{
-            this.expend11.string = "(钻石" + curExpend1 + ")";
-            this.expend12.string = "(钻石" + curExpend2 + ")";
-            this.expend13.string = "(钻石" + curExpend3 + ")";
+            this.expend11.string = "(房卡" + curExpend1 + ")";
+            this.expend12.string = "(房卡" + curExpend2 + ")";
+            this.expend13.string = "(房卡" + curExpend3 + ")";
         }
     },
 

@@ -105,7 +105,7 @@ var cfg = {
 };
 
 
-cfg.curVersion = "1.4.35";
+cfg.curVersion = "1.4.42";
 cfg.oriPaomaText = "和谐游戏，拒绝赌博，如若发现，封号并提交公安机关处理。有事咨询客服，客服微信号：YCYX1818";
 cfg.versionCheck = "1.4.01&LSKAHDUYAPSMHAKSSA";
 cfg.resetGameData = function(){
@@ -186,6 +186,21 @@ cfg.getWXHearFrame = function(headUrl,index,cb) {
 
     if(cb)
       cb();
+  });
+};
+
+cfg.getWXHearFrameNoSave = function(headUrl,sprite) {
+  if(headUrl == ""){
+    console.log("fuck@@@@@@@@@")
+    return;
+  }
+  console.log("WXHead index 2222");
+  // headUrl = headUrl + ".jpg";
+  //console.log("WXHead URL === " + headUrl);
+  cc.loader.load({url:headUrl,type:'png'}, function (err, texture) {
+    var newFrame = new cc.SpriteFrame(texture);
+    if(sprite)
+      sprite.spriteFrame = newFrame;
   });
 };
 

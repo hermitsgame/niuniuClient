@@ -55,7 +55,7 @@ cc.Class({
                 if(data && data.flag == true)
                 {
                     console.log("赠送成功！！！");
-                    self.parent.showTips("向["+self.giftSendNick+"]赠送["+curDiamond+"]钻石成功");
+                    self.parent.showTips("向["+self.giftSendNick+"]赠送["+curDiamond+"]房卡成功");
                     self.cleanGiftLayer();
                 }else{
                     if(data)

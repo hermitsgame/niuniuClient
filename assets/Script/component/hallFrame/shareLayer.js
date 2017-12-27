@@ -21,7 +21,7 @@ cc.Class({
         this.label1 = this.node.getChildByName("label1").getComponent("cc.Label");
         //共邀请好友：0人
         this.label2 = this.node.getChildByName("label2").getComponent("cc.Label");
-        //已获得奖励：0钻石
+        //已获得奖励：0房卡
 
         this.isInit = true;
     },
@@ -150,9 +150,9 @@ cc.Class({
                     else
                         self.label1.string = "共邀请好友：0人";
                     if(curReturn.diamond)
-                        self.label2.string = "已获得奖励：" + curReturn.diamond + "钻石";
+                        self.label2.string = "已获得奖励：" + curReturn.diamond + "房卡";
                     else
-                        self.label2.string = "已获得奖励：0钻石";
+                        self.label2.string = "已获得奖励：0房卡";
                 }
             }
             
