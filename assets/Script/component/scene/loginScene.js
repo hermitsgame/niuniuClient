@@ -28,6 +28,7 @@ cc.Class({
         pomelo.clientScene = this;
         confige.curSceneIndex = 0;
 
+        this.userKnowLayer = this.node.getChildByName("userKnowLayer");
         this.editBox = this.node.getChildByName("editBox");
         this.editBox.active = false;
         
@@ -819,5 +820,13 @@ cc.Class({
                 newDiv.appendChild(newImg);      //为dom添加子元素img
             }
         });
+    },
+
+    showUserKnow:function(){
+        this.userKnowLayer.active = true;
+    },
+
+    hideUserKnow:function(){
+        this.userKnowLayer.active = false;
     },
 });
