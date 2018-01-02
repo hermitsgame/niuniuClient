@@ -1731,7 +1731,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 800,
+      "width": 680,
       "height": 20
     },
     "_children": [],
@@ -1776,7 +1776,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "严禁恶意利用本游戏进行赌博等违法行为，一经发现，立即封停账号、并向公安机关举报。",
+    "_N$string": "本游戏仅供娱乐，禁止赌博，一经发现，立即封停账号、并向公安机关举报。",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$overflow": 0
