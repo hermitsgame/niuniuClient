@@ -13,6 +13,7 @@ cc.Class({
     },
 
     onInit:function(){
+        this.oriPos = {x:this.node.x,y:this.node.y};
         this.cardFrameMap = {};
         this.cardBackFrame = null;
         
@@ -64,6 +65,8 @@ cc.Class({
             this.cards[i].scaleX = 0;
             this.cardsBack[i].scaleX = 1;
         }
+        this.node.x = this.oriPos.x;
+        this.node.y = this.oriPos.y;
     },
 
     showCardBackWithIndex:function(index){
@@ -73,5 +76,19 @@ cc.Class({
     showCardBackWithCount:function(count){
         for(var i=0;i<count;i++)
             this.cardsBack[i].opacity = 255;
+    },
+
+    moveCardHide:function(){
+        this.node.runAction(cc.moveBy(0.5,cc.p(0,-170)).easing(cc.easeOut(2.2)));
+    },
+
+    moveCardShow:function(){
+        for(var i=0;i<5;i++)
+        {
+            this.cards[i].opacity = 255;
+            this.cards[i].scaleX = 1;
+            this.cardsBack[i].scaleX = 0;
+        }
+        this.node.runAction(cc.moveBy(0.5,cc.p(0,170)).easing(cc.easeOut(2.2)));
     },
 });

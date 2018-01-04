@@ -1,3 +1,4 @@
+var gameData = require("gameData");
 cc.Class({
     extends: cc.Component,
 
@@ -38,6 +39,11 @@ cc.Class({
         this.timeUpdate = function () {
             this.curTimeNum--;
             this.timeNumLabel.string = this.curTimeNum;
+            if(this.curTimeNum == 3)
+            {
+                if(gameData.gameMainScene.hideMoveCard)
+                    gameData.gameMainScene.hideMoveCard();
+            }
             if (this.curTimeNum == 0) 
             {
                 this.hideTimer();

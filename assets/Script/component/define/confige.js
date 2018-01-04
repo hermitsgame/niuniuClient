@@ -58,6 +58,7 @@ var cfg = {
 	roomPlayer : -1,
   roomId : -1,
   roomData : -1,
+  bigCardFrameMap : {},
   cardFrameMap : {},
   niuTypeFrameMap : {},
   niuTypeFrameMapFK : {},
@@ -105,7 +106,7 @@ var cfg = {
 };
 
 
-cfg.curVersion = "1.4.45";
+cfg.curVersion = "1.4.47";
 cfg.oriPaomaText = "和谐游戏，拒绝赌博，如若发现，封号并提交公安机关处理。有事咨询客服，客服微信号：YCYX1818";
 cfg.versionCheck = "1.4.01&LSKAHDUYAPSMHAKSSA";
 cfg.resetGameData = function(){

@@ -153,6 +153,12 @@ cc.Class({
         }
 
         this.btnCanSend = true;
+        this.btnMoveCard = this.node.getChildByName("btnMoveCard");
+        this.btnMoveCard.active = false;
+        this.moveCardLayer = this.node.getChildByName("moveCardLayer").getComponent("moveCardLayer");
+        this.moveCardLayer.onInit();
+        this.moveCardLayer.parent = this;
+        this.onMoveCard = false;
 
         this.openCardBox = this.node.getChildByName("openCardBox");
         this.openCardBtn1 = this.openCardBox.getChildByName("btn1");
@@ -468,6 +474,7 @@ cc.Class({
         if(chair == 0)      //当前玩家自己
         {
             this.showCardBtn.active = false;
+            this.btnMoveCard.active = false;
             this.joinLate = false;
             if(this.gameMode != 3)
                 this.gameBGNode.betItemListClean();
@@ -622,6 +629,7 @@ cc.Class({
         {
             var callFunc2 = function(){
                 this.showCardBtn.active = true;
+                this.btnMoveCard.active = true;
             };
             this.scheduleOnce(callFunc2,0.5);
             this.betBtnBox.active = false;
@@ -631,6 +639,7 @@ cc.Class({
     btn_showMyCard:function(){
         pomelo.clientSend("showCard");
         this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
 
         var handCard = this.gamePlayerNode.playerCardList[this.meChair];
         var curNiuType = 0;
@@ -665,9 +674,13 @@ cc.Class({
     },
 
     onServerSettlement:function(data){
+        this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
+        
         this.hideOpenCard(1);
         this.hideOpenCard(2);
         this.hideGameStatus();
+
         // if(this.gameMode != 3)      //
         //     this.betItemListClean();
         console.log("onServerSettlement 1111111");
@@ -685,6 +698,7 @@ cc.Class({
         console.log("onServerSettlement 33333333");
         this.waitForSettle = true;
         this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
         this.gameStart = false;
         this.joinLate = false;
         this.gameInfoNode.btn_close.interactable = true;
@@ -723,6 +737,9 @@ cc.Class({
         //第二步延迟显示结算界面
         var self = this;
         var showSettleFunc1 = function(){
+            self.showCardBtn.active = false;
+            self.btnMoveCard.active = false;
+            self.hideMoveCard();
             self.gameInfoNode.settleLayer.show(data.curScores[self.meChair]);
             for(var i in data.result)
             {
@@ -789,6 +806,7 @@ cc.Class({
         this.popBanker.active = false;
         this.readyBtn.active = true;
         this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
         this.betBtnBox.active = false;
         this.timerItem.active = false;
     },
@@ -1023,6 +1041,7 @@ cc.Class({
                 }
             }
             this.showCardBtn.active = false;
+            this.btnMoveCard.active = false;
             if(this.gameMode != 3)
                 this.gameBGNode.betItemListClean();
             if(confige.roomData.gameMode != 3)
@@ -1114,6 +1133,7 @@ cc.Class({
     },
 
     showOpenCard:function(index){
+        return;
         this.openCardBox.active = true;
         var moveAction = cc.repeatForever(cc.sequence(cc.moveBy(0.5,cc.p(0,20)),cc.moveBy(0.5,cc.p(0,-20))));
         if(index == 1)
@@ -1250,6 +1270,29 @@ cc.Class({
 
     loadRes2:function(){
         var self = this;
+        //bigCard
+        cc.loader.loadRes("prefabs/game/bigCardNode", cc.Prefab, function (err, prefabs) {
+            var newNode = cc.instantiate(prefabs);
+            self.resNode.addChild(newNode);
+            confige.bigCardFrameMap[0] = newNode.getChildByName("card_01").getComponent("cc.Sprite").spriteFrame;
+            for(var j=0;j<4;j++)
+            {
+                for(var i=1;i<=13;i++)
+                {
+                    var t = i;
+                    if(i == 10)
+                        t = 'a';
+                    else if(i == 11)
+                        t = 'b';
+                    else if(i == 12)
+                        t = 'c';
+                    else if(i == 13)
+                        t = 'd';
+                    var index = i + j*13;
+                    confige.bigCardFrameMap[index] = newNode.getChildByName("card_"+j+t).getComponent("cc.Sprite").spriteFrame;
+                }
+            }
+        });
         //faceFrame
         cc.loader.loadRes("prefabs/game/faceNode", cc.Prefab, function (err, prefabs) {
             var newNode = cc.instantiate(prefabs);
@@ -1360,5 +1403,40 @@ cc.Class({
         cc.loader.loadRes("sound/new/getBet",function(err, audio){
                 confige.audioList["getBet"] = audio;
         });
+    },
+
+    btnShowMoveCard:function(){
+        this.onMoveCard = true;
+        this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
+        var handCard = this.gamePlayerNode.playerCardList[this.meChair];
+        this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].moveCardHide();
+        var showCardFunc = function(){
+            this.moveCardLayer.showLayer(handCard);
+        };
+        this.scheduleOnce(showCardFunc,0.5);
+    },
+
+    btnShowCardOnMove:function(){
+        this.onMoveCard = false;
+        this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].moveCardShow();
+        this.moveCardLayer.hideLayer();
+        pomelo.clientSend("showCard");
+        this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
+
+        var handCard = this.gamePlayerNode.playerCardList[this.meChair];
+        var curNiuType = 0;
+        curNiuType = sanKungLogic.getType(handCard);
+        this.gamePlayerNode.showNiuType(confige.getCurChair(this.meChair), curNiuType.type);
+    },
+
+    hideMoveCard:function(){
+        if(this.onMoveCard){
+            this.onMoveCard = false;
+            this.moveCardLayer.btnShowCardClick();
+        }else{
+            this.btnMoveCard.active = false;
+        }
     },
 });
