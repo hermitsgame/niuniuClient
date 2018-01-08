@@ -635,6 +635,7 @@ cc.Class({
             this.hideDoBtnLayer();
             this.hideArrow();
             this.btnWatchCard.active = false;
+            this.btnMoveCard.active = false;
             this.setRoundTime(0);
         }
         this.statusChange(0);
@@ -1027,18 +1028,22 @@ cc.Class({
                 if(this.isWatchCard == true)
                 {
                     this.btnWatchCard.active = false;
+                    this.btnMoveCard.active = false;
                 }else{
                     if(confige.roomPlayer[this.meChair].isActive == true && confige.roomPlayer[this.meChair].isReady == true)
                     {
                         if(meGiveUp == true)
                         {
                             this.btnWatchCard.active = false;
+                            this.btnMoveCard.active = false;
                         }
                         else{
                             this.btnWatchCard.active = true;
+                            this.btnMoveCard.active = true;
                         }
                     }else{
                         this.btnWatchCard.active = false;
+                        this.btnMoveCard.active = false;
                     }
                 }
 
@@ -1049,10 +1054,14 @@ cc.Class({
                 var curPlayerChair = confige.getCurChair(confige.curReconnectData.roomInfo.curPlayer);
                 this.changeArrow(curPlayerChair);
 
-                if(this.curRound > this.jinHuaStuffyRound)
+                if(this.curRound > this.jinHuaStuffyRound){
                     this.btnWatchCard.getComponent("cc.Button").interactable = true;
-                else
+                    this.btnMoveCard.getComponent("cc.Button").interactable = true;
+                }
+                else{
                     this.btnWatchCard.getComponent("cc.Button").interactable = false;
+                    this.btnMoveCard.getComponent("cc.Button").interactable = false;
+                }
                 if(this.isWatchCard == true)
                 {
                     this.changeBetNum(this.curBet);
@@ -1088,8 +1097,15 @@ cc.Class({
 
         //炸金牛模式的处理
     initZhajinniuLayer:function(){
+        this.isMoveCard = false;
         console.log("炸金牛模式的处理 ！！！！！！！！！！！");
         this.zhajinniuLayer = this.node.getChildByName("zhajinniuLayer");
+
+        this.btnMoveCard = this.zhajinniuLayer.getChildByName("btnMoveCard");
+        this.btnMoveCard.active = false;
+        this.moveCardLayer = this.node.getChildByName("moveCardLayer").getComponent("moveCardLayer");
+        this.moveCardLayer.onInit();
+        this.moveCardLayer.parent = this;
 
         this.doBtnLayer = this.zhajinniuLayer.getChildByName("doBtnLayer");
         this.zhaBetBtnBox = this.doBtnLayer.getChildByName("betBtnBox");
@@ -1339,43 +1355,7 @@ cc.Class({
                 break;
             case 13:    //看牌
                 pomelo.clientSend("useCmd",{"cmd" : "look"});
-                break;  
-            // //比牌选择座位按钮
-            // case 21:
-            //     console.log("compare with chair ===== " + confige.getOriChair(1));
-            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(1)},function(){
-            //         self.hideDoBtnLayer();
-            //         self.hideCompareLayer();
-            //     });
-            //     break;
-            // case 22:
-            //     console.log("compare with chair ===== " + confige.getOriChair(2));
-            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(2)},function(){
-            //         self.hideDoBtnLayer();
-            //         self.hideCompareLayer();
-            //     });
-            //     break;
-            // case 23:
-            //     console.log("compare with chair ===== " + confige.getOriChair(3));
-            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(3)},function(){
-            //         self.hideDoBtnLayer();
-            //         self.hideCompareLayer();
-            //     });
-            //     break;
-            // case 24:
-            //     console.log("compare with chair ===== " + confige.getOriChair(4));
-            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(4)},function(){
-            //         self.hideDoBtnLayer();
-            //         self.hideCompareLayer();
-            //     });
-            //     break;
-            // case 25:
-            //     console.log("compare with chair ===== " + confige.getOriChair(5));
-            //     pomelo.clientSend("useCmd",{"cmd" : "compare","target" : confige.getOriChair(5)},function(){
-            //         self.hideDoBtnLayer();
-            //         self.hideCompareLayer();
-            //     });
-            //     break;
+                break;
         }
         if(clickIndex > 20 && clickIndex < 30)
         {
@@ -1560,40 +1540,57 @@ cc.Class({
                         this.isWatchCard = true;
                         this.changeBetNum(this.curBet);
                         this.btnWatchCard.active = false;
+                        this.btnMoveCard.active = false;
                         this.hideOpenCard(1);
                         this.hideOpenCard(2);
                     }
-                    for(var l in data.handCard)
+                    if(this.isMoveCard)
                     {
-                        var index = parseInt(l);
-                        this.gamePlayerNode.playerHandCardList[curChair].setCardWithIndex(index, data.handCard[index].num, data.handCard[index].type);
-                    }
-
-                    if(confige.soundEnable == true)
-                    {
-                        var callFunc = function(){
-                            var curSex = 0;
-                            if(confige.roomPlayer[data.chair].playerInfo)
-                                curSex = parseInt(confige.roomPlayer[data.chair].playerInfo.sex);
-                            var type = ZhaJinHuaLogic.getType(data.handCard).type;
-                            console.log("zhajinhua 123123123123 type@@@@===",ZhaJinHuaLogic.getType(data.handCard).type)
-                            console.log(confige.audioList);
-                            if(gameData.gameMainScene.isJinHua)
+                        this.btnMoveCard.active = false;
+                        this.gamePlayerNode.playerCardList[confige.getCurChair(this.meChair)] = data.handCard;
+                        var handCard = data.handCard;
+                        this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].moveCardHide();
+                        var showCardFunc = function(){
+                            this.moveCardLayer.showLayer(handCard);
+                            for(var l in data.handCard)
                             {
-                                console.log("3123123123");
-                                console.log("type ====== "+ type);
-                                if(curSex == 2)
+                                var index = parseInt(l);
+                                this.gamePlayerNode.playerHandCardList[curChair].setCardWithIndex(index, data.handCard[index].num, data.handCard[index].type);
+                            }
+                        };
+                        this.scheduleOnce(showCardFunc,0.5);
+                    }else{
+                        for(var l in data.handCard)
+                        {
+                            var index = parseInt(l);
+                            this.gamePlayerNode.playerHandCardList[curChair].setCardWithIndex(index, data.handCard[index].num, data.handCard[index].type);
+                        }
+
+                        if(confige.soundEnable == true)
+                        {
+                            var callFunc = function(){
+                                var curSex = 0;
+                                if(confige.roomPlayer[data.chair].playerInfo)
+                                    curSex = parseInt(confige.roomPlayer[data.chair].playerInfo.sex);
+                                var type = ZhaJinHuaLogic.getType(data.handCard).type;
+                                console.log("zhajinhua 123123123123 type@@@@===",ZhaJinHuaLogic.getType(data.handCard).type)
+                                console.log(confige.audioList);
+                                if(gameData.gameMainScene.isJinHua)
                                 {
-                                    confige.playSoundByName("female_jinhua_type_"+type);
-                                }else{
-                                    confige.playSoundByName("male_jinhua_type_"+type);
+                                    console.log("3123123123");
+                                    console.log("type ====== "+ type);
+                                    if(curSex == 2)
+                                    {
+                                        confige.playSoundByName("female_jinhua_type_"+type);
+                                    }else{
+                                        confige.playSoundByName("male_jinhua_type_"+type);
+                                    }
                                 }
                             }
+                            this.scheduleOnce(callFunc,0.75);
                         }
-                        this.scheduleOnce(callFunc,0.75);
                     }
                 }
-                    
                 break;
             case "compare":
                 var fromChair = confige.getCurChair(data.chair);
@@ -1631,6 +1628,7 @@ cc.Class({
                     this.gamePlayerNode.playerCardList[this.meChair] = data.handCard;
                     this.gamePlayerNode.showOneCard(this.meChair);
                     this.btnWatchCard.active = false;
+                    this.btnMoveCard.active = false;
                 }
                 break;
             case "giveUp":
@@ -1655,6 +1653,7 @@ cc.Class({
                 if(curChair == 0)
                 {
                     this.btnWatchCard.active = false;
+                    this.btnMoveCard.active = false;
                     this.timerItem.hideTimer();
                     this.meGiveUp = true;
                     this.hideOpenCard(1);
@@ -1677,6 +1676,7 @@ cc.Class({
             this.gameInfoNode.settleLayer.hideNoClick();
             if(this.isJinHua)
             {
+                this.isMoveCard = false;
                 for(var i=0;i<confige.playerMax;i++)
                 {
                     this.lookCardList[i] = false;
@@ -1765,10 +1765,14 @@ cc.Class({
                     this.allBetNum += this.zhajinniuBasic;
                 }
             }
-            if(this.joinLate == false)
+            if(this.joinLate == false){
                 this.btnWatchCard.active = true;
-            else
+                this.btnMoveCard.active = true;
+            }
+            else{
                 this.btnWatchCard.active = false;
+                this.btnMoveCard.active = false;
+            }
             this.btnWatchCard.getComponent("cc.Button").interactable = false;
             this.showScorePool(this.allBetNum);
             this.newDisCard(3);
@@ -1870,6 +1874,7 @@ cc.Class({
     },
 
     showOpenCard:function(index){
+        return;
         this.openCardBox.active = true;
         var moveAction = cc.repeatForever(cc.sequence(cc.moveBy(0.5,cc.p(0,20)),cc.moveBy(0.5,cc.p(0,-20))));
         if(index == 1)
@@ -2179,5 +2184,21 @@ cc.Class({
         cc.loader.loadRes("sound/new/soundTimeOut",function(err, audio){
                 confige.audioList["soundTimeOut"] = audio;
         });
+    },
+
+    btnShowMoveCard:function(){
+        this.isMoveCard = true;
+        pomelo.clientSend("useCmd",{"cmd" : "look"});
+    },
+
+    btnShowCardOnMove:function(){
+        this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].moveCardShow();
+        this.moveCardLayer.hideLayer();
+        this.btnMoveCard.active = false;
+
+        // var handCard = this.gamePlayerNode.playerCardList[confige.getCurChair(this.meChair)];
+        // var curNiuType = 0;
+        // curNiuType = sanKungLogic.getType(handCard);
+        // this.gamePlayerNode.showNiuType(confige.getCurChair(this.meChair), curNiuType.type);
     },
 });

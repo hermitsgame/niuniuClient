@@ -24,5 +24,9 @@
   "startScene": "e061b48c-7436-439a-8abd-f93a3b01abc9",
   "title": "hello_world",
   "webOrientation": "landscape",
-  "xxteaKey": "b0b49fd3-0741-44"
+  "xxteaKey": "b0b49fd3-0741-44",
+  "wechatgame": {
+    "appid": "",
+    "orientation": "portrait"
+  }
 }

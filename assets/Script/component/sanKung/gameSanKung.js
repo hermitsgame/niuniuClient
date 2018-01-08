@@ -153,6 +153,11 @@ cc.Class({
         }
 
         this.btnCanSend = true;
+        this.btnMoveCard = this.node.getChildByName("btnMoveCard");
+        this.btnMoveCard.active = false;
+        this.moveCardLayer = this.node.getChildByName("moveCardLayer").getComponent("moveCardLayer");
+        this.moveCardLayer.onInit();
+        this.moveCardLayer.parent = this;
 
         this.openCardBox = this.node.getChildByName("openCardBox");
         this.openCardBtn1 = this.openCardBox.getChildByName("btn1");
@@ -468,6 +473,7 @@ cc.Class({
         if(chair == 0)      //当前玩家自己
         {
             this.showCardBtn.active = false;
+            this.btnMoveCard.active = false;
             this.joinLate = false;
             if(this.gameMode != 3)
                 this.gameBGNode.betItemListClean();
@@ -622,6 +628,7 @@ cc.Class({
         {
             var callFunc2 = function(){
                 this.showCardBtn.active = true;
+                this.btnMoveCard.active = true;
             };
             this.scheduleOnce(callFunc2,0.5);
             this.betBtnBox.active = false;
@@ -631,6 +638,7 @@ cc.Class({
     btn_showMyCard:function(){
         pomelo.clientSend("showCard");
         this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
 
         var handCard = this.gamePlayerNode.playerCardList[this.meChair];
         var curNiuType = 0;
@@ -665,9 +673,13 @@ cc.Class({
     },
 
     onServerSettlement:function(data){
+        this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
+
         this.hideOpenCard(1);
         this.hideOpenCard(2);
         this.hideGameStatus();
+
         // if(this.gameMode != 3)      //
         //     this.betItemListClean();
         console.log("onServerSettlement 1111111");
@@ -685,6 +697,7 @@ cc.Class({
         console.log("onServerSettlement 33333333");
         this.waitForSettle = true;
         this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
         this.gameStart = false;
         this.joinLate = false;
         this.gameInfoNode.btn_close.interactable = true;
@@ -789,6 +802,7 @@ cc.Class({
         this.popBanker.active = false;
         this.readyBtn.active = true;
         this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
         this.betBtnBox.active = false;
         this.timerItem.active = false;
     },
@@ -1023,6 +1037,7 @@ cc.Class({
                 }
             }
             this.showCardBtn.active = false;
+            this.btnMoveCard.active = false;
             if(this.gameMode != 3)
                 this.gameBGNode.betItemListClean();
             if(confige.roomData.gameMode != 3)
@@ -1114,6 +1129,7 @@ cc.Class({
     },
 
     showOpenCard:function(index){
+        return;
         this.openCardBox.active = true;
         var moveAction = cc.repeatForever(cc.sequence(cc.moveBy(0.5,cc.p(0,20)),cc.moveBy(0.5,cc.p(0,-20))));
         if(index == 1)
@@ -1360,5 +1376,29 @@ cc.Class({
         cc.loader.loadRes("sound/new/getBet",function(err, audio){
                 confige.audioList["getBet"] = audio;
         });
+    },
+
+    btnShowMoveCard:function(){
+        this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
+        var handCard = this.gamePlayerNode.playerCardList[this.meChair];
+        this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].moveCardHide();
+        var showCardFunc = function(){
+            this.moveCardLayer.showLayer(handCard);
+        };
+        this.scheduleOnce(showCardFunc,0.5);
+    },
+
+    btnShowCardOnMove:function(){
+        this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].moveCardShow();
+        this.moveCardLayer.hideLayer();
+        pomelo.clientSend("showCard");
+        this.showCardBtn.active = false;
+        this.btnMoveCard.active = false;
+
+        var handCard = this.gamePlayerNode.playerCardList[this.meChair];
+        var curNiuType = 0;
+        curNiuType = sanKungLogic.getType(handCard);
+        this.gamePlayerNode.showNiuType(confige.getCurChair(this.meChair), curNiuType.type);
     },
 });
