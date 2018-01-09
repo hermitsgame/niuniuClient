@@ -92,13 +92,16 @@ cc.Class({
         this.timeCallFunc = -1;
         this.waitForSettle = false;
 
+        if(confige.roomData.cuopaiFlag != null)
+            confige.openMoveCard = confige.roomData.cuopaiFlag;
         this.cardMode = confige.roomData.cardMode;
         this.gameMode = confige.roomData.gameMode;
         this.bankerMode = confige.roomData.bankerMode;
         this.time_rob = Math.ceil(confige.roomData.TID_ROB_TIME/1000);
         this.time_betting = Math.ceil(confige.roomData.TID_BETTING/1000);
         this.time_settlement = Math.ceil(confige.roomData.TID_SETTLEMENT/1000);
-        
+        if(!confige.openMoveCard)
+            this.time_settlement /= 2;
         this.meChair = 0;
         this.curBankerChair = -1;
 
@@ -629,7 +632,8 @@ cc.Class({
         {
             var callFunc2 = function(){
                 this.showCardBtn.active = true;
-                this.btnMoveCard.active = true;
+                if(confige.openMoveCard)
+                    this.btnMoveCard.active = true;
             };
             this.scheduleOnce(callFunc2,0.5);
             this.betBtnBox.active = false;
@@ -1133,7 +1137,8 @@ cc.Class({
     },
 
     showOpenCard:function(index){
-        return;
+        if(confige.openMoveCard)
+            return;
         this.openCardBox.active = true;
         var moveAction = cc.repeatForever(cc.sequence(cc.moveBy(0.5,cc.p(0,20)),cc.moveBy(0.5,cc.p(0,-20))));
         if(index == 1)

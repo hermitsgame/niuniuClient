@@ -189,7 +189,15 @@ cc.Class({
                 stuffyRound = stuffyRound + "闷" + curRoomData.stuffyRound + "轮";
             this.addOneLabel(stuffyRound);
         }
-
+        if(curRoomData.cuopaiFlag != null)
+        {
+            var moveType = "搓       牌  :  ";
+            if(curRoomData.cuopaiFlag)
+                moveType += "允许";
+            else
+                moveType += "禁止";
+            this.addOneLabel(moveType);
+        }
     },
 
     addOneLabel:function(labelStr){

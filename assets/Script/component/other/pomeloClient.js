@@ -530,14 +530,14 @@ pomelo.clientCreateJinHua = function(){
 
 };
 
-pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, BasicType, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait,AllowSpecial, cbTrue,cbFalse) {
+pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, CardMode, PlayerNum, GameType, BasicScore, BasicType, CreateType, HalfwayEnter, AllowAllin,AllowAward,AllowWait,AllowSpecial,AllowMoveCard, cbTrue,cbFalse) {
         console.log("on create room!")
         var createType = CreateType;
 
         if(GameType == "mingpaiqz")
         {
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial,cuopaiFlag:AllowMoveCard}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.code && data.code == 119)
@@ -567,7 +567,7 @@ pomelo.clientCreateRoom = function(GameMode, BankerMode, ConsumeMode, GameNum, C
             );
         }else{
             pomelo.request("connector.entryHandler.sendData", {"code" : createType,"params" : {gameMode: GameMode,
-                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial}}, function(data) {
+                bankerMode: BankerMode, consumeMode: ConsumeMode, gameNumber: GameNum, cardMode: CardMode, playerNumber: PlayerNum, gameType: GameType, basicType:BasicType, basic:BasicScore, halfwayEnter: HalfwayEnter,allowAllin:AllowAllin,limitAward:AllowAward,waitMode:AllowWait,special:AllowSpecial,cuopaiFlag:AllowMoveCard}}, function(data) {
                     console.log("clientCreateRoom flag is : " + data.flag)
                     console.log(data);
                     if(data.code && data.code == 119)
@@ -699,9 +699,9 @@ pomelo.goldQuite = function() {
 // confige.host = "fhgame.5d8d.com";     //测试外网fh
 // confige.host = "120.55.61.144"; //测试外网2
 // confige.host = "update.5d8d.com";    //测试外网
-confige.host = "nnapi.5d8d.com";     //运营外网
+// confige.host = "nnapi.5d8d.com";     //运营外网
 // confige.host = "192.168.1.65";          //内网
-// confige.host = "192.168.1.206";          //内网2
+confige.host = "127.0.0.1";          //内网2
 pomelo.clientLogin = function(uid,clientLogintoken) {
     console.log("pomelo try to login!!!!!!");
     var route = 'gate.gateHandler.queryEntry';

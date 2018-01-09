@@ -28,6 +28,7 @@ cc.Class({
                 allowAllin : true,
                 allowFK : true,
                 allowSpecial : false,
+                allowMoveCard : true,
                 waitMode : 1,
                 gameType : "mingpaiqz",
                 basicType : 0,
@@ -52,6 +53,8 @@ cc.Class({
         this.specialNode = this.node.getChildByName("specialNode");
         this.allowSpecialNode = this.node.getChildByName("allowSpecial");
         this.allowSpecialCheck = this.allowSpecialNode.getChildByName("check_mark");
+        this.allowMoveCardNode = this.node.getChildByName("allowMoveCard");
+        this.allowMoveCardCheck = this.allowMoveCardNode.getChildByName("check_mark");
 
         this.initCreateRoomLayer();
         this.resumeRoomInfo();
@@ -159,6 +162,11 @@ cc.Class({
             this.allowSpecial = false;
         else
             this.allowSpecial = this.curRoomInfo.allowSpecial;
+
+        if(this.curRoomInfo.allowMoveCard == null)
+            this.allowMoveCard = true;
+        else
+            this.allowMoveCard = this.curRoomInfo.allowMoveCard;
 
         if(this.curRoomInfo.waitMode == null)
             this.waitMode = 1;
@@ -413,6 +421,11 @@ cc.Class({
         else 
             this.allowSpecialCheck.active = true;
 
+        if(this.allowMoveCard == false)
+            this.allowMoveCardCheck.active = false;
+        else
+            this.allowMoveCardCheck.active = true;
+
         if(this.halfwayEnter == false)
         {
             this.allowJoinCheck.active = false;
@@ -450,6 +463,7 @@ cc.Class({
             allowAllin : this.allowAllin,
             allowFK : this.allowFK,
             allowSpecial : this.allowSpecial,
+            allowMoveCard : this.allowMoveCard,
             waitMode : this.waitMode,
             gameType : this.gameType,
             basicType : this.basicType,
@@ -487,7 +501,7 @@ cc.Class({
             {
                 this.gameType = "sanKung";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "newRoom","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,basicType:this.basicType,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,basicType:this.basicType,playerNumber:this.playerNum,cuopaiFlag:this.allowMoveCard}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         if(data.code && data.code == 119)
@@ -501,7 +515,7 @@ cc.Class({
             }else if(this.gameMode == 8){
                 this.gameType = "zhajinhua";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "newRoom","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum,cuopaiFlag:this.allowMoveCard}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         if(data.code && data.code == 119)
@@ -513,7 +527,7 @@ cc.Class({
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,this.allowSpecial,joinCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,this.allowSpecial,this.allowMoveCard,joinCallFunc);
             }
             console.log("gameType==="+this.gameType+"@@@consumeMode==="+this.consumeMode+"@@@gameNumber==="+this.gameTime+"@@@bankerMode==="+this.bankerMode);
         }else if(index == 1){
@@ -527,7 +541,7 @@ cc.Class({
             {
                 this.gameType = "sanKung";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, bankerMode : this.bankerMode,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,cardMode:this.cardMode,playerNumber:this.playerNum,cuopaiFlag:this.allowMoveCard}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         if(data.code && data.code == 119)
@@ -541,7 +555,7 @@ cc.Class({
             }else if(this.gameMode == 8){
                 this.gameType = "zhajinhua";
                 pomelo.request("connector.entryHandler.sendData", {"code" : "agency","params" : {gameType: this.gameType,
-                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum}}, function(data) {
+                    consumeMode : this.consumeMode, gameNumber : this.gameTime, basic : this.basicScore, maxBet : this.maxBet, maxRound : this.maxRound, stuffyRound:this.stuffyRound,halfwayEnter: this.halfwayEnter,waitMode:this.waitMode,playerNumber:this.playerNum,cuopaiFlag:this.allowMoveCard}}, function(data) {
                         console.log("clientCreateRoom flag is : " + data.flag)
                         console.log(data);
                         if(data.code && data.code == 119)
@@ -553,7 +567,7 @@ cc.Class({
                     }
                 );
             }else{
-                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,this.allowSpecial,createCallFunc);
+                pomelo.clientCreateRoom(this.gameMode, this.bankerMode, this.consumeMode, this.gameTime, this.cardMode, this.playerNum, this.gameType, this.basicScore, this.basicType, createType, this.halfwayEnter,this.allowAllin,this.allowFK,this.waitMode,this.allowSpecial,this.allowMoveCard,createCallFunc);
             }
         }
         this.saveRoomInfo();
@@ -870,6 +884,17 @@ cc.Class({
         }else{
             this.allowSpecial = true;
             this.allowSpecialCheck.active = true;
+        }
+    },
+
+    btnClickMoveCardCheck:function(){
+        if(this.allowMoveCard == true)
+        {
+            this.allowMoveCard = false;
+            this.allowMoveCardCheck.active = false;
+        }else{
+            this.allowMoveCard = true;
+            this.allowMoveCardCheck.active = true;
         }
     },
     

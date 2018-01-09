@@ -112,6 +112,8 @@ cc.Class({
         this.jinHuaMaxBet = confige.roomData.maxBet;
         this.jinHuaMaxRound = confige.roomData.maxRound;
         this.jinHuaStuffyRound = confige.roomData.stuffyRound;
+        if(confige.roomData.cuopaiFlag != null)
+            confige.openMoveCard = confige.roomData.cuopaiFlag;
 
         this.scorePoolNew = this.node.getChildByName("gameBGNode").getChildByName("mainNode").getChildByName("scorePoolNew");
         this.scoreRoundLabel = this.scorePoolNew.getChildByName("scoreRound").getComponent("cc.Label");
@@ -1044,7 +1046,8 @@ cc.Class({
                         }
                         else{
                             this.btnWatchCard.active = true;
-                            this.btnMoveCard.active = true;
+                            if(confige.openMoveCard)
+                                this.btnMoveCard.active = true;
                         }
                     }else{
                         this.btnWatchCard.active = false;
@@ -1775,7 +1778,8 @@ cc.Class({
             }
             if(this.joinLate == false){
                 this.btnWatchCard.active = true;
-                this.btnMoveCard.active = true;
+                if(confige.openMoveCard)
+                    this.btnMoveCard.active = true;
             }
             else{
                 this.btnWatchCard.active = false;
@@ -1883,7 +1887,8 @@ cc.Class({
     },
 
     showOpenCard:function(index){
-        return;
+        if(confige.openMoveCard)
+            return;
         this.openCardBox.active = true;
         var moveAction = cc.repeatForever(cc.sequence(cc.moveBy(0.5,cc.p(0,20)),cc.moveBy(0.5,cc.p(0,-20))));
         if(index == 1)
