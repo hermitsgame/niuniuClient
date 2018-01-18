@@ -2922,16 +2922,18 @@ cc.Class({
 
     btnShowCardOnMove:function(){
         this.onMoveCard = false;
+        var handCard = this.gamePlayerNode.playerCardList[this.meChair];
+        this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].setCardWithIndex(4, handCard[4].num, handCard[4].type);
         this.gamePlayerNode.playerHandCardList[confige.getCurChair(this.meChair)].moveCardShow();
         this.moveCardLayer.hideLayer();
-        pomelo.clientSend("showCard");
-        this.showCardBtn.active = false;
+        // pomelo.clientSend("showCard");
+        this.showCardBtn.active = true;
         this.btnMoveCard.active = false;
 
-        var handCard = this.gamePlayerNode.playerCardList[this.meChair];
-        var curNiuType = 0;
-        curNiuType = confige.getNiuType(handCard);
-        this.gamePlayerNode.showNiuType(confige.getCurChair(this.meChair), curNiuType.type);
+        // var handCard = this.gamePlayerNode.playerCardList[this.meChair];
+        // var curNiuType = 0;
+        // curNiuType = confige.getNiuType(handCard);
+        // this.gamePlayerNode.showNiuType(confige.getCurChair(this.meChair), curNiuType.type);
     },
 
     hideMoveCard:function(){

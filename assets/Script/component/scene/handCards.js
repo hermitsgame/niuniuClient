@@ -85,6 +85,8 @@ cc.Class({
     moveCardShow:function(){
         for(var i=0;i<5;i++)
         {
+            this.cards[i].stopAllActions();
+            this.cardsBack[i].stopAllActions();
             this.cards[i].opacity = 255;
             this.cards[i].scaleX = 1;
             this.cardsBack[i].scaleX = 0;
